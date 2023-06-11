@@ -1,0 +1,6 @@
+Command=/home/rx/.local/bin/xfce4-applets/pacman-panel.sh
+UseLabel=0
+Text=(genmon)
+UpdatePeriod=14400000
+Font=FantasqueSansMono Nerd Font Mono Bold 12
+

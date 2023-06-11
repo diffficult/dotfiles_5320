@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<channel name="pointers" version="1.0">
+  <property name="SynPS2_Synaptics_TouchPad" type="empty">
+    <property name="Properties" type="empty">
+      <property name="Synaptics_Edge_Scrolling" type="array">
+        <value type="int" value="0"/>
+        <value type="int" value="0"/>
+        <value type="int" value="0"/>
+      </property>
+      <property name="Synaptics_Two-Finger_Scrolling" type="array">
+        <value type="int" value="1"/>
+        <value type="int" value="0"/>
+      </property>
+      <property name="Synaptics_Circular_Scrolling" type="int" value="0"/>
+      <property name="Synaptics_Circular_Scrolling_Trigger" type="int" value="0"/>
+      <property name="Device_Enabled" type="int" value="1"/>
+    </property>
+    <property name="RightHanded" type="bool" value="true"/>
+    <property name="Threshold" type="int" value="1"/>
+    <property name="Acceleration" type="double" value="5.5"/>
+  </property>
+  <property name="TPPS2_IBM_TrackPoint" type="empty">
+    <property name="RightHanded" type="bool" value="true"/>
+    <property name="Threshold" type="int" value="6"/>
+    <property name="Acceleration" type="double" value="2.5"/>
+  </property>
+  <property name="SteelSeries_Sensei_Raw_Gaming_Mouse" type="empty">
+    <property name="RightHanded" type="bool" value="true"/>
+    <property name="Threshold" type="int" value="1"/>
+    <property name="Acceleration" type="double" value="2.5"/>
+  </property>
+  <property name="ELECOM_TrackBall_Mouse_HUGE_TrackBall" type="empty">
+    <property name="RightHanded" type="bool" value="true"/>
+    <property name="Threshold" type="int" value="1"/>
+    <property name="Acceleration" type="double" value="1"/>
+  </property>
+  <property name="SONiX_USB_Device" type="empty">
+    <property name="RightHanded" type="bool" value="true"/>
+    <property name="Threshold" type="int" value="1"/>
+    <property name="Acceleration" type="double" value="4.5"/>
+  </property>
+  <property name="liliums_Lily58_Consumer_Control" type="empty">
+    <property name="RightHanded" type="bool" value="true"/>
+    <property name="Threshold" type="int" value="4"/>
+    <property name="Acceleration" type="double" value="1"/>
+  </property>
+  <property name="Razer_Razer_Viper_Ultimate_Dongle" type="empty">
+    <property name="RightHanded" type="bool" value="true"/>
+    <property name="Threshold" type="int" value="1"/>
+    <property name="Acceleration" type="double" value="1"/>
+  </property>
+  <property name="RAZER_Razer_Mouse_Dock" type="empty">
+    <property name="RightHanded" type="bool" value="true"/>
+    <property name="Threshold" type="int" value="4"/>
+    <property name="Acceleration" type="double" value="1.8"/>
+  </property>
+  <property name="DELL0A1F00_06CBCE65_Touchpad" type="empty">
+    <property name="Properties" type="empty">
+      <property name="libinput_Tapping_Enabled" type="int" value="1"/>
+      <property name="Synaptics_Tap_Action" type="array">
+        <value type="int" value="0"/>
+        <value type="int" value="0"/>
+        <value type="int" value="0"/>
+        <value type="int" value="0"/>
+        <value type="int" value="1"/>
+        <value type="int" value="3"/>
+        <value type="int" value="2"/>
+      </property>
+    </property>
+  </property>
+  <property name="DisableTouchpadWhileTyping" type="bool" value="true"/>
+  <property name="DisableTouchpadDuration" type="double" value="1"/>
+</channel>

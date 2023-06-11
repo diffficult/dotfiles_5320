@@ -1,0 +1,6 @@
+Command=/home/rx/.local/bin/xfce4-applets/amdgpu.sh
+UseLabel=0
+Text=(genmon)
+UpdatePeriod=15000
+Font=FantasqueSansMono Nerd Font Mono Bold 11
+

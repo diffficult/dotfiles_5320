@@ -1,0 +1,17 @@
+next_color=2
+viewer_size=64
+viewer_text_overlay_position=0
+use_background_color=false
+viewer_text_overlay_enabled=false
+
+[2]
+type=cpu_usage
+cpu_no=-1
+include_low_priority=true
+include_iowait=false
+update_interval=0
+fixed_max=true
+tag=
+add_to_text_overlay=false
+color=82779848
+
