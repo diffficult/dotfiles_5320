@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=YT on MPV 2K
+Comment=Launch youtube link on mpv HQ
+Exec=/home/rx/.local/bin/ytmpvhq
+Icon=web-youtube
+Path=/home/rx/.local/bin
+Terminal=true
+StartupNotify=false

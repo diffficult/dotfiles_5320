@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=YT on MPV SD
+Comment=Launch youtube link on mpv SD
+Exec=/home/rx/.local/bin/ytmpvlo
+Icon=web-youtube
+Path=/home/rx/.local/bin
+Terminal=true
+StartupNotify=false
