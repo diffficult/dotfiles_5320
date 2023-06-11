@@ -1,0 +1,203 @@
+!┌──────────────────────────────────────────────────────────────────────────┐
+!│▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒│
+!│▒▒┌─────┐░▒┌─────┐░▒┌──────────────┐░▒┌──────────────┐░▒┌──────────────┐░▒│
+!│▒▒│▓▒▒▒▒│░▒│▓▒▒▒▒│░▒│▓▒▒▒▒▒▒▒▒▒▒▒▒▒│░▒│▓▒▒▒▒▒▒▒▒▒▒▒▒▒│░▒│▓▒▒▒▒▒▒▒▒▒▒▒▒▒│░▒│
+!│▒▒│▓▒▒▒▒│░▒│▓▒▒▒▒│░▒│▓▒▒▒▒┌──┐▒▒▒▒▒│░▒│▓▒▒▒▒▒▒▒▒▒▒▒▒▒│░▒│▓▒┌───────────┘░▒│
+!│▒▒│▓▒▒▒▒│░▒│▓▒▒▒▒│░▒│▓▒▒▒▒│░▒│▒▒▒▒▒│░▒│▓▒▒▒▒▒▒▒▒▒▒▒▒▒│░▒│▓▒│░▒▒▒▒▒▒▒▒▒▒▒▒▒│
+!│▒▒│▓▒▒▒▒└──┘▓▒▒▒▒│░▒│▓▒▒▒▒│░▒│▒▒▒▒▒│░▒│▓▒┌───────────┘░▒│▓▒└───────────┐░▒│
+!│▒▒│▓▒▒▒▒▒▒▒▒▒▒▒▒▒│░▒│▓▒▒▒▒└──┘▒▒▒▒▒│░▒│▓▒│░▒▒▒▒▒▒▒▒▒▒▒▒▒│▓▒▒▒▒▒▒▒▒▒▒▒▒▒│░▒│
+!│▒▒│▓▒▒▒▒▒▒▒▒▒▒▒▒▒│░▒│▓▒▒▒▒▒▒▒▒▒▒▒▒┌┘░▒│▓▒└──────────┐░▒▒└───┐▓▒▒▒▒▒▒▒▒▒│░▒│
+!│▒▒└┐▒▒▒▒▒▒▒▒▒▒▒▒┌┘░▒│▓▒▒▒▒▒▒▒▒▒▒▒▒└┐░▒│▓▒▒▒▒▒▒▒▒▒▒▒▒│░▒▒▒▒▒▒│▓▒▒▒▒▒▒▒▒▒│░▒│
+!│▒▒▒│▒▒▒▒▒▒▒▒▒▒▒▒│░▒▒│▓▒▒▒▒┌──┐▓▒▒▒▒│░▒│▓▒┌──────────┘░▒▒┌─┐░│▓▒▒▒▒▒▒▒▒▒│░▒│
+!│▒▒┌┘▒▒▒▒▒▒▒▒▒▒▒▒└┐░▒│▓▒▒▒▒│░▒│▓▒▒▒▒│░▒│▓▒│░▒▒▒▒▒▒▒▒▒▒▒▒▒│▓│░│▓▒▒▒▒▒▒▒▒▒│░▒│
+!│▒▒│▓▒▒▒▒▒▒▒▒▒▒▒▒▒│░▒│▓▒▒▒▒│░▒│▓▒▒▒▒│░▒│▓▒│░▒▒▒▒▒▒▒▒▒▒▒▒▒│▓│░│▓▒▒▒▒▒▒▒▒▒│░▒│
+!│▒▒│▓▒▒▒▒┌──┐▓▒▒▒▒│░▒│▓▒▒▒▒│░▒│▓▒▒▒▒│░▒│▓▒└───────────┐░▒│▓└─┘▓▒▒▒▒▒▒▒▒▒│░▒│
+!│▒▒│▓▒▒▒▒│░▒│▓▒▒▒▒│░▒│▓▒▒▒▒│░▒│▓▒▒▒▒│░▒│▓▒▒▒▒▒▒▒▒▒▒▒▒▒│░▒│▓▒▒▒▒▒▒▒▒▒▒▒▒▒│░▒│
+!│▒▒└─────┘░▒└─────┘░▒└─────┘░▒└─────┘░▒└──────────────┘░▒└──────────────┘░▒│
+!│▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒│
+!└──┐┌──┐▒┌┐▓▒▒▒▒▒▒┌───┐┌┐┌┐▓▒▒▒▒▒▒▒▒┌──┐▓▒▒┌────┐┌┐▓▒▒┌───┐▓▒▒▒▒▒▒▒┌───────┘
+!   ││  │▒│└────┐▓▒│   ││││└────┐▓▒┌─┘  │▒▒▒│    │││▓▒▒│   │▓▒▒▒▒▒▒▒│▒▒▒▒
+!   ││  │▒│     │▓▒│   ││││ ▓▒▒▒│▓▒│    │▒▒▒│     │└┐▓▒│   │▓▒▒▒▒▒▒▒│▒
+!   ││  │▒│     │┌─┘   ││││ ▓   │▓▒│    │▒▒▒│     │ │▓▒│   │▓▒▒▒▒▒▒▒│▒
+!   ││  │▒│     ││▒    ││└┘     │▓▒│    │▒┌─┘       │▓┌┘   │▓▒▒▒▒▒▒▒│
+!   ││  │▓│     ││▒    ││       │▓▒│    │▒│         │▓│    │▓▒▒▒▒▒▒▒│
+!   ││  │▓│     ││     ││   ▓   │▓▒│    └┬┘         │▓│    │▓▒▒▒▒▒▒▒│
+!   ││  └─┘     ││     └┘       │▓▒│     │          │▓│    │▓▒▒▒▒▒▒▒│
+!   ││  ┌─┐     └┘▒      ┌┐     └┬┬┘                └─┘    └┬─┬┬─┬┬┬┘
+!   ││  │▒│              ││      ││                           ││▓│││
+!   └┘  │▓│       ▓      ││       │      │           ▒      │ ││  │
+!       └─┘              └┘                                   │   │
+!   ┌┐  ┌─┐            ┌┐         │                  ▒           │
+!   └┘  │▓│       ▓    ││                                     │
+!   ┌┐  └─┘            ││                                       ▓
+!   └┘                 └┘                                     │  │
+!                                                             │
+!
+!                                                           │
+!-------------------------------------------------------------------------------
+! Xft settings
+!-------------------------------------------------------------------------------
+
+Xft.dpi:				96
+!Xft.dpi:                               192
+Xft.antialias: 				true
+Xft.rgba: 				rgb
+Xft.hinting: 				true
+Xft.hintstyle: 				hintfull
+Xft.lcdfilter: 				lcddefault
+Xcursor.theme:				Paper
+
+URxvt*depth:                32
+URxvt*geometry:             90x30
+URxvt*background:			#030508
+URxvt*loginShell:           true
+URxvt*saveLines:            1000
+URxvt*internalBorder:       3
+URxvt*lineSpace:            0
+
+! Fonts
+URxvt*font:xft:scientifica:size=8
+URxvt*boldFont:xft:scientifica:bold:size=8
+URxvt*allow_bold:           true
+
+! Fix font space
+URxvt*letterSpace: 1
+
+! Scrollbar
+URxvt*scrollStyle:          rxvt
+URxvt*scrollBar:            false
+
+! scroll in relation to buffer (with mouse scroll or Shift+Page Up)
+URxvt*scrollWithBuffer: true
+
+! Perl extensions
+URxvt*perl-lib:         /usr/lib/urxvt/perl/
+URxvt.perl-ext-common:	default,matcher,clipboard,keyboard-select
+
+! Clickable URLs
+URxvt.url-launcher: /usr/bin/chromium
+URxvt.matcher.button: 1
+URxvt.underlineURLs:  True
+URxvt.colorUL:	#86a2be
+
+! Use Control-Shift-V/C for X clipboard
+URxvt.iso14755: false
+URxvt.keysym.Shift-Control-V: eval:paste_clipboard
+URxvt.keysym.Shift-Control-C: eval:selection_to_clipboard
+
+! Cursor
+! URxvt.cursorBlink:          true
+! URxvt.cursorColor:          #657b83
+! URxvt.cursorUnderline:      false
+
+! Pointer
+URxvt*pointerBlank:         true
+
+!!!! special
+!!!*.foreground:   #b3b8c4
+!!!*.background:   #20242c
+!!!*.cursorColor:  #b3b8c4
+
+!!!! black
+!!!*.color0:       #213146
+!!!*.color8:       #505354
+
+!!!! red
+!!!*.color1:       #f91930
+!!!*.color9:       #ff1b6d
+
+!!!! green
+!!!*.color2:       #32f51c
+!!!*.color10:      #93ea00
+
+!!!! yellow
+!!!*.color3:       #f4fd22
+!!!*.color11:      #ff6600
+
+!!!! blue
+!!!*.color4:       #2757d6
+!!!*.color12:      #3f78ff
+
+!!!! magenta
+!!!*.color5:       #8c54fe
+!!!*.color13:      #9e6ffe
+
+!!!! cyan
+!!!*.color6:       #38c8b5
+!!!*.color14:      #23cfd5
+
+!!!! white
+!!!*.color7:       #ccccc6
+!!!*.color15:      #f8f8f2
+
+!! test Color
+
+! special
+*.foreground:   #ffffff
+*.background:   #000000
+*.cursorColor:  #ffffff
+
+! black
+*.color0:       #101010
+*.color8:       #404040
+
+! red
+*.color1:       #e84f4f
+*.color9:       #d23d3d
+
+! green
+*.color2:       #b8d68c
+*.color10:      #a0cf5d
+
+! yellow
+*.color3:       #e1aa5d
+*.color11:      #f39d21
+
+! blue
+*.color4:       #7dc1cf
+*.color12:      #4e9fb1
+
+! magenta
+*.color5:       #9b64fb
+*.color13:      #8542ff
+
+! cyan
+*.color6:       #6d878d
+*.color14:      #42717b
+
+! white
+*.color7:       #dddddd
+*.color15:      #dddddd
+
+
+
+! TABS COLOURS
+! URxvt.color0  : #979797
+! URxvt.color1  : #000000
+
+
+!! Transparency (0-255):
+
+*.alpha: 230
+
+!! Set a default font and font size for st below:
+
+*.font: JetBrainsMonoNF-8;
+
+! ------------------------------------------------------------------------------
+! ROFI Color theme
+! ------------------------------------------------------------------------------
+! rofi.color-enabled:				true
+! rofi.separator-style:				solid
+!rofi.hide-scrollbar:				true
+!rofi.color-normal:				argb:BF383c4a, #c4cbd4, argb:BF404552, #4084d6, #d1d4e0
+!rofi.color-urgent:				argb:BF2d303b, #cc6666, argb:BF2d303b, #a54242, #d1d4e0
+!rofi.color-active:				argb:BF2d303b, #b5bd68, argb:BF2d303b, #8c9440, #d1d4e0
+!rofi.color-window:				argb:BF2d303b, #7c8389, #1d1f21
+
+! rofi.color-window: argb:BF1f222d, #1f222d, #000000
+! rofi.color-normal: argb:BF1f222d, #a6d1fa, argb:BF383c4a, #7780a1, #d1d4e0
+! rofi.color-active: argb:BF1f222d, #268bd2, argb:BF383c4a, #268bd2, #d1d4e0
+! rofi.color-urgent: argb:BF1f222d, #dc322f, argb:BF383c4a, #dc322f, #d1d4e0
+
+

@@ -1,0 +1,32 @@
+#MX Master remapping
+# thumb wheel up => increase volume
+#"xte 'key XF86AudioRaiseVolume'"
+#   b:6
+
+# thumb wheel down => lower volume
+#"xte 'key XF86AudioLowerVolume'"
+#   b:7
+
+# backward button => previous song       
+#"xte 'key XF86AudioPrev'"                
+#   b:8                                   
+                                        
+# forward button => next song            
+#"xte 'key XF86AudioNext'"                
+#   b:9
+
+# thumb wheel down => previous tab
+"xte 'keydown Control_L' 'key Page_Down' 'keyup Control_L'"
+    b:6
+
+# thumb wheel up => next tab
+"xte 'keydown Control_L' 'key Page_Up' 'keyup Control_L'"
+    b:7
+
+# top side button => close tab
+"xte 'keydown Control_L' 'key w' 'keyup Control_L'"
+   b:9    
+
+# bottom side button => open in new tab
+"xte 'keydown Control_L' 'mouseclick 1' 'keyup Control_L'"
+   b:8
