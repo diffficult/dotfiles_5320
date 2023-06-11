@@ -1,0 +1,25 @@
+function colortest-gradients
+{
+    f=3
+    b=4
+
+    for j in f b; do
+        for i in {0..7}; do
+            printf -v $j$i %b "\033[${!j}${i}m"
+        done
+    done
+
+    bld=$'\033[1m'
+    rst=$'\033[0m'
+    inv=$'\033[7m'
+
+cat << EOF
+
+$f0█ $bld█$rst $f1█ $bld█$rst $f2█ $bld█$rst $f3█ $bld█$rst $f4█ $bld█$rst $f5█ $bld█$rst $f6█ $bld█$rst $f7█ $bld█$rst 
+$f0█ $bld█$rst $f1█ $bld█$rst $f2█ $bld█$rst $f3█ $bld█$rst $f4█ $bld█$rst $f5█ $bld█$rst $f6█ $bld█$rst $f7█ $bld█$rst 
+$f0▓ $bld█$rst $f1▓ $bld█$rst $f2▓ $bld█$rst $f3▓ $bld█$rst $f4▓ $bld█$rst $f5▓ $bld█$rst $f6▓ $bld█$rst $f7▓ $bld█$rst 
+$f0▒ $bld█$rst $f1▒ $bld█$rst $f2▒ $bld█$rst $f3▒ $bld█$rst $f4▒ $bld█$rst $f5▒ $bld█$rst $f6▒ $bld█$rst $f7▒ $bld█$rst 
+$f0░ $bld█$rst $f1░ $bld█$rst $f2░ $bld█$rst $f3░ $bld█$rst $f4░ $bld█$rst $f5░ $bld█$rst $f6░ $bld█$rst $f7░ $bld█$rst 
+$rst
+EOF
+}

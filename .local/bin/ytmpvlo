@@ -1,0 +1,30 @@
+#!/bin/bash
+## uncomment to get 720p video dash or 480p if not available
+VIDURL=$(xclip -o)
+mpv $VIDURL --ytdl --ytdl-format=244+bestaudio/135+bestaudio/18/134+bestaudio/242/best --volume=50
+
+## uncomment to get 480p video dash
+#mpv $1 --ytdl --ytdl-format=135+bestaudio/244+bestaudio/18/134+bestaudio/242/best --volume=50
+
+## youtube video quality table, use the number to get the desired ytdl-format
+#
+### 249          webm       audio only tiny   59k , opus @ 50k (48000Hz)
+### 250          webm       audio only tiny   79k , opus @ 70k (48000Hz)
+### 140          m4a        audio only tiny  130k , m4a_dash container, mp4a.40.2@128k (44100Hz)
+### 251          webm       audio only tiny  160k , opus @160k (48000Hz)
+### 160          mp4        256x144    144p   89k , avc1.4d400c, 30fps, video only
+### 278          webm       256x144    144p   96k , webm container, vp9, 30fps, video only
+### 242          webm       426x240    240p  150k , vp9, 30fps, video only
+### 133          mp4        426x240    240p  191k , avc1.4d4015, 30fps, video only
+### 243          webm       640x360    360p  264k , vp9, 30fps, video only
+### 134          mp4        640x360    360p  366k , avc1.4d401e, 30fps, video only 
+### 244          webm       854x480    480p  442k , vp9, 30fps, video only
+### 135          mp4        854x480    480p  678k , avc1.4d401f, 30fps, video only 
+### 247          webm       1280x720   720p  932k , vp9, 30fps, video only 
+### 136          mp4        1280x720   720p 1351k , avc1.4d401f, 30fps, video only 
+### 248          webm       1920x1080  1080p 1749k , vp9, 30fps, video only 
+### 137          mp4        1920x1080  1080p 2494k , avc1.640028, 30fps, video only 
+### 271          webm       2560x1440  1440p 3892k , vp9, 30fps, video only
+### 313          webm       3840x2160  2160p 12437k , vp9, 30fps, video only
+### 18           mp4        640x360    360p  362k , avc1.42001E, mp4a.40.2@ 96k (44100Hz) 
+### 22           mp4        1280x720   720p  879k , avc1.64001F, mp4a.40.2@192k (44100Hz) (best)

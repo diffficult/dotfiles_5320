@@ -1,0 +1,71 @@
+#!/bin/bash -e
+#
+# Dynamically adjust case/cooler lights according to the GPU temp (pump logo color) and CPU temp (ring color)
+
+
+#CPU_TEMP="$(sensors | grep Package | cut -c17-23)"
+#GPU_TEMP="$(nvidia-smi -q -d temperature | grep "GPU Current Temp" | cut -c45-46)"
+
+# 
+
+
+cpu_temperatures() {
+    # get the cpu core temeperatures with sensors and grep it
+    # to a number per line per core
+
+    CPU_TEMP="$(sensors | grep Package | cut -c17-18)"
+
+    # if the temperature is higher than 80 degree...
+    if [[ "$CPU_TEMP" -ge 65 ]]; then
+       # ...print with red background
+       liquidctl set ring color tai-chi FFA500 FF0000
+       # if the temperature is between 60 and 80 degrees...
+       elif [[ "$CPU_TEMP" -ge 50 ]]; then
+       # print the background orange
+           liquidctl set ring color tai-chi 00FFFF FFA500
+       # if the temperature is lower tha 60 degress...
+       else
+           # ...make it cyan
+           liquidctl set ring color tai-chi 00FFFF FF00FF
+    fi
+}
+
+gpu_temperatures() {
+    # get the cpu core temeperatures with sensors and grep it
+    # to a number per line per core
+
+    #NVIDIA GPUs
+    #GPU_TEMP="$(nvidia-smi -q -d temperature | grep "GPU Current Temp" | cut -c45-46)"
+
+    #AMD GPUs
+    GPU_TEMP="$(rocm-smi -t | grep "GPU" | cut -c43-44)"
+
+    # if the temperature is higher than 80 degree...
+    if [[ "$GPU_TEMP" -ge 65 ]]; then
+       # ...print with red background
+       liquidctl set logo color breathing FF0000 FF00FF FF0000
+       # if the temperature is between 60 and 80 degrees...
+       elif [[ "$GPU_TEMP" -ge 75 ]]; then
+       # print the background orange
+           liquidctl set logo color fading FFFF66 FFCC00 FFCC00 FF9900 FF9900 FFA500 FFA500 FFA500
+       # if the temperature is lower tha 60 degress...
+       else
+           # ...make it cyan
+           liquidctl set logo color off
+    fi
+}
+
+# E X E C U T E
+main() {
+    cpu_temperatures
+    gpu_temperatures
+}
+
+# execute the main function with commandline arguments
+main
+
+# wait for all changes to complete
+wait
+
+
+

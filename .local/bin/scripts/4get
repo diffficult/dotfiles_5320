@@ -1,0 +1,34 @@
+#!/bin/bash
+
+if [ ! $# -eq 2 ]; then
+        echo "Usage: ./4get.sh [thread-url] [directory]"
+        exit 1
+fi
+
+THREAD="$1"
+FOLDER="$2"
+MATCH='i.4cdn.org/[^/]+/[^s"]+\.[^"]+'
+
+IMG_LIST=$(wget -qO- $THREAD | grep -Eo $MATCH | uniq)
+IMG_LIST=($IMG_LIST)
+IMAGES=${#IMG_LIST[@]}
+
+if [ $IMAGES -eq 0 ]; then
+        echo "Error: No images found"
+        exit 1
+elif [ $IMAGES -eq 1 ]; then
+        echo "$IMAGES image found"
+else
+        echo "$IMAGES images found"
+fi
+
+NUM=$((IMAGES/4 + 1))
+echo ${IMG_LIST[@]} | xargs -n $NUM -P 4 wget -q -P "$FOLDER"
+
+if [ $IMAGES -eq 1 ]; then
+        notify-send "Download finished" "$IMAGES file saved in $FOLDER"
+else
+        notify-send "Download finished" "$IMAGES files saved in $FOLDER"
+fi
+
+echo "Done."

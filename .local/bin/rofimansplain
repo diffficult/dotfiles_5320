@@ -1,0 +1,2 @@
+#! /bin/sh
+man -k . | rofi -dmenu -l 5 | awk '{print $1}' | xargs -r man -Tpdf | zathura -

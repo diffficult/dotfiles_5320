@@ -1,0 +1,9 @@
+#!/bin/bash
+## uncomment to get 720p video dash or 480p if not available
+VIDURL=$(xclip -o)
+
+## ORIGINAL 1080p res
+mpv $VIDURL --window-scale=0.3 --ytdl --ytdl-format=248+bestaudio/137+bestaudio/22/135+bestaudio/18/best --volume=50
+
+## uncomment to get 720p video dash or 480p if not available
+#mpv $1 --ytdl --ytdl-format=136+bestaudio/247+bestaudio/22/135+bestaudio/18/best --volume=50

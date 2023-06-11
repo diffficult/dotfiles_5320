@@ -1,0 +1,277 @@
+#!/bin/bash
+wget -m -c --limit-rate=200k -A.pdf URL
+
+wget -m -c --limit-rate=200k --no-parent -A.epub --user-agent="Mozilla/5.0 (Windows NT 5.2; rv:2.0.1) Gecko/20100101 Firefox/4.0.1"
+
+
+-inurl:(htm|html|php) intitle:"index of" epub libros
+
+./getmpd --enable-ffmpeg /cygdrive/d/mp3
+
+
+! special
+*.foreground:   #ddeedd
+*.background:   #181514
+*.cursorColor:  #ddeedd
+
+! black
+*.color0:       #25374a
+*.color8:       #3a526b
+
+! red
+*.color1:       #bd4a4a
+*.color9:       #cc6666
+
+! green
+*.color2:       #b7ce42
+*.color10:      #bde077
+
+! yellow
+*.color3:       #fea63c
+*.color11:      #ffe863
+
+! blue
+*.color4:       #66aabb
+*.color12:      #aaccbb
+
+! magenta
+*.color5:       #f26b9e
+*.color13:      #ff5879
+
+! cyan
+*.color6:       #72ad8c
+*.color14:      #9fe3bc
+
+! white
+*.color7:       #ddeedd
+*.color15:      #ffffff
+
+
+------------
+
+! special
+*.foreground:   #000000
+*.background:   #ffffff
+*.cursorColor:  #000000
+
+! black
+*.color0:       #646464
+*.color8:       #a16e68
+
+! red
+*.color1:       #f27e6f
+*.color9:       #c8766b
+
+! green
+*.color2:       #b5afae
+*.color10:      #646464
+
+! yellow
+*.color3:       #e79a91
+*.color11:      #f27e6f
+
+! blue
+*.color4:       #c5c0c0
+*.color12:      #b5afae
+
+! magenta
+*.color5:       #757575
+*.color13:      #e79a91
+
+! cyan
+*.color6:       #a19f9f
+*.color14:      #c5c0c0
+
+! white
+*.color7:       #8e8a8a
+*.color15:      #757575
+
+----------
+
+
+!Foreground & Background
+*foreground:    #fffdf0
+*background:    #434345
+
+!black
+*color0:  #8a8a8a
+*color8:  #8a8a8a
+
+!red
+*color1:  #d788a0
+*color9:  #d7b0bc
+
+!green
+*color2:  #88d7a5
+*color10: #a8d7b9
+
+!yellow
+*color3:  #7eaba7
+*color11: #bbe4e0
+
+!blue
+*color4:  #8cc8d7
+*color12: #bbd1d7
+
+!magenta
+*color5:  #c6a6d7
+*color13: #d0c3d7
+
+!cyan
+*color6: #daa4d7
+*color14: #e4d0ea
+
+!white
+*color7:  #fffdf0
+*color15: #dedacd
+
+
+function colortest-vbars
+{
+    clear
+    
+    local _term_width=$(tput cols)
+    local _term_height=$(tput lines)
+    local _bar_count=8
+    local _bar_width=$(expr $_term_width / $_bar_count)
+    
+    local l="1"
+    local b="0"
+    local s="0"
+    
+    while [[ "$l" -lt $_term_height ]]; do
+        b="0"
+        while [[ "$b" -lt $_bar_count ]]; do
+            s="0"
+            while [[ "$s" -lt $_bar_width ]]; do
+                echo -en "\033[3"$b"m█"
+                s=$(expr $s + 1)
+            done
+            b=$(expr $b + 1)
+        done
+        echo
+        l=$(expr $l + 1)
+    done
+}
+
+
+function colortest-gradients
+{
+    f=3
+    b=4
+
+    for j in f b; do
+        for i in {0..7}; do
+            printf -v $j$i %b "\033[${!j}${i}m"
+        done
+    done
+
+    bld=$'\033[1m'
+    rst=$'\033[0m'
+    inv=$'\033[7m'
+
+cat << EOF
+
+$f0█ $bld█$rst $f1█ $bld█$rst $f2█ $bld█$rst $f3█ $bld█$rst $f4█ $bld█$rst $f5█ $bld█$rst $f6█ $bld█$rst $f7█ $bld█$rst 
+$f0█ $bld█$rst $f1█ $bld█$rst $f2█ $bld█$rst $f3█ $bld█$rst $f4█ $bld█$rst $f5█ $bld█$rst $f6█ $bld█$rst $f7█ $bld█$rst 
+$f0▓ $bld█$rst $f1▓ $bld█$rst $f2▓ $bld█$rst $f3▓ $bld█$rst $f4▓ $bld█$rst $f5▓ $bld█$rst $f6▓ $bld█$rst $f7▓ $bld█$rst 
+$f0▒ $bld█$rst $f1▒ $bld█$rst $f2▒ $bld█$rst $f3▒ $bld█$rst $f4▒ $bld█$rst $f5▒ $bld█$rst $f6▒ $bld█$rst $f7▒ $bld█$rst 
+$f0░ $bld█$rst $f1░ $bld█$rst $f2░ $bld█$rst $f3░ $bld█$rst $f4░ $bld█$rst $f5░ $bld█$rst $f6░ $bld█$rst $f7░ $bld█$rst 
+$rst
+EOF
+}
+
+
+
+
+
+Who is this semen demon?
+Who is this sperm worm?
+Who is this boner toner?
+Who is this spunk monk?
+Who is this cock dock?
+Who is this erection ejection?
+Who is this dick tick?
+Who is this cum plum?
+Who is this seed steed?
+Who is this prick chick?
+Who is this cock stock?
+Who is this seminal sentinel?
+Who is this phallus chalice?
+Who is this anus ignoramus?
+Who is this smegma enigma?
+Who is this beef curtain hurtin?
+Who is this cunt runt?
+Who is this jism prison?
+Who is this ballbiting ballerina?
+Who is this dongle mongle?
+Who is this penis machinist?
+Who is this chin chin bin?
+Who is this scrotum sorceress?
+Who is this wiener cleaner?
+Who is this pole populator?
+Who is this stiffy stimulator?
+Who is this pillar pimper?
+Who is this column culminator?
+Who is this testicle tamer?
+Who is this sperm specialist?
+Who is this glans gladiator?
+Who is this frenulum fractionizer?
+Who is this foreskin fornicator?
+Who is this penile private?
+Who is this smut sergeant?
+Who is this cock captain?
+Who is this orifice officer?
+Who is this rear admiral?
+Who is this cummander?
+Who is this lewd lieutenant?
+Who is this meat major?
+Who is this cunt colonel?
+Who is this wiener witch?
+Who is this phallus phalanx?
+Who is this cock commandant?
+Who is this dong deity?
+Who is this seminal fluid druid?
+Who is this jizz wiz?
+Who is this benis burglar?
+Who is this wang waxer?
+Who is this schlong sentinel?
+Who is this dick dastard?
+Who is this jizz jezebel?
+Who is this tally wacker packer?
+Who is this schlong sorcerrer?
+Who is this weenie genie?
+Who is this chode road?
+Who is this male reproductive organ Gorgon?
+Who is this shaft shaft?
+Who is this ding dong dungeon?
+Who is this scrotum totem?
+Who is this ballsack knapsack?
+Who is this testicle vestibule?
+Who is this ball butter nutter?
+Who is this cock cream captivator?
+Who is this man milk mephistopheles?
+Who is this smegma smuggler?
+Who is this cum connoisseur?
+Who is this semen sommelier?
+Who is this urethra barista?
+
+
+screenfetch-dev -d '-host'
+-foo to hide something
++foo to show something
+can be chained like this:
+screenfetch-dev -d '-foo,-bar;+baz'
+
+
+
+
+With cameras.
+
+You can do pretty well on some smartphone cameras too though. Some let you adjust ISO and exposure. Take multiple shots and stack them in Photoshop to remove the noise and bracket a HDR by taking multiple shots with different exposures using exposure compensation. Only hard thing is to keep the smartphone somewhat steady during all of that.
+
+Also, GTA V is fucking fun.
+
+
+
+
