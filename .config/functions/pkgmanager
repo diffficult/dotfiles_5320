@@ -1,0 +1,186 @@
+#-------- Gotbletu Universal Package Manager {{{
+#------------------------------------------------------
+# DEMO: https://www.youtube.com/watch?v=N8CZhlIssdk
+# DESC: auto detect package manager and loads proper alias for it
+
+# legends# {{{
+# https://wiki.archlinux.org/index.php/Pacman_Rosetta
+# http://old-en.opensuse.org/Software_Management_Command_Line_Comparison
+# https://bbs.archlinux.org/viewtopic.php?pid=1281605#p1281605
+# Arch			-- pacman, yaourt
+# Debian/Ubuntu		-- apt-get(apt), aptitude, dpkg
+# Gentoo		-- eclean, emerge, equery, layman
+# OpenSuse		-- zypper
+# Red Hat/Fedora	-- package-cleanup, rpm, yum
+# Suse			-- rug
+# Not finish, only tested on Debian, Arch, Fedora so far
+
+# cleanold; removes certain packages that can no longer be downloaded
+# cleanall; remove all local cached packages
+# list; show the content of an installed package
+# localinstall; install package manually such as deb, rpm files downloaded
+# own; find a command a package belongs to; ex: pkm-own convert
+# purge; uninstall package and purge configuration files (not in /home)
+# query; search for an already installed package
+# refresh; update repository list
+# upgrade; install the newest version from the repositories
+# hold/unhold; stop/allow a package from being update
+#
+# missing
+# emerge: autoclean, purge, list, query
+# rug: pkm-info, clean, autoremove, autoclean, purge, list, query
+# zypper: pkm-info, autoremove, autoclean, purge, list, query
+# yum: autoclean, purge
+# }}}
+
+find_pkm() { for i;do which "$i" >/dev/null && { echo "$i"; return 0;};done;return 1; }
+export PKMGR=$(find_pkm paru pacman pacaur yaourt)
+
+# {{{ pacaur
+if [ "$PKMGR" = "pacaur" ]; then
+  pkm-build() { tar xvzf "$1" && cd "${1%%.tar.gz}" && makepkg -csi ;}
+  pkm-cleanall() { pacaur -Sc ;}
+  pkm-cleanold() { pacaur -Scc ;}
+  if type -p downgrade > /dev/null; then
+    # require: https://aur.archlinux.org/packages/downgrade/
+    pkm-downgrade() { downgrade "$@" ;}
+  fi
+  pkm-download() { sudo pacman -Sw "$@" ;} # need better shit to dl from aur also
+  pkm-info() { for arg in "$@"; do
+    pacaur -Qi $arg 2> /dev/null \
+    || pacaur -Si $arg; done ;}
+  pkm-install() { pacaur --noconfirm -S "$@" ;}
+  # https://wiki.archlinux.org/index.php/Pacman-key#Resetting_all_the_keys
+  pkm-key() { sudo pacman-key --init \
+    && sudo pacman-key --populate archlinux \
+    && sudo pacman-key --refresh-keys ;}
+  pkm-list() { pacaur -Qql "$@" ;}
+  pkm-listinstalled() { pacaur -Qe ;}
+  pkm-listcache() { ls -1 /var/cache/pacman/pkg "$@" && echo "pwd: /var/cache/pacman/pkg" ;}
+  pkm-localinstall() { sudo pacman --noconfirm -U "$@" ;}
+  pkm-own() { pacman -Qo "$@" ;}
+  pkm-pkgsearch() { pkgfile -s "$@" ;}
+  pkm-purge() { pacaur -R "$@" ;}
+  pkm-query() { pacman -Qqs "$@" ;}
+  pkm-query-detail() { pacaur -Qs "$@" ;}
+  pkm-refresh() { pacaur -Syy ;}
+  pkm-remove() { pacaur -Rcs "$@" ;}
+  pkm-remove-nodepends() { pacaur -Rdd "$@" ;}
+  pkm-remove-orphans() { pacaur -Rs $(pacman -Qqtd) ;}
+  pkm-search() { pacaur -Qs "$@" && pacaur -s "$@" ;}
+  pkm-search-local() { pacaur -Qs "$@" ;}
+  pkm-upgrade() { pacaur -Syu ;}	# upgrade everything except aur package
+  pkm-upgrade-aur() { pacaur --noconfirm -Sbua ;} # only upgrade aur package
+  pkm-list-upgraded() { cat /var/log/pacman.log | grep -i upgraded ;}
+# }}}
+# {{{ pacman
+elif [ "$PKMGR" = "pacman" ]; then
+  pkm-build() { tar xvzf "$1" && cd "${1%%.tar.gz}" && makepkg -csi ;}
+  pkm-cleanall() { sudo pacman -Sc ;}
+  pkm-cleanold() { sudo pacman -Scc ;}
+  if type -p downgrade > /dev/null; then
+  # require: https://aur.archlinux.org/packages/downgrade/
+    pkm-downgrade() { downgrade "$@" ;}
+  fi
+  pkm-download() { sudo pacman -Sw "$@" ;}
+  pkm-info() { for arg in "$@"; do
+    pacman -Qi $arg 2> /dev/null \
+    || pacman -Si $arg; done ;}
+  pkm-install() { sudo pacman -S "$@" ;}
+  pkm-key() { sudo pacman-key --init \
+    && sudo pacman-key --populate archlinux \
+    && sudo pacman-key --refresh-keys ;}
+  pkm-list() { pacman -Qql "$@" ;}
+  pkm-listinstalled() { pacman -Qe ;}
+  pkm-listcache() { ls -1 /var/cache/pacman/pkg "$@" && echo "pwd: /var/cache/pacman/pkg" ;}
+  pkm-localinstall() { sudo pacman --noconfirm -U "$@" ;}
+  pkm-own() { pacman -Qo "$@" ;}
+  pkm-pkgsearch() { pkgfile -s "$@" ;}
+  pkm-purge() { sudo pacman -R "$@" ;}
+  pkm-query() { pacman -Qqs "$@" ;}
+  pkm-query-detail() { pacman -Qs "$@" ;}
+  pkm-refresh() { sudo pacman -Syy ;}
+  pkm-remove() { sudo pacman -Rcs "$@" ;}
+  pkm-remove-nodepends() { sudo pacman -Rdd "$@" ;}
+  pkm-remove-orphans() { sudo pacman -Rs $(pacman -Qqtd) ;}
+  pkm-search() { paru "$@" ;}
+  #pkm-search() { pacman -Ss "$@" ;}
+  pkm-search-local() { pacman -Qs "$@" ;}
+  pkm-upgrade() { sudo pacman -Syu ;}
+  pkm-list-upgraded() { cat /var/log/pacman.log | grep -i upgraded ;}
+# }}}
+# {{{ paru
+elif [ "$PKMGR" = "paru" ]; then
+  pkm-build() { tar xvzf "$1" && cd "${1%%.tar.gz}" && makepkg -csi ;}
+  pkm-cleanall() { paru -Sc ;}
+  pkm-cleanold() { paru -Scc ;}
+  if type -p downgrade > /dev/null; then
+  # require: https://aur.archlinux.org/packages/downgrade/
+    pkm-downgrade() { downgrade "$@" ;}
+  fi
+  pkm-download() { sudo pacman -Sw "$@" ;} # need better shit to dl from aur also
+  pkm-info() { for arg in "$@"; do
+    paru -Qi $arg 2> /dev/null \
+    || paru -Si $arg; done ;}
+  pkm-install() { paru --noconfirm -S "$@" ;}
+  # https://wiki.archlinux.org/index.php/Pacman-key#Resetting_all_the_keys
+  pkm-key() { sudo pacman-key --init \
+    && sudo pacman-key --populate archlinux \
+    && sudo pacman-key --refresh-keys ;}
+  pkm-list() { paru -Qql "$@" ;}
+  pkm-listinstalled() { paru -Qe ;}
+  pkm-listcache() { ls -1 /var/cache/pacman/pkg "$@" && echo "pwd: /var/cache/pacman/pkg" ;}
+  pkm-localinstall() { sudo pacman --noconfirm -U "$@" ;}
+  pkm-own() { pacman -Qo "$@" ;}
+  pkm-pkgsearch() { pkgfile -s "$@" ;}
+  pkm-purge() { paru -Rcs "$@" ;}
+  pkm-query() { pacman -Qqs "$@" ;}
+  pkm-query-detail() { paru -Qs "$@" ;}
+  pkm-refresh() { paru -Syy ;}
+  pkm-remove() { paru -R "$@" ;}
+  pkm-remove-nodepends() { paru -Rdd "$@" ;}
+  pkm-remove-orphans() { paru -Rs $(pacman -Qqtd) ;}
+  pkm-search() { paru "$@" ;}
+  pkm-search-local() { paru -Qs "$@" ;}
+  pkm-upgrade() { paru ;}	# upgrade everything 
+  #pkm-upgrade-aur() { yaourt --noconfirm -Sbua ;} # only upgrade aur package
+  pkm-list-upgraded() { cat /var/log/pacman.log | grep -i upgraded ;}
+# }}}
+# {{{ yaourt
+elif [ "$PKMGR" = "yaourt" ]; then
+  pkm-build() { tar xvzf "$1" && cd "${1%%.tar.gz}" && makepkg -csi ;}
+  pkm-cleanall() { yaourt -Sc ;}
+  pkm-cleanold() { yaourt -Scc ;}
+  if type -p downgrade > /dev/null; then
+  # require: https://aur.archlinux.org/packages/downgrade/
+    pkm-downgrade() { downgrade "$@" ;}
+  fi
+  pkm-download() { sudo pacman -Sw "$@" ;} # need better shit to dl from aur also
+  pkm-info() { for arg in "$@"; do
+    yaourt -Qi $arg 2> /dev/null \
+    || yaourt -Si $arg; done ;}
+  pkm-install() { yaourt --noconfirm -S "$@" ;}
+  # https://wiki.archlinux.org/index.php/Pacman-key#Resetting_all_the_keys
+  pkm-key() { sudo pacman-key --init \
+    && sudo pacman-key --populate archlinux \
+    && sudo pacman-key --refresh-keys ;}
+  pkm-list() { yaourt -Qql "$@" ;}
+  pkm-listinstalled() { yaourt -Qe ;}
+  pkm-listcache() { ls -1 /var/cache/pacman/pkg "$@" && echo "pwd: /var/cache/pacman/pkg" ;}
+  pkm-localinstall() { sudo pacman --noconfirm -U "$@" ;}
+  pkm-own() { pacman -Qo "$@" ;}
+  pkm-pkgsearch() { pkgfile -s "$@" ;}
+  pkm-purge() { yaourt -R "$@" ;}
+  pkm-query() { pacman -Qqs "$@" ;}
+  pkm-query-detail() { yaourt -Qs "$@" ;}
+  pkm-refresh() { yaourt -Syy ;}
+  pkm-remove() { yaourt -Rcs "$@" ;}
+  pkm-remove-nodepends() { yaourt -Rdd "$@" ;}
+  pkm-remove-orphans() { yaourt -Rs $(pacman -Qqtd) ;}
+  pkm-search() { yaourt --noconfirm "$@" ;}
+  pkm-search-local() { yaourt -Qs "$@" ;}
+  pkm-upgrade() { yaourt -Syu ;}	# upgrade everything except aur package
+  pkm-upgrade-aur() { yaourt --noconfirm -Sbua ;} # only upgrade aur package
+  pkm-list-upgraded() { cat /var/log/pacman.log | grep -i upgraded ;}
+fi
+# }}}

@@ -1,0 +1,307 @@
+#-------- Functions (Good List) {{{
+#------------------------------------------------------
+# DESC: custom functions
+
+update-grub() { sudo grub-mkconfig -o /boot/grub/grub.cfg ;}
+grub-update() { sudo grub-mkconfig -o /boot/grub/grub.cfg ;}
+grub-list() {
+  RED='\033[0;31m'
+  sudo grep "menuentry '" /boot/grub/grub.cfg | less -N
+  echo -e "${RED} REMINDER: GRUB number starts at zero not one"
+}
+
+# DESC: color the manpages
+# DEMO: http://www.youtube.com/watch?v=9BFaLAa428k
+# LINK: https://wiki.archlinux.org/index.php/Man_page#Colored_man_pages
+#mancolor() {
+#  env LESS_TERMCAP_mb=$'\E[01;31m' \
+#  LESS_TERMCAP_md=$'\E[01;31m' \
+#  LESS_TERMCAP_me=$'\E[0m' \
+#  LESS_TERMCAP_se=$'\E[0m' \
+#  LESS_TERMCAP_so=$'\E[01;44;33m' \
+#  LESS_TERMCAP_ue=$'\E[0m' \
+#  LESS_TERMCAP_us=$'\E[01;32m' \
+#  man "$@"
+#}
+
+# list and grep with file permission
+lsg() {
+  keyword=$(echo "$@" |  sed 's/ /.*/g')
+  /usr/bin/ls -hlA --color=yes \
+  | awk '{k=0;for(i=0;i<=8;i++)k+=((substr($1,i+2,1)~/[rwx]/)*2^(8-i));if(k)printf(" %0o ",k);print}' \
+  | grep -iE $keyword
+}
+
+# ls recent items at bottom with green TODAY yellow YESTERDAY substituted with file permission also
+# https://www.reddit.com/r/archlinux/comments/41s1w4/what_is_your_favorite_one_liner_to_use/cz50y1m
+# http://askubuntu.com/a/152005
+lst() {
+  /usr/bin/ls -vAFqh --color=yes -got --time-style=long-iso "$@" \
+  | sed "s/$(date +%Y-%m-%d)/\x1b[32m     TODAY\x1b[m/;s/$(date +'%Y-%m-%d' -d yesterday)/\x1b[33m YESTERDAY\x1b[m/" \
+  | awk '{k=0;for(i=0;i<=8;i++)k+=((substr($1,i+2,1)~/[rwx]/)*2^(8-i));if(k)printf(" %0o ",k);print}' | tac
+}
+
+lsl() {
+  /usr/bin/ls -hl --color=yes "$@" \
+  | awk '{k=0;for(i=0;i<=8;i++)k+=((substr($1,i+2,1)~/[rwx]/)*2^(8-i));if(k)printf(" %0o ",k);print}'
+}
+
+# DESC: cli calculator (Ctrl+D to exit)
+# DEMO: http://www.youtube.com/watch?v=JkyodHenTuc
+# LINK: http://docs.python.org/library/math.html
+calc() {
+  if which python2 &>/dev/null; then
+    python2 -ic "from __future__ import division; from math import *; from random import *"
+  elif which python3 &>/dev/null; then
+    python3 -ic "from math import *; import cmath"
+  elif which bc &>/dev/null; then
+    bc -q -l
+  else
+    echo "Requires python2, python3 or bc for calculator features"
+  fi
+}
+
+
+# http://www.webupd8.org/2016/08/easily-share-files-from-command-line.html
+transfer() {
+  if [ $# -lt 1 ]; then
+    echo -e "Easy file sharing from the command line https://transfer.sh"
+    echo -e "Usage:   $0 <filename>"
+    echo -e "Example: $0 file.zip file2.txt file3.jpg"
+    return 1
+  fi
+  myArray=( "$@" )
+  for arg in "${myArray[@]}"; do
+    tmpfile=$( mktemp -t transferXXX )
+    if tty -s; then
+      basefile=$(basename "$arg" | sed -e 's/[^a-zA-Z0-9._-]/-/g')
+      curl --progress-bar --upload-file "$arg" "https://transfer.sh/$basefile" >> $tmpfile
+      else curl --progress-bar --upload-file "-" "https://transfer.sh/$arg" >> $tmpfile
+    fi
+    cat $tmpfile
+    rm -f $tmpfile
+  done
+}
+
+# searches for manual locally or online
+manned() {
+  for arg in "$@"; do man $arg 2> /dev/null \
+  || $arg -H 2> /dev/null || $arg -h 2> /dev/null \
+  || $arg --help-all 2> /dev/null || $arg --help 2> /dev/null \
+  || help $arg 2> /dev/null \
+  || $BROWSERCLI "http://manned.org/browse/search?q=$@" 2> /dev/null \
+  || $BROWSER "http://manned.org/browse/search?q=$@" 2> /dev/null \
+  || open "http://manned.org/browse/search?q=$@" 2> /dev/null \
+  || xdg-open "http://manned.org/browse/search?q=$@"
+  done
+}
+
+# search commandlinefu.com
+cmdfu() { 
+	curl "https://www.commandlinefu.com/commands/matching/$(echo "$@" \ | sed 's/ /-/g')/$(echo -n $@ | base64)/plaintext" | sed "s/\(^#.*\)/\x1b[32m\1\x1b[0m/g" | less -R ;
+}
+
+
+# }}}
+
+
+#-------- System Information {{{
+#------------------------------------------------------
+m-sound() { arecord -L && arecord -l && cat /proc/asound/pcm ;} #List audio capture card/mic
+#m-distro() { uname -a && lsb_release -a ;}
+m-connectip() {
+  echo "--------------- Connected Devices -----------------"
+    nmap -sn $(netstat -rn | awk 'FNR == 3 {print $2}')/24
+  echo "---------------------------------------------------"
+}
+
+# uses ip or ifconfig, good on older or newer system
+m-ip() {
+  echo "--------------- Network Information ---------------"
+  echo "router ip:" $(netstat -rn | awk 'FNR == 3 {print $2}')
+  # newer system like archlinux
+  ip addr | awk '/global/ {print $1,$2}' | cut -d\/ -f1
+  ip addr | awk '/global/ {print $3,$4}'
+  ip addr | awk '/ether/ {print $1,$2}'
+  ip addr | awk '/scope link/ {print $1,$2}' | cut -d\/ -f1
+  # older system like debian
+  ifconfig | awk '/inet addr/ {print $1,$2}' | awk -F: '{print $1,$2}'
+  ifconfig | awk '/Bcast/ {print $3}' | awk -F: '{print $1,$2}'
+  ifconfig | awk '/inet addr/ {print $4}' | awk -F: '{print $1,$2}'
+  ifconfig | awk '/HWaddr/ {print $4,$5}'
+  ifconfig | awk '/Scope:Link/ {print $1,$3}' | cut -d\/ -f1
+  # echo External IP $(curl -s http://checkip.dyndns.org/ | grep -o "[[:digit:].]\+")
+  # echo External IP: $(curl -s http://ipaddr.io/)
+  # echo External IP: $(curl -s https://icanhazip.com/)
+  # echo External IP: $(curl -s https://ifconfig.co/)
+  # echo External IP: $(curl -s http://pasteip.me/api/cli/ && echo)
+  echo external ip: $(curl -s http://ipecho.net/plain)
+  echo "---------------------------------------------------"
+}
+#}}}
+
+
+####################
+##### GRAPHICS #####
+####################
+
+#-------- Image Resizer & Rotate {{{
+#------------------------------------------------------
+# Resizing Pictures to different resolutions
+
+image-resizer() {
+  if [ $# -lt 2 ]; then
+    echo -e "resize pictures to another resolution"
+    echo -e "\nUsage:   $0 <size:32x32|96x96|128x128|640x480|800x600|1024x768|1280x720|1280x960|1920x1080> <image>"
+    echo -e "\nExample: $0 800x600 pic1.png pic2.png pic3.png"
+    echo -e "           $0 640x480 *.jpg"
+    return 1
+  fi
+  IMAGE_SIZE="$1"
+  myArray=( "$@" )
+  for arg in "${myArray[@]:1}"; do
+    convert "$arg" -resize "$IMAGE_SIZE" "${arg%.*}"_"$IMAGE_SIZE"_resized."${arg##*.}"
+  done
+}
+
+image-rotate() {
+  if [ $# -lt 2 ]; then
+    echo -e "rotate pictures"
+    echo -e "\nUsage:   $0 <90|180|270> <image>"
+    echo -e "\nExample: $0 90 pic1.png pic2.png pic3.png"
+    echo -e "           $0 180 *.jpg"
+    return 1
+  fi
+  IMAGE_DEGREE="$1"
+  myArray=( "$@" )
+  for arg in "${myArray[@]:1}"; do
+    convert "$arg" -rotate "$IMAGE_DEGREE" "${arg%.*}"_"$IMAGE_DEGREE"_rotated."${arg##*.}"
+  done
+}
+
+# }}}
+
+####################
+##### DOWNLOADS ####
+####################
+
+#-------- Aria2c WebUI {{{
+#------------------------------------------------------
+# downloader for torrents, magnet links, http, ftp, metalinks
+# tutorial video: https://www.youtube.com/watch?v=LCr_0zFcbaM
+alias magnet-to-torrent="aria2c -q --bt-metadata-only --bt-save-metadata"
+aria2c-quit() {
+   killall aria2c
+   kill $(ps -ef | grep '[h]ttp.server' | awk '{print $2}')
+   #kill $(ps -ef | grep '[S]impleHTTPServer' | awk '{print $2}')
+}
+
+aria2c-webui() {
+    # download location
+    DIR_DL=~/Downloads
+
+    # run as daemon
+    aria2c --enable-rpc --rpc-listen-all -D -d "$DIR_DL"
+
+
+    # use python simplehttpserver to host the webui
+    # this avoids download the index.html file on each computer
+    # https://github.com/ziahamza/webui-aria2
+
+    # path to the webui index.html
+    DIR_WEBUI=~/.scripts/webui-aria2/
+
+    # webui-aria2c uses port 6800 so we use 6801 for python_simple_http_server
+    PORT=6801
+    cd "$DIR_WEBUI"
+    nohup python3 -m http.server "$PORT" >/dev/null 2>&1&
+
+    # for older distro
+    # nohup python2 -m SimpleHTTPServer "$PORT" >/dev/null 2>&1&
+
+    echo "connect via http://localhost:$PORT or http://ip_address_of_server:$PORT"
+}
+
+# }}}
+
+#-------- Webcam {{{
+#------------------------------------------------------
+# DEMO: https://www.youtube.com/watch?v=oYTE3docGLA
+# DESC: using external player to display webcam
+
+# mplayer to display webcam
+# hit 's' to take screenshot, will save in current folder
+# hit 'S' to take series of screenshot, will save in current folder
+# hit 'f' to toggle fullscreen
+# hit 'T' to toggle stay-on-top
+# hit 'q' or 'Esc' to quit
+# https://wiki.archlinux.org/index.php/Webcam_Setup#MPlayer
+webcam-list() { v4l2-ctl --list-formats-ext && v4l2-ctl --list-devices ;}
+webcam-mplayer() { mplayer tv:// -tv driver=v4l2:width=640:height=360:device=/dev/video0 -fps 30 -vf screenshot -ontop -geometry "99%:95%" ;}
+webcam-mplayer-noborder() { mplayer tv:// -tv driver=v4l2:width=640:height=360:device=/dev/video0 -fps 30 -vf screenshot -geometry "98%:98%" -ontop -noborder ;}
+webcam-mplayer-screenshot() { mplayer tv:// -tv driver=v4l2:width=1920:height=1080:device=/dev/video0 -fps 30 -vf screenshot -ontop ;}
+
+# DESC: use webcam to scan for barcode/qrcode
+zbarcam-v4l() {
+  # barcode/qrcode reader using webcam
+  # this is for webcam that was not supported by default
+  # https://fitzcarraldoblog.wordpress.com/2012/10/05/installing-and-using-zbar-in-linux-to-scan-bar-codes-with-your-webcam/
+  # requires: v4l-utils
+  LD_PRELOAD=/usr/lib/libv4l/v4l1compat.so zbarcam /dev/video0
+}
+# }}}
+
+#-------- Detox Filename Cleanup {{{
+#------------------------------------------------------
+# DESC: cleanup filename to different styles
+
+# eg. FOO BAR LinuX.TAR.GZ --> foo_bar_linux.tar.gz
+detox-unix() {
+  myArray=( "$@" )
+  for arg in "${myArray[@]}"; do
+    filter_name=$(echo "$arg" | sed 's/%20/ /g' | sed 's/ /_/g' | tr '[:upper:]' '[:lower:]')
+    mv "$arg" "$filter_name"
+  done
+}
+
+# eg. FOO BAR LinuX.TAR.GZ --> Foo Bar Linux.tar.gz
+detox-human() {
+  myArray=( "$@" )
+  for arg in "${myArray[@]}"; do
+    filter_name=$(echo "$arg" | sed 's/%20/ /g' | sed 's/_/ /g' | tr '[:upper:]' '[:lower:]' | sed 's/\b\([[:alpha:]]\)\([[:alpha:]]*\)\b/\u\1\L\2/g' | sed -e "s/'\(.\)/'\l\1/g" | sed -e "s/\.\(.\)/\.\l\1/g" )
+    mv "$arg" "$filter_name"
+  done
+}
+
+# eg. FOO-BAR-LinuX.TAR.GZ --> Foo Bar Linux.tar.gz
+detox-human-dash() {
+  myArray=( "$@" )
+  for arg in "${myArray[@]}"; do
+    filter_name=$(echo "$arg" | sed 's/%20/ /g' | sed 's/_/ /g' | sed 's/-/ /g' | tr '[:upper:]' '[:lower:]' | sed 's/\b\([[:alpha:]]\)\([[:alpha:]]*\)\b/\u\1\L\2/g' | sed -e "s/'\(.\)/'\l\1/g" | sed -e "s/\.\(.\)/\.\l\1/g" )
+    mv "$arg" "$filter_name"
+  done
+}
+
+detox-video() {
+  if [ $# -lt 1 ]; then
+    echo -e "clean video filename then add [duration,filesize,resolution]"
+    echo -e "Usage: $0 <filename>"
+    echo -e "\nExample:\n$0 file.mp4"
+    echo -e "$0 file1.mp4 file2.mp4 file3.mp4"
+    echo -e "$0 *.mp4"
+    return 1
+  fi
+  myArray=( "$@" )
+  for arg in "${myArray[@]}"; do
+    # check if file is a valid video before continuing
+    get_mimetype=$(file --mime-type -b "$arg" | cut -d '/' -f1)
+    if [ "$get_mimetype"  = "video" ]; then
+      duration=$(ffmpeg -i "$arg" 2>&1 | grep Duration | cut -d ' ' -f 4 | sed s/,// | cut -d '.' -f1 | awk -F: '{print $1"h"$2"m"$3"s"}')
+      filesize=$(du -h "$arg" | awk '{print $1}')
+      resolution=$(ffprobe -v error -of flat=s=_ -select_streams v:0 -show_entries stream=height "$arg" | cut -d '=' -f2)
+      mv "$arg" "${arg%.*} [${duration},${filesize},${resolution}p].${arg##*.}"
+    fi
+  done
+}
+
+# }}}

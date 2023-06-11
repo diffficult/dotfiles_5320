@@ -1,0 +1,275 @@
+# {{{ ------ My shitty functions ---------
+# ----- colors and stuff------------------
+function colortest-gradients2
+{
+    echo -e '\033[m'
+    for i in {0..7}; do
+        for f in {0..7}; do
+            echo -en "\033[$((f+30))m██▓▒░"
+        done
+        echo -e '\033[m'
+    done
+    echo -e '\033[m'
+}
+
+function colortest-vbars
+{
+    clear
+    
+    local _term_width=$(tput cols)
+    local _term_height=$(tput lines)
+    local _bar_count=8
+    local _bar_width=$(expr $_term_width / $_bar_count)
+    
+    local l="1"
+    local b="0"
+    local s="0"
+    
+    while [[ "$l" -lt $_term_height ]]; do
+        b="0"
+        while [[ "$b" -lt $_bar_count ]]; do
+            s="0"
+            while [[ "$s" -lt $_bar_width ]]; do
+                echo -en "\033[3"$b"m█"
+                s=$(expr $s + 1)
+            done
+            b=$(expr $b + 1)
+        done
+        echo
+        l=$(expr $l + 1)
+    done
+}
+
+function whodemon
+{
+    # Finally usefull.
+    demons=(
+    "Who is this anal aficionado?"
+    "Who is this anus ignoramus?"
+    "Who is this baby batter bladder?"
+    "Who is this baby batter bringer?"
+    "Who is this ball butter nutter?"
+    "Who is this ballbiting ballerina?"
+    "Who is this ballsack knapsack?"
+    "Who is this baloney poney behemoth?"
+    "Who is this beef curtain hurtin?"
+    "Who is this benis burglar?"
+    "Who is this boner benefactor?"
+    "Who is this boner condoner?"
+    "Who is this boner toner?"
+    "Who is this butt hut?"
+    "Who is this chin chin bin?"
+    "Who is this chode road?"
+    "Who is this cock captain?"
+    "Who is this cock clairvoyant?"
+    "Who is this cock commandant?"
+    "Who is this cock cream captivator?"
+    "Who is this cock dock?"
+    "Who is this cock khan?"
+    "Who is this cock pocket?"
+    "Who is this cock sock?"
+    "Who is this cock stock?"
+    "Who is this column culminator?"
+    "Who is this cum caresser?"
+    "Who is this cum chum?"
+    "Who is this cum connoisseur?"
+    "Who is this cum drum?"
+    "Who is this cum plum?"
+    "Who is this cummander?"
+    "Who is this cunny bunny?"
+    "Who is this cunt colonel?"
+    "Who is this cunt runt?"
+    "Who is this dick dastard?"
+    "Who is this dick duchess?"
+    "Who is this dick juice masseuse?"
+    "Who is this dick tick?"
+    "Who is this ding dong dungeon?"
+    "Who is this dong deity?"
+    "Who is this dong dominator?"
+    "Who is this dongle mongle?"
+    "Who is this ejaculate advocate?"
+    "Who is this ejaculate empress?"
+    "Who is this erection confection?"
+    "Who is this erection ejection?"
+    "Who is this fluid druid?"
+    "Who is this foreskin fornicator?"
+    "Who is this frenulum fractionizer?"
+    "Who is this glans fans?"
+    "Who is this glans gladiator?"
+    "Who is this jism prism?"
+    "Who is this jism prison?"
+    "Who is this jizz genie?"
+    "Who is this jizz jezebel?"
+    "Who is this jizz jockey?"
+    "Who is this jizz wiz?"
+    "Who is this knackers knight?"
+    "Who is this lewd lieutenant?"
+    "Who is this lovegoo lass?"
+    "Who is this male repoductive organ gorgan?"
+    "Who is this man milk mephistopheles?"
+    "Who is this man muscle steam shovel?"
+    "Who is this mattress actress?"
+    "Who is this mayonnaise maiden?"
+    "Who is this meat major?"
+    "Who is this middle leg major?"
+    "Who is this nut slut?"
+    "Who is this orifice officer?"
+    "Who is this pecker prodigy?"
+    "Who is this penile perpetrator?"
+    "Who is this penile private?"
+    "Who is this penis machinist?"
+    "Who is this phallus chalice?"
+    "Who is this phallus phalanx?"
+    "Who is this pillar pimper?"
+    "Who is this pocket rocket ground control?"
+    "Who is this pole populator?"
+    "Who is this pole privateer?"
+    "Who is this prick chick?"
+    "Who is this prick pirate?"
+    "Who is this prostate apostate?"
+    "Who is this prostate magistrate?"
+    "Who is this rear admiral?"
+    "Who is this salami tsunami?"
+    "Who is this sausage sergeant?"
+    "Who is this schlong sentinel?"
+    "Who is this schlong sorcerrer?"
+    "Who is this scrotum sorceress?"
+    "Who is this scrotum totem?"
+    "Who is this seed steed?"
+    "Who is this semen demon?"
+    "Who is this semen sommelier?"
+    "Who is this seminal fluid druid?"
+    "Who is this seminal sentinel?"
+    "Who is this shaft shaft?"
+    "Who is this shaft specialist?"
+    "Who is this skeet treat?"
+    "Who is this smega smuggler?"
+    "Who is this smegma enigma?"
+    "Who is this smegma savant?"
+    "Who is this smegma smuggler?"
+    "Who is this smut sergeant?"
+    "Who is this sodomy sentinel?"
+    "Who is this sperm specialist?"
+    "Who is this sperm summoner?"
+    "Who is this sperm worm?"
+    "Who is this spooge scrooge?"
+    "Who is this spunk monk?"
+    "Who is this spunk trunk?"
+    "Who is this stiffy stimulator?"
+    "Who is this stiffy sultan?"
+    "Who is this testicle tamer?"
+    "Who is this testicle vestibule?"
+    "Who is this testicular temptress?"
+    "Who is this the semen demon?"
+    "Who is this wang waxer?"
+    "Who is this wang wizard?"
+    "Who is this wang wrangler?"
+    "Who is this weenie genie?"
+    "Who is this weiner witch?"
+    "Who is this wiener cleaner?"
+    "Who is this wiener witch?"
+    "Who is this willy ghillie?"
+    "Who is this willy wrap?"
+    )
+   
+    echo ${demons[$RANDOM % ${#demons[@]} ]}
+}
+
+colortest-skull () 
+{ 
+echo -e "
+\033[31m███████████████████████████
+\033[32m███████▀▀▀░░░░░░░▀▀▀███████
+\033[33m████▀░░░░░░░░░░░░░░░░░▀████
+\033[34m███│░░░░░░░░░░░░░░░░░░░│███
+\033[35m██▌│░░░░░░░░░░░░░░░░░░░│▐██
+\033[36m██░└┐░░░░░░░░░░░░░░░░░┌┘░██
+\033[37m██░░└┐░░░░░░░░░░░░░░░┌┘░░██
+\033[31m██░░┌┘▄▄▄▄▄░░░░░▄▄▄▄▄└┐░░██
+\033[32m██▌░│██████▌░░░▐██████│░▐██
+\033[33m███░│▐███▀▀░░▄░░▀▀███▌│░███
+\033[34m██▀─┘░░░░░░░▐█▌░░░░░░░└─▀██
+\033[35m██▄░░░▄▄▄▓░░▀█▀░░▓▄▄▄░░░▄██
+\033[36m████▄─┘██▌░░░░░░░▐██└─▄████
+\033[37m█████░░▐█─┬┬┬┬┬┬┬─█▌░░█████
+\033[31m████▌░░░▀┬┼┼┼┼┼┼┼┬▀░░░▐████
+\033[32m█████▄░░░└┴┴┴┴┴┴┴┘░░░▄█████
+\033[33m███████▄░░░░░░░░░░░▄███████
+\033[34m██████████▄▄▄▄▄▄▄██████████
+\033[35m█████████ H O L A █████████
+\033[36m███████████████████████████
+"
+}
+
+function this-is-bait  
+{ 
+echo -e "
+\033[35m██████████████████████████████████████
+\033[35m█░░░█░█░█░█░░███░█░░███░░▀█▀░▀█░█░░░██
+\033[35m██░██░▀░█░█░▀███░█░▀███░▀▄█░▀░█░██░███
+\033[35m██░██░▄░█░█▄░███░█▄░███░▄▀█░▄░█░██░███
+\033[35m██░██░█░█░█░░███░█░░███░░▄█░█░█░██░█░█
+\033[35m██████████████████████████████████████
+\033[35m███████▀▀░░░▄███████████▀▀▀▀░░░░░░░▀▀▀
+\033[35m█████▀░░░░▄██████▀▀▀░░░░░▄▄▄▄█████▄▄▄▄
+\033[35m███▀░░▄█▄████▀▀░░░▄▄▄█████████████████
+\033[35m███░░█████▀▀░░▄▄██████████████▀▀▀▀▀▀▀░
+\033[35m███▄░░░▀▀░░▄▄████████▀▀▀▀░░░░░░░░░░░░░
+\033[35m██████▄▄▄▄██████▀▀░░░░░░░▄▄░░░░░░░░░░░
+\033[35m██████████████████▄▄▄░░░▀██▀░░░░░░░░░░
+\033[35m████████████████▀▀▀▀▀▀▀░░░░░░░░░░░░░░░
+"
+}
+
+function colortest-blocks  
+{ 
+echo -e "
+for i in {0..7}; do echo -en "\e[0;3${i}m⣿⣿⣿⣿\e[0m"; done; echo
+for i in {0..7}; do echo -en "\e[0;3${i}m⣿⣿⣿⣿\e[0m"; done; echo
+for i in {0..7}; do echo -en "\e[1;3${i}m⣿⣿⣿⣿\e[0m"; done; echo
+"
+}
+
+function weather()
+{
+    s=-37
+    if [ -z $2 ]; then
+        s=-7
+    fi
+    w=`curl --silent http://wttr.in/$1 | head $s`
+    echo "${w}"
+}
+
+# don know what the fuck it does
+#ldu() { command du -ahLd 1 2> /dev/null | sort -rh | head -n 20 ; }
+# {{{ systemctl list services running/not running
+rc(){
+	systemctl list-unit-files --type=service |\
+	sed 's/.service//g' |\
+	sed '/static/d' |\
+	sed '/indirect/d' |\
+	sed '/systemd/d' |\
+	sed '/dbus-org/d' |\
+	sed '/canberra/d'|\
+	sed '/wpa_supplicant/d' |\
+	sed '/netctl/d' |\
+	sed '/rfkill/d' |\
+	sed '/krb5/d' |\
+	tail -n+2 |\
+	head -n -2 |\
+	sed 's/\(^.*enabled.*$\)/[x] \1/' |\
+	sed 's/enabled//g' |\
+	sed 's/\(^.*disabled.*$\)/[ ] \1/' |\
+	sed 's/disabled//g' |\
+	sed 's/[ \t]*$//' |\
+	while read line; do
+			if [[ $line == *'[x]'* ]]; then
+				printf "\033[0;32m$line\n"
+			else
+				printf "\033[1;30m$line\n"
+			fi
+	done
+}
+# }}}
+# }}}
+
