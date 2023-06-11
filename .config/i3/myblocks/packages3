@@ -1,0 +1,23 @@
+#!/usr/bin/bash
+
+PACKAGES=$(pacman -Qu | wc -l)
+#PACKAGES=4
+URGENT_VALUE=5
+
+if [[ $PACKAGES -gt 0 && $PACKAGES -gt $URGENT_VALUE ]]; then
+    echo '<span foreground="#FF0000">'"$PACKAGES"'</span>' # full-text
+    echo '<span foreground="#FF0000">'"[$PACKAGES]"'</span>' # short-text
+elif [[ $PACKAGES -gt 0 ]]; then
+    echo '<span foreground="#FFAE00">'"$PACKAGES"'</span>' # full-text
+    echo '<span foreground="#FFAE00">'"[$PACKAGES]"'</span>' # short-text
+elif [[ $PACKAGES -eq 0 ]]; then
+    echo '<span foreground="#A8FF00">'""'</span>' #full-text
+    echo '<span foreground="#A8FF00">'""'</span>' #short-text 
+fi
+
+#---------i3blocks actions-----------------------------------------------
+
+case $BLOCK_BUTTON in
+	2) pamac-manager ;; # middle click
+	3) pamac-updater ;; # right click - opens pamac-updater
+esac

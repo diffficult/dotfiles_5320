@@ -1,0 +1,39 @@
+#!/usr/bin/bash
+
+#PACKAGES=$(pacman -Qu | wc -l)
+PACKAGES=5
+
+URGENT_VALUE=1
+
+#if [[ $? -gt 0 ]]; then
+#  return
+#fi
+
+#PACKAGE_COUNT=$(echo "${PACKAGES}" | wc -l)
+#PACKAGE_COUNT=$(echo -n "${PACKAGES}" | wc -l)
+
+if [[ "${PACKAGES}" -gt 0 ]]; then
+  echo "${PACKAGES}" # full-text
+  echo "${PACKAGES}" # short-text
+  echo ""
+else
+  echo "" # full-text
+  echo "" # short-text   	
+#if [[ "${PACKAGE_COUNT}" -gt 0 ]]; then
+#  echo "${PACKAGE_COUNT}" # full-text
+#  echo "${PACKAGE_COUNT}" # short-text
+#  echo "" # full-text
+#  echo "" # short-text
+  if [[ "${PACKAGES}" -gt "${URGENT_VALUE}" ]]; then
+#  if [[ "${PACKAGE_COUNT}" -gt "${URGENT_VALUE}" ]]; then
+#  	exit 33
+	echo '<span foreground="#FF0000">'"${PACKAGES}"'</span>'
+  fi
+fi
+
+#--------------------------------------------------------------------
+
+case $BLOCK_BUTTON in
+	#2) pamac-manager  # middle click
+	3) pamac-updater  # right click - opens pamac-updater
+esac

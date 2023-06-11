@@ -1,0 +1,37 @@
+#!/bin/bash
+
+#blocklet example
+#
+###[brightness]
+###label=
+###interval=5
+###markup=pango
+#
+#
+#
+
+#brightn=$(cat /sys/class/backlight/acpi_video0/brightness)
+#brightn=$(cat /sys/class/backlight/intel_backlight/brightness)
+
+brightn=$(cat /sys/class/backlight/acpi_video0/actual_brightness)
+
+##echo $brightn
+#brpercent=$(($brightn * 100 / 15));
+brpercent=$(($brightn * 100 / 1500));
+#brpercent=$(($brightn / 4));
+
+
+##echo $brpercent%
+
+# color
+if [[ $brpercent -eq 100 ]]; then
+    echo '<span foreground="#ffffff">'"$brpercent%"'</span>'
+elif [[ $brpercent -ge 80 ]]; then
+    echo '<span foreground="#d1d4e0">'"$brpercent%"'</span>'
+elif [[ $brpercent -ge 60 ]]; then
+    echo '<span foreground="#7780a1">'"$brpercent%"'</span>'
+elif [[ $brpercent -ge 40 ]]; then
+    echo '<span foreground="#c0b7f9">'"$brpercent%"'</span>'
+elif [[ $brpercent -ge 20 ]]; then
+    echo '<span foreground="#ee829f">'"$brpercent%"'</span>'
+fi
