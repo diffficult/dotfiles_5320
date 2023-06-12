@@ -1,0 +1,9 @@
+[submodule "¬/.config/i3/i3blocks-contrib"]
+	path = ¬/.config/i3/i3blocks-contrib
+	url = git@github.com:diffficult/dotfiles_5320.git
+[submodule ".config/i3/i3blocks-modules"]
+	path = .config/i3/i3blocks-modules
+	url = https://github.com/cytopia/i3blocks-modules
+[submodule ".config/i3/i3blocks-contrib"]
+	path = .config/i3/i3blocks-contrib
+	url = https://github.com/vivien/i3blocks-contrib
