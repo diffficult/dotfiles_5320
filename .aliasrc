@@ -218,9 +218,9 @@ alias uhaul='mv -iv --'                 # mv prompt confirmation
 ### ls replacement with exa written in rust
 
 alias ls='exa --icons --group-directories-first'
-alias l='ls -a'
+alias l='ls -a -s changed'
 alias ll='exa -l --icons --group-directories-first'
-alias la='ll -aa -s changed --icons --group-directories-first'
+alias la='ll -a -s changed'
 
 # general use
 
