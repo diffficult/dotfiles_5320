@@ -182,7 +182,7 @@ URxvt*pointerBlank:         true
 
 !! Set a default font and font size for st below:
 
-*.font: JetBrainsMonoNF-8;
+*.font: JetBrainsMonoNF-10;
 
 ! ------------------------------------------------------------------------------
 ! ROFI Color theme
