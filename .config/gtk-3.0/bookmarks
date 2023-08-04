@@ -4,6 +4,7 @@ file:///home/poole/Downloads Downloads
 file:///home/poole/Dropbox Dropbox
 file:///home/poole/Mega Mega
 file:///home/poole/Pictures Pictures
-smb://10.0.10.6/pi4nas/ pi4nas on 10.0.10.6
-smb://10.0.10.6/pi4book/ pi4book on 10.0.10.6
-smb://192.168.3.5/pi4colegio/ pi4colegio on 192.168.3.5
+smb://10.0.10.6/pi4nas/ nas@home
+smb://10.0.10.6/pi4book/ library@home
+smb://192.168.3.5/pi4colegio/ pi4@colegio
+smb://10.0.10.7/pi4bnas/ broken@home
