@@ -366,6 +366,7 @@ assign [class="TelegramDesktop"] $workspace9
 assign [class="Seahorse"] $workspace5
 assign [class="protonvpn"] $workspace8
 assign [class="code-oss"] $workspace6
+assign [class="steam"] $workspace8
 
 # Shutdown, Reboot, Lock Screen, and Logout #657b83 ---------------------------------------------------------------------------
 set $sysmenu "[P]oweroff . [H]ibernate . [S]uspend . re[B]oot . [L]ock . logou[T]"
@@ -555,6 +556,8 @@ for_window [class="zathura"] border none
 #for_window [class="chromium-browser"] border non e
 for_window [class="Gpicview"] border none
 for_window [class="TelegramDesktop"] floating enable, border none
+for_window [class="steam"] floating enable, border none, resize set 960 640
+
 
 # Arch specific
 for_window [class="Pamac-manager"] floating enable, border none
@@ -631,27 +634,31 @@ exec --no-startup-id /usr/lib/xfce4/notifyd/xfce4-notifyd
 # xrandr
 exec --no-startup-id xrandr --output eDP-1 --scale 0.8x0.8
 
-
 #### TOUCHPAD SETTINGS using synaptics driver
 
 # touchpad click on tap enabled using xinput and libinput
 #exec --no-startup-id xinput set-prop 'DELL0A1F:00 06CB:CE65 Touchpad' 'libinput Tapping Enabled' 1
 
 # Enable one-finger tap and double tap
-exec --no-startup-id "sleep 5 && synclient TapButton1=1"
+#exec --no-startup-id "sleep 5 && synclient TapButton1=1"
 
 # Enable two-finger tap to open right-click menu
-exec --no-startup-id "sleep 6 && synclient TapButton2=3"
+#exec --no-startup-id "sleep 6 && synclient TapButton2=3"
 
 # Enable horizontal scroll with two fingers
-exec --no-startup-id "sleep 7 && synclient HorizTwoFingerScroll=1"
+#exec --no-startup-id "sleep 7 && synclient HorizTwoFingerScroll=1"
+
+# Enable Palm detection 
+#exec --no-startup-id "sleep 8 && synclient PalmDetect=1"
+#exec --no-startup-id "sleep 9 && synclient PalmMinWidth=8"
+#exec --no-startup-id "sleep 10 && synclient PalmMinZ=100"
 
 # Enable natural scrolling
 exec --no-startup-id synclient VertScrollDelta=-"$(synclient | grep VertScrollDelta | cut -d '=' -f 2 | cut -c 2-)"
 exec --no-startup-id synclient HorizScrollDelta=-"$(synclient | grep HorizScrollDelta | cut -d '=' -f 2 | cut -c 2-)"
 ###### END TOUCHPAD SETTINGS
 
-# Set keyboard to ES LATAM nodeadkeys
+# Set keyboard to ES LATAM nodeadkeys 
 exec --no-startup-id setxkbmap -layout latam
 
 # redshift

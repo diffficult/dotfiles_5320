@@ -29,7 +29,7 @@ fi
 #---------i3blocks actions-----------------------------------------------
 
 case $BLOCK_BUTTON in
-	2) notify-send " $PACKAGES 📦 upgradable packages" " $AUR  from AUR
- $OFFICIAL  from repos" ;; # middle click
-	3) pamac-manager ;; # right click - opens pamac-updater
+	2) pamac-manager ;; # middle click - opens pamac-updater
+	3) notify-send " $PACKAGES 📦 upgradable packages" " $AUR  from AUR
+ $OFFICIAL  from repos" ;; # right click
 esac
