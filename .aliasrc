@@ -438,7 +438,7 @@ alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles.git/ --work-tree=$HOME'
 #alias dotfiles='GIT_WORK_TREE=/home/website/  git --git-dir="./website.git/"  add ./'
 #alias dotpush= '/usr/bin/git --git-dir=$HOME/.deskdots/ --work-tree=$HOME push origin master'
 
-
+# dotfiles rm -rf --cached <fucked up directory>
 
 ###############################
 ##### extra aliases       #####
