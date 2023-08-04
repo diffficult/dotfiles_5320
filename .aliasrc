@@ -235,7 +235,7 @@ alias la='ll -a -s changed'
 
 ##alias lS='exa -1'                                                              # one column, just names
 
-alias lt='exa --tree --level=2'                                         # tree
+alias lt='exa --icons --tree --level=2'                                         # tree
 
 
 
