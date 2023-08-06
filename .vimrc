@@ -82,6 +82,9 @@ Plug 'https://github.com/sirver/UltiSnips'    " snippet program only, no code sn
 Plug 'https://github.com/honza/vim-snippets'  " code snippet of many programming language
 Plug 'https://github.com/tpope/vim-surround'  " :help surround
 " Plug 'https://github.com/ctrlpvim/ctrlp.vim'
+Plug 'preservim/nerdtree'
+Plug 'ryanoasis/vim-devicons'
+
 
 call plug#end()
 
