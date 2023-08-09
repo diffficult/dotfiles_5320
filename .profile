@@ -52,4 +52,4 @@ fi
 
 # Set keyboard to US-INTL with accents and deadkey
 
-setxkbmap -layout latam
+setxkbmap -layout latam -variant deadtilde
