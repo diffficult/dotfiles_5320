@@ -1,5 +1,5 @@
 favorites=
-recent=xfce-ui-settings.desktop,xfce4-power-manager-settings.desktop,redshift-gtk.desktop,lightdm-gtk-greeter-settings.desktop,xfce-mouse-settings.desktop,lightdm-settings.desktop,xfce-display-settings.desktop,blueman-manager.desktop,xfce-session-settings.desktop,picom.desktop
+recent=xfce-mouse-settings.desktop,xfce-keyboard-settings.desktop,xfce-ui-settings.desktop,xfce4-power-manager-settings.desktop,redshift-gtk.desktop,lightdm-gtk-greeter-settings.desktop,lightdm-settings.desktop,xfce-display-settings.desktop,blueman-manager.desktop,xfce-session-settings.desktop
 button-icon=/usr/share/icons/la-capitaine/apps/scalable/accessories-character-map.svg
 button-single-row=false
 show-button-title=false
