@@ -4,6 +4,7 @@
   <property name="Default" type="empty">
     <property name="XkbDisable" type="bool" value="false"/>
     <property name="XkbLayout" type="string" value="latam"/>
-    <property name="XkbVariant" type="string" value=""/>
+    <property name="XkbVariant" type="string" value="deadtilde"/>
+    <property name="XkbModel" type="string" value="latitude"/>
   </property>
 </channel>
