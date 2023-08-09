@@ -658,8 +658,8 @@ exec --no-startup-id synclient VertScrollDelta=-"$(synclient | grep VertScrollDe
 exec --no-startup-id synclient HorizScrollDelta=-"$(synclient | grep HorizScrollDelta | cut -d '=' -f 2 | cut -c 2-)"
 ###### END TOUCHPAD SETTINGS
 
-# Set keyboard to ES LATAM nodeadkeys 
-exec --no-startup-id setxkbmap -layout latam
+# Set keyboard to ES LATAM deadtilde and model Dell Latitude Laptop 
+exec --no-startup-id setxkbmap -layout latam -variant deadtilde
 
 # redshift
 exec --no-startup-id redshift-gtk
