@@ -7,7 +7,10 @@ syntax on
 let g:airline_powerline_fonts=1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'default'
-let g:airline_theme = 'powerlineish'
+" let g:airline_theme = 'catppuccin_mocha'
+let g:airline_theme = "simple"
+
+set termguicolors
 
 " LEADER remap
 "
@@ -157,8 +160,27 @@ Plug 'junegunn/vim-easy-align'
 Plug 'https://github.com/ap/vim-css-color' " CSS Color Preview
 Plug 'ycm-core/YouCompleteMe'
 
+" color themes
+Plug 'catppuccin/vim', { 'as': 'catppuccin' }
+Plug 'ghifarit53/tokyonight-vim'
+" Plug 'casonadams/nord.vim'
+Plug 'rafi/awesome-vim-colorschemes'
+Plug 'rainglow/vim'
+
 call plug#end()
 
 "}}}
+
+
+" colorscheme config
+" 
+
+"" tokyonight specific
+" let g:tokyonight_style = 'storm' " available: night, storm
+" let g:tokyonight_enable_italic = 1
+
+colorscheme nord
+
+
 
 
