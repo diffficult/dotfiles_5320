@@ -35,12 +35,17 @@ MiscRewrapOnResize=TRUE
 MiscUseShiftArrowsToScroll=FALSE
 MiscSlimTabs=FALSE
 MiscNewTabAdjacent=FALSE
-ColorCursor=#cdcdcececfcf
-ColorForeground=#cdcdcececfcf
-ColorBackground=#191923233030
-ColorPalette=#39393b3b4444;#c9c94f4f6d6d;#8181b2b29a9a;#dbdbc0c07474;#71719c9cd6d6;#9d9d7979d6d6;#6363cdcdcfcf;#dfdfdfdfe0e0;#474750507272;#d6d661616b6b;#5858cdcd8b8b;#ffffe3e37e7e;#8484cecee4e4;#b8b8a1a1e3e3;#5959f0f0ffff;#f2f2f2f2f2f2
+# ColorCursor=#cdcdcececfcf
+# ColorForeground=#cdcdcececfcf
+# ColorBackground=#191923233030
+# ColorPalette=#39393b3b4444;#c9c94f4f6d6d;#8181b2b29a9a;#dbdbc0c07474;#71719c9cd6d6;#9d9d7979d6d6;#6363cdcdcfcf;#dfdfdfdfe0e0;#474750507272;#d6d661616b6b;#5858cdcd8b8b;#ffffe3e37e7e;#8484cecee4e4;#b8b8a1a1e3e3;#5959f0f0ffff;#f2f2f2f2f2f2
+ColorCursor=#a9a9b1b1d6d6
+ColorForeground=#a9a9b1b1d6d6
+ColorBackground=#1a1a1b1b2626
+ColorPalette=#1a1a1b1b2626;#f7f776768e8e;#9e9ecece6a6a;#e0e0afaf6868;#7a7aa2a2f7f7;#9a9a7e7ecccc;#4a4ababaafaf;#acacb0b0d0d0;#4e4e51517373;#f7f776768e8e;#9e9ecece6a6a;#e0e0afaf6868;#7a7aa2a2f7f7;#9a9a7e7ecccc;#4a4ababaafaf;#acacb0b0d0d0
 MiscSearchDialogOpacity=100
 MiscShowUnsafePasteDialog=FALSE
 BackgroundMode=TERMINAL_BACKGROUND_TRANSPARENT
 MiscRightClickAction=TERMINAL_RIGHT_CLICK_ACTION_CONTEXT_MENU
+
 
