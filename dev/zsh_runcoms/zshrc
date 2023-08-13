@@ -1,0 +1,88 @@
+##
+# prezto #
+##
+
+if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
+  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+fi
+
+##
+# extras #
+##
+
+#if [ -f /etc/bash_completion.d/climate_completion ]; then
+#fi
+
+if [ -f ~/.config/climate_completion ]; then
+fi
+
+##
+# Aliases #
+##
+
+# load alias/functions that works with both zsh/bash
+if [[ -f ~/.aliasrc ]]; then
+    source ~/.aliasrc
+fi
+
+##
+# HISTORY options
+##
+
+export HISTFILE=~/.zsh_history
+export HISTFILESIZE=1000
+export HISTSIZE=1000
+setopt INC_APPEND_HISTORY
+export HISTTIMEFORMAT="[%F %T] "
+setopt EXTENDED_HISTORY
+setopt HIST_FIND_NO_DUPS
+setopt HIST_IGNORE_ALL_DUPS
+
+##
+# thefuck #
+##
+
+# eval $(thefuck --alias)
+
+##
+# External Crap
+##
+
+# source command-not-found
+if [[ -f "$HOME/.zprezto/modules/command-not-found/init.zsh" ]]; then
+  source "$HOME/.zprezto/modules/command-not-found/init.zsh"
+fi
+
+if [[ -f "/usr/share/doc/find-the-command/ftc.zsh" ]]; then
+  source "/usr/share/doc/find-the-command/ftc.zsh"
+fi
+
+if [[ -f "$HOME/.config/broot/launcher/bash/br" ]]; then
+  source "$HOME/.config/broot/launcher/bash/br"
+fi
+
+# autocompletion for zsh to get completion of command flags
+autoload -U compinit && compinit
+
+
+# sourcing nvm to install and run different node.js versions
+if [[ -f ~/usr/share/nvm/init-nvm.sh ]]; then
+  source /usr/share/nvm/init-nvm.sh
+fi
+
+# navi command line cheatsheets
+source <(echo "$(navi widget zsh)")
+
+# source all files in function directory
+if [ -d "$HOME/.config/functions" ]; then
+  for f in $HOME/.config/functions/*
+    do source "$f"
+  done
+fi
+
+# add QT platform handling environment variable
+export QT_AUTO_SCREEN_SCALE_FACTOR=0
+export QT_QPA_PLATFORMTHEME=qt5ct
+
+
+source /etc/bash_completion.d/climate_completion

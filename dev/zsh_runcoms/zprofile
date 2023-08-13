@@ -1,0 +1,93 @@
+#
+# Executes commands at login pre-zshrc.
+#
+# Authors:
+#   Sorin Ionescu <sorin.ionescu@gmail.com>
+#
+
+#
+# Variables
+#
+
+#export EDITOR=/usr/bin/nano
+export QT_QPA_PLATFORMTHEME="qt5ct"
+export QT_AUTO_SCREEN_SCALE_FACTOR=0
+export QT_SELECT=5
+export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
+
+export GTK_THEME=Arc-Dark
+
+
+#
+# Browser
+#
+
+if [[ "$OSTYPE" == darwin* ]]; then
+  export BROWSER='open'
+fi
+
+#
+# Editors
+#
+
+export EDITOR='nano'
+export VISUAL='nano'
+export PAGER='less'
+
+#
+# Language
+#
+
+if [[ -z "$LANG" ]]; then
+  export LANG='en_US.UTF-8'
+fi
+
+
+#
+# Paths
+#
+
+
+# Ensure path arrays do not contain duplicates.
+typeset -gU cdpath fpath mailpath path
+
+# Set the list of directories that cd searches.
+# cdpath=(
+#   $cdpath
+# )
+
+# Set the list of directories that Zsh searches for programs.
+path=(
+  /usr/local/{bin,sbin}
+  $path
+)
+
+#
+# Less
+#
+
+# Set the default Less options.
+# Mouse-wheel scrolling has been disabled by -X (disable screen clearing).
+# Remove -X and -F (exit if the content fits on one screen) to enable it.
+export LESS='-F -g -i -M -R -S -w -X -z-4'
+
+# Set the Less input preprocessor.
+# Try both `lesspipe` and `lesspipe.sh` as either might exist on a system.
+if (( $#commands[(i)lesspipe(|.sh)] )); then
+  export LESSOPEN="| /usr/bin/env $commands[(i)lesspipe(|.sh)] %s 2>&-"
+fi
+
+# Synaptics Dell Touchpad tweaks 
+
+# Enable tap to click
+#synclient TapButton1=1
+
+# Enable two-finger touch to left click
+#synclient TapButton2=3
+
+# Enable natural scrolling
+#synclient VertScrollDelta=-"$(synclient | grep VertScrollDelta | cut -d '=' -f 2 | cut -c 2-)
+#synclient HorizScrollDelta=-"$(synclient | grep HorizScrollDelta | cut -d '=' -f 2 | cut -c 2-)
+
+# Enable horizontal scroll with two fingers
+#synclient HorizTwoFingerScroll=1
