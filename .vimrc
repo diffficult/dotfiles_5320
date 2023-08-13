@@ -8,14 +8,14 @@ let g:airline_powerline_fonts=1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'default'
 " let g:airline_theme = 'catppuccin_mocha'
-let g:airline_theme = "simple"
+let g:airline_theme = 'simple'
 
-set termguicolors
+" set termguicolors
 
 " LEADER remap
 "
 "
-let mapleader = ","
+let mapleader = ','
 "
 "
 " more remaps
@@ -163,9 +163,9 @@ Plug 'ycm-core/YouCompleteMe'
 " color themes
 Plug 'catppuccin/vim', { 'as': 'catppuccin' }
 Plug 'ghifarit53/tokyonight-vim'
-" Plug 'casonadams/nord.vim'
+Plug 'casonadams/nord.vim'
 Plug 'rafi/awesome-vim-colorschemes'
-Plug 'rainglow/vim'
+" Plug 'rainglow/vim'
 
 call plug#end()
 
@@ -179,7 +179,7 @@ call plug#end()
 " let g:tokyonight_style = 'storm' " available: night, storm
 " let g:tokyonight_enable_italic = 1
 
-colorscheme nord
+colorscheme nord-light
 
 
 
