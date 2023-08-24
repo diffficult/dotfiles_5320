@@ -8,7 +8,7 @@ let g:airline_powerline_fonts=1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'default'
 " let g:airline_theme = 'catppuccin_mocha'
-let g:airline_theme = 'simple'
+let g:airline_theme = 'powerlineish'
 
 " set termguicolors
 
@@ -26,8 +26,6 @@ vnoremap / /\v
 nnoremap <leader><space> :noh<cr>
 nnoremap <tab> %
 vnoremap <tab> %
-
-
 
 
 set completeopt-=preview
@@ -81,7 +79,7 @@ set showbreak=↪
 set encoding=utf-8                   " The encoding displayed.
 set fileencoding=utf-8               " The encoding written to file.
 set synmaxcol=300                    " Don't try to highlight long lines
-
+"
 " end testing more options  ===============================================================
 
 
@@ -179,8 +177,9 @@ call plug#end()
 " let g:tokyonight_style = 'storm' " available: night, storm
 " let g:tokyonight_enable_italic = 1
 
-colorscheme nord-light
+" colorscheme nord-light
 
+colorscheme catppuccin_mocha
 
 
 
