@@ -1,6 +1,6 @@
 [Configuration]
 TitleInitial=xfce-term
-FontName=JetBrainsMono Nerd Font Semi-Bold 11
+FontName=JetBrainsMonoNL Nerd Font Medium 11
 MiscAlwaysShowTabs=FALSE
 MiscBell=FALSE
 MiscBordersDefault=TRUE
@@ -31,14 +31,14 @@ MiscRewrapOnResize=TRUE
 MiscUseShiftArrowsToScroll=FALSE
 MiscSlimTabs=FALSE
 MiscNewTabAdjacent=FALSE
-ColorCursor=#F5E0DC
-ColorForeground=#CDD6F4
-ColorBackground=#1E1E2E
-ColorPalette=#45475A;#F38BA8;#A6E3A1;#F9E2AF;#89B4FA;#F5C2E7;#94E2D5;#BAC2DE;#585B70;#F38BA8;#A6E3A1;#F9E2AF;#89B4FA;#F5C2E7;#94E2D5;#A6ADC8
 MiscSearchDialogOpacity=100
 MiscShowUnsafePasteDialog=FALSE
 BackgroundMode=TERMINAL_BACKGROUND_TRANSPARENT
 MiscRightClickAction=TERMINAL_RIGHT_CLICK_ACTION_CONTEXT_MENU
+ColorPalette=#45475A;#F38BA8;#A6E3A1;#F9E2AF;#89B4FA;#F5C2E7;#94E2D5;#BAC2DE;#585B70;#F38BA8;#A6E3A1;#F9E2AF;#89B4FA;#F5C2E7;#94E2D5;#A6ADC8
+ColorForeground=#CDD6F4
+ColorBackground=#1E1E2E
+ColorCursor=#F5E0DC
 ColorCursorForeground=#11111B
 ColorCursorUseDefault=FALSE
 ColorSelection=#CDD6F4
