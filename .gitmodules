@@ -8,5 +8,5 @@
 	path = .config/i3/i3blocks-contrib
 	url = https://github.com/vivien/i3blocks-contrib
 [submodule "/home/poole/dev/oh-my-tmux"]
-	path = /home/poole/dev/oh-my-tmux
-	url = https://github.com/gpakosz/.tmux
+        path = /home/poole/dev/oh-my-tmux
+        url = https://github.com/gpakosz/.tmux
