@@ -179,7 +179,7 @@ zstyle :prompt:pure:prompt:error color red
 #
 
 # Set the SSH identities to load into the agent.
-zstyle ':prezto:module:ssh:load' identities 'id_rsa' 'home' 'work' 'raccoonesque' 'gitlab'
+zstyle ':prezto:module:ssh:load' identities 'id_rsa' 'home' 'work' 'raccoonesque' 'github' 'gitlab'
 
 #
 # Syntax Highlighting
