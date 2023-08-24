@@ -3,7 +3,7 @@
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
 set $mod Mod4
-set $editor subl
+set $editor vim
 
 #Color Variables - Original Arc Theme
 set $base00 #101218
@@ -84,8 +84,17 @@ mode "$mode_gaps_outer" {
         bindsym Escape mode "default"
 }
 
+# Scratchpad
+# Make the currently focused window a scratchpad
+bindsym $mod+Shift+minus move scratchpad
 
+# Show the first scratchpad window
+bindsym $mod++minus scratchpad show
 
+# Show the sup-mail scratchpad window, if any.
+##bindsym $mod+Shift+k [title="^Keepass ::"] scratchpad show
+
+#_______
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -367,6 +376,7 @@ assign [class="Seahorse"] $workspace5
 assign [class="protonvpn"] $workspace8
 assign [class="code-oss"] $workspace6
 assign [class="steam"] $workspace8
+assign [class="(?i)rustdesk"] $workspace10
 
 # Shutdown, Reboot, Lock Screen, and Logout #657b83 ---------------------------------------------------------------------------
 set $sysmenu "[P]oweroff . [H]ibernate . [S]uspend . re[B]oot . [L]ock . logou[T]"
@@ -528,6 +538,8 @@ for_window [class="Switchboard"] floating enable, border none
 for_window [class="file_progress"] floatin enable, border normal
 for_window [class="feh"] floating enable, border none
 for_window [class="(?i)nm-connection-editor"] floating enable, border none
+for_window [class="(?i)qt5ct"] floating enable, border normal, resize set 600 680, move absolute position center
+
 # XFCE specific
 for_window [class="Xfce4-terminal"] border none
 for_window [class="Thunar"] border none
@@ -554,6 +566,7 @@ for_window [class="zathura"] border none
 #for_window [class="^Chrome$" title=" - Chromium$"] border none
 #for_window [class="^chrom$"] border 1pixel
 #for_window [class="chromium-browser"] border non e
+for_window [class="(?i)rustdesk"] floating enable, move absolute position center
 for_window [class="Gpicview"] border none
 for_window [class="TelegramDesktop"] floating enable, border none
 for_window [class="steam"] floating enable, border none, resize set 960 640
@@ -582,7 +595,8 @@ new_window none
 exec --no-startup-id dbus-update-activation-environment --all
 
 #Autostart gnome-keyring
-exec --no-startup-id gnome-keyring-daemon --start --components=pkcs11,secrets,ssh
+#exec --no-startup-id gnome-keyring-daemon --start --components=pkcs11,secrets,ssh
+exec --no-startup-id gnome-keyring-daemon --start --components=pkcs11,secrets,ssh,gpg
 
 #xscreensaver
 exec --no-startup-id xscreensaver -no-splash
