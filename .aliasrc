@@ -32,16 +32,16 @@ export BROWSER=/usr/bin/google-chrome-stable
 #export BROWSERCLI=$(find_alt w3m links2 links lynx elinks $OPENER )
 export BROWSERTOR=$(find_alt tor-browser-en)
 export EBOOKER=$(find_alt ebook-viewer $OPENER )
-export EDITOR=$(find_alt vim vi emacs nano leafpad gedit pluma $OPENER )
-export EDITORCLI=$(find_alt nano pico vim vi gedit pluma $OPENER )
-export EDITORGUI=$(find_alt mousepad leafpad gedit pluma $OPENER )
-export FILEMANAGER=$(find_alt nautilus dolphin spacefm thunar enlightenment_filemanager $OPENER )
+export EDITOR=$(find_alt nvim vim vi nano pico $OPENER )
+export EDITORCLI=$(find_alt nvim vim nano pico vi $OPENER )
+export EDITORGUI=$(find_alt code subl gedit mousepad leafpad pluma $OPENER )
+export FILEMANAGER=$(find_alt nemo nautilus thunar spacefm $OPENER )
 export FILEMANAGERCLI=$(find_alt ranger vifm mc $OPENER )
 export PAGER=$(find_alt less more most)
 export PLAYER=$(find_alt mpv mplayer ffplay cvlc $OPENER )
-export READER=$(find_alt mupdf zathura evince $OPENER )
+export READER=$(find_alt zathura mupdf evince $OPENER )
 #export ROOTER=$(find_alt gksudo kdesudo )
-export IMAGEVIEWER=$(find_alt feh ristretto display eog $OPENER )
+export IMAGEVIEWER=$(find_alt sxiv feh ristretto display eog $OPENER )
 export QUEUER=$(find_alt tsp fq ts )
 #export TERMER=$(find_alt urxvt xterm uxterm termite sakura lxterminal terminator mate-terminal pantheon-terminal konsole gnome-terminal xfce4-terminal $OPENER )
 
@@ -116,13 +116,13 @@ fi
 cfg-aliasrc() { $EDITORCLI ~/.aliasrc ;}
 cfg-bashrc() { $EDITORCLI ~/.bashrc ;}
 cfg-cava() { $EDITORCLI ~/.config/cava/config ;}
-cfg-compton() { $EDITORCLI ~/.config/picom.conf ;}
+cfg-picom() { $EDITORCLI ~/.config/picom.conf ;}
 cfg-fstab() { sudo $EDITORCLI /etc/fstab ;}
 cfg-group() { sudo $EDITORCLI /etc/group ;}
 cfg-grub() { sudo $EDITORCLI /etc/default/grub ;}
 cfg-hintrc() { $EDITORCLI ~/.hintrc ;}
 cfg-hosts() { sudo $EDITORCLI /etc/hosts ;}
-cfg-i3wm() { $EDITORCLI ~/.i3/config ;}
+cfg-i3wm() { $EDITORCLI ~/.config/i3/config ;}
 cfg-inputrc() { $EDITORCLI ~/.inputrc ;}
 cfg-livestreamer() { $EDITORCLI ~/.livestreamerrc ;}
 cfg-megarc() { $EDITORCLI ~/.megarc ;}
@@ -158,8 +158,9 @@ cfg-vimrc() { $EDITORCLI ~/.vimrc ;}
 cfg-xbindkeysrc() { $EDITORCLI ~/.xbindkeysrc && killall xbindkeys ; xbindkeys ;}
 cfg-xmodmap() { $EDITORCLI ~/.Xmodmap ;}
 cfg-xresources() { $EDITORCLI ~/.Xresources ;}
-cfg-yaourtrc() { $EDITORCLI ~/.yaourtrc ;}
 cfg-zshrc() { $EDITORCLI ~/.zshrc ;}
+cfg-zpreztorc() { $EDITORCLI ~/.zpreztorc ;}
+cfg-zprofile() { $EDITORCLI ~/.zprofile ;}
 #}}}
 
 #-------- Configurations Reload {{{
