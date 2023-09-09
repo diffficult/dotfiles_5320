@@ -46,15 +46,15 @@ $full_text = "$percent%";
 
 if ($status eq 'Discharging') {
 	if ($percent < 10) {
-    	$full_text = '  ' . $full_text;
+    	$full_text = '  ' . $full_text;
 	} elsif ($percent < 25) {
-    	$full_text = '  ' . $full_text;
+    	$full_text = '  ' . $full_text;
 	} elsif ($percent <= 50) {
-    	$full_text = '  ' . $full_text;
+    	$full_text = '  ' . $full_text;
 	} elsif ($percent <= 75) {
-    	$full_text = '  ' . $full_text;
+    	$full_text = '  ' . $full_text;
 	} elsif ($percent < 100) {
-    	$full_text = '  ' . $full_text;
+    	$full_text = '  ' . $full_text;
 	}
 
 } elsif ($status eq 'Charging') {
@@ -70,6 +70,7 @@ if ($acpi =~ /(\d\d:\d\d):/) {
 }
 
 # print text
+use open ":std", ":encoding(UTF-8)";
 print "$full_text\n";
 print "$short_text\n";
 

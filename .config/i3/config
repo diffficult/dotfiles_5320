@@ -599,16 +599,16 @@ exec --no-startup-id dbus-update-activation-environment --all
 exec --no-startup-id gnome-keyring-daemon --start --components=pkcs11,secrets,ssh,gpg
 
 #xscreensaver
-exec --no-startup-id xscreensaver -no-splash
+# exec --no-startup-id xscreensaver -no-splash
 
 #mpd 
-exec --no-startup-id mpd .mpd/mpd.conf
+##exec --no-startup-id mpd .mpd/mpd.conf
 
 #compton compositor
 #exec --no-startup-id compton --config ~/.config/compton.conf -CGb
 
-#pico compositor (picom)
-exec --no-startup-id picom --config ~/.config/picom.conf -CGb
+#pico compositor (picom) -CGb removed from exec
+exec --no-startup-id picom --config ~/.config/picom.conf
 
 #Set random wallpaper
 exec --no-startup-id feh --bg-fill "$(find /usr/share/backgrounds/ -type f |sort -R |tail -1)"
@@ -616,8 +616,8 @@ exec --no-startup-id feh --bg-fill "$(find /usr/share/backgrounds/ -type f |sort
 #Dropbox tray icon
 #optional command only dropbox start -i yo ucan also check dropbox status with dropbox status
 #exec --no-startup-id dropbox start -i
-#exec --no-startup-id /bin/bash -c "sleep 30 && dropbox stop && env DBUS_SESSION_BUS_ADDRESS="" dropbox start -i"
-exec --no-startup-id "dropbox stop && dbus-launch dropbox start -i"
+exec --no-startup-id /bin/bash -c "sleep 15 && dropbox stop && env DBUS_SESSION_BUS_ADDRESS="" dropbox start -i"
+###exec --no-startup-id "dropbox stop && dbus-launch dropbox start -i"
 
 #network tray applet nm-applet
 exec --no-startup-id "nm-applet --sm-disable &"
