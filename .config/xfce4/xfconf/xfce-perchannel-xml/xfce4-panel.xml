@@ -85,7 +85,31 @@
     <property name="plugin-13" type="string" value="separator">
       <property name="style" type="uint" value="0"/>
     </property>
-    <property name="plugin-1" type="string" value="whiskermenu"/>
+    <property name="plugin-1" type="string" value="whiskermenu">
+      <property name="button-icon" type="string" value="/usr/share/icons/la-capitaine/apps/scalable/accessories-character-map.svg"/>
+      <property name="launcher-icon-size" type="int" value="3"/>
+      <property name="favorites-in-recent" type="bool" value="true"/>
+      <property name="position-search-alternate" type="bool" value="true"/>
+      <property name="position-categories-alternate" type="bool" value="true"/>
+      <property name="menu-width" type="int" value="449"/>
+      <property name="menu-height" type="int" value="551"/>
+      <property name="menu-opacity" type="int" value="80"/>
+      <property name="command-switchuser" type="string" value="gdmflexiserver"/>
+      <property name="favorites" type="array">
+      </property>
+      <property name="recent" type="array">
+        <value type="string" value="xfce-ui-settings.desktop"/>
+        <value type="string" value="org.gnome.seahorse.Application.desktop"/>
+        <value type="string" value="google-chrome.desktop"/>
+        <value type="string" value="xfce-mouse-settings.desktop"/>
+        <value type="string" value="xfce-keyboard-settings.desktop"/>
+        <value type="string" value="xfce4-power-manager-settings.desktop"/>
+        <value type="string" value="redshift-gtk.desktop"/>
+        <value type="string" value="lightdm-gtk-greeter-settings.desktop"/>
+        <value type="string" value="lightdm-settings.desktop"/>
+        <value type="string" value="xfce-display-settings.desktop"/>
+      </property>
+    </property>
     <property name="plugin-15" type="string" value="separator">
       <property name="style" type="uint" value="0"/>
     </property>
@@ -137,6 +161,9 @@
         <value type="string" value="networkmanager applet"/>
       </property>
       <property name="known-items" type="array">
+        <value type="string" value="dropbox-client-3346"/>
+        <value type="string" value="dropbox-client-2858"/>
+        <value type="string" value="dropbox-client-95898"/>
         <value type="string" value="dropbox-client-31791"/>
         <value type="string" value="dropbox-client-1546"/>
         <value type="string" value="dropbox-client-1554"/>

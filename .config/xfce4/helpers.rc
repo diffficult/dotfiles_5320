@@ -1,4 +1,4 @@
 TerminalEmulator=xfce4-terminal
 FileManager=custom-FileManager
 
-WebBrowser=google-chrome
+WebBrowser=google-chrome-unstable
