@@ -277,21 +277,32 @@ zstyle ':prezto:module:enhancd' command 'cd'
 # https://github.com/gpanders/fzf-prezto >> old unmaitained in use @x220
 # https://github.com/lildude/fzf-prezto >> newest currently in use @Desktop 
 
-# Use keybindings
-zstyle ':prezto:module:fzf' key-bindings 'yes'
+# Forcefully Set to fzf installation directory path - default will try to detect the correct location
+# zstyle ':prezto:module:fzf' fzf-base '/home/poole/.zprezto/contrib/fzf'
 
-# Use completion
-zstyle ':prezto:module:fzf' completion 'yes'
+# Set the default command to use when input is tty - default is to set it to these in the order in which they're found:
+# - `rg --files --hidden --glob "!.git/*"`
+# - `fd --type f --hidden --exclude .git`
+# - `ag -l --hidden -g "" --ignore .git`,
+zstyle ':prezto:module:fzf' fzf-default-command 'rg --files --hidden --glob "!.git/*"'
 
-# Set height of the fzf results (comment for full screen)
+# Disable keybindings - default: no
+zstyle ':prezto:module:fzf' disable-key-bindings 'no'
+
+# Disable completion - default: no
+zstyle ':prezto:module:fzf' disable-completion 'yes'
+
+# Set height of the fzf results - default: full height
 zstyle ':prezto:module:fzf' height '30%'
 
-# Open fzf results in a tmux pane (if using tmux)
+# Show file preview with ctrl+t and directory contents preview (needs tree) with alt-c
+zstyle ':prezto:module:fzf' preview 'yes'
+
+# Open fzf results in a tmux pane, if using tmux - default: no
 zstyle ':prezto:module:fzf' tmux 'yes'
 
-# Set colorscheme
-# A list of available colorschemes is available in color.zsh
-# To add more color schemes of your own, consult
-# https://github.com/junegunn/fzf/wiki/Color-schemes and add values to the
-# color.zsh file accordingly
-zstyle ':prezto:module:fzf' colorscheme 'JellyX'
+# Order output in reverse order - default: no
+zstyle ':prezto:module:fzf' reverse 'yes'
+
+# Set the color scheme
+zstyle ':prezto:module:fzf' color-scheme 'JellyX'        #  'Solarized Light'

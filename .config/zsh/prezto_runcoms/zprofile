@@ -18,16 +18,7 @@ export QT_SCALE_FACTOR=1
 export QT_SELECT=5
 export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
 
-export GTK_THEME=Arc-Dark
-
-
-#
-# Browser
-#
-
-if [[ "$OSTYPE" == darwin* ]]; then
-  export BROWSER='open'
-fi
+export GTK_THEME=Nordic-darker
 
 #
 # Editors
@@ -62,8 +53,8 @@ fi
 ##     PATH="$HOME/.local/bin:$PATH"
 ## fi
 
-# Ensure path arrays do not contain duplicates.
-typeset -gU cdpath fpath mailpath path
+# Ensure path arrays do not contain duplicates. removed -U option invalid
+typeset -g cdpath fpath mailpath path
 
 # Set the list of directories that cd searches.
 # cdpath=(
@@ -111,9 +102,9 @@ fi
 
 # Set the Less input preprocessor.
 # Try both `lesspipe` and `lesspipe.sh` as either might exist on a system.
-if (( $#commands[(i)lesspipe(|.sh)] )); then
-  export LESSOPEN="| /usr/bin/env $commands[(i)lesspipe(|.sh)] %s 2>&-"
-fi
+### if (( $#commands[(i)lesspipe(|.sh)] )); then
+###   export LESSOPEN="| /usr/bin/env $commands[(i)lesspipe(|.sh)] %s 2>&-"
+### fi
 
 
 # Set keyboard to US-INTL with accents and deadkey
