@@ -98,16 +98,16 @@
       <property name="favorites" type="array">
       </property>
       <property name="recent" type="array">
+        <value type="string" value="xfce-keyboard-settings.desktop"/>
+        <value type="string" value="mpv.desktop"/>
+        <value type="string" value="org.xfce.Parole.desktop"/>
         <value type="string" value="xfce-ui-settings.desktop"/>
         <value type="string" value="org.gnome.seahorse.Application.desktop"/>
         <value type="string" value="google-chrome.desktop"/>
         <value type="string" value="xfce-mouse-settings.desktop"/>
-        <value type="string" value="xfce-keyboard-settings.desktop"/>
         <value type="string" value="xfce4-power-manager-settings.desktop"/>
         <value type="string" value="redshift-gtk.desktop"/>
         <value type="string" value="lightdm-gtk-greeter-settings.desktop"/>
-        <value type="string" value="lightdm-settings.desktop"/>
-        <value type="string" value="xfce-display-settings.desktop"/>
       </property>
     </property>
     <property name="plugin-15" type="string" value="separator">
@@ -161,6 +161,7 @@
         <value type="string" value="networkmanager applet"/>
       </property>
       <property name="known-items" type="array">
+        <value type="string" value="dropbox-client-1617"/>
         <value type="string" value="dropbox-client-3346"/>
         <value type="string" value="dropbox-client-2858"/>
         <value type="string" value="dropbox-client-95898"/>

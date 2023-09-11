@@ -33,8 +33,8 @@
     <property name="MenuImages" type="empty"/>
     <property name="ButtonImages" type="empty"/>
     <property name="MenuBarAccel" type="empty"/>
-    <property name="CursorThemeName" type="string" value="volantes_light_cursors"/>
-    <property name="CursorThemeSize" type="int" value="20"/>
+    <property name="CursorThemeName" type="string" value="capitaine-cursors-light"/>
+    <property name="CursorThemeSize" type="int" value="30"/>
     <property name="DecorationLayout" type="string" value="menu:minimize,maximize,close"/>
     <property name="DialogsUseHeader" type="empty"/>
     <property name="TitlebarMiddleClick" type="empty"/>
