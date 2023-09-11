@@ -38,22 +38,22 @@
 ! Xft settings
 !-------------------------------------------------------------------------------
 
-Xft.dpi:				96
+Xft.dpi:				      96
 !Xft.dpi:                               192
 Xft.antialias: 				true
-Xft.rgba: 				rgb
-Xft.hinting: 				true
+Xft.rgba: 		    		rgb
+Xft.hinting:   				true
 Xft.hintstyle: 				hintfull
 Xft.lcdfilter: 				lcddefault
 Xcursor.theme:				Paper
 
-URxvt*depth:                32
-URxvt*geometry:             90x30
+URxvt*depth:          32
+URxvt*geometry:       90x30
 URxvt*background:			#030508
-URxvt*loginShell:           true
-URxvt*saveLines:            1000
-URxvt*internalBorder:       3
-URxvt*lineSpace:            0
+URxvt*loginShell:     true
+URxvt*saveLines:      1000
+URxvt*internalBorder: 3
+URxvt*lineSpace:      0
 
 ! Fonts
 URxvt*font:xft:scientifica:size=8
@@ -169,12 +169,9 @@ URxvt*pointerBlank:         true
 *.color7:       #dddddd
 *.color15:      #dddddd
 
-
-
 ! TABS COLOURS
 ! URxvt.color0  : #979797
 ! URxvt.color1  : #000000
-
 
 !! Transparency (0-255):
 
