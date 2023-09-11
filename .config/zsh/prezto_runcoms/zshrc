@@ -28,9 +28,9 @@ export FZF_BASE=/usr/share/fzf
 # gpg agent
 ##
 
-eval $(gpg-connect-agent --quiet /bye)
-export GPG_TTY=$(tty)
-export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+# eval $(gpg-connect-agent --quiet /bye)
+# export GPG_TTY=$(tty)
+# export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
 
 ##
 # Aliases #
