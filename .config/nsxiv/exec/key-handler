@@ -1,0 +1,22 @@
+#!/bin/sh
+while read file
+do
+    case "$1" in
+    "w")
+        cp "$file" ~/.config/wall.png && feh --bg-scale "$HOME/.config/wall.png" && notify-send -i "$HOME/.config/wall.png" "Wallpaper changed." ;;
+	"r")
+		convert -rotate 90 "$file" "$file" && notify-send "$file rotated 90°";;
+	"R")
+		convert -rotate -90 "$file" "$file" && notify-send "$file rotated -90°";;
+	"f")
+		convert -flop "$file" "$file" ;;
+	"y")
+		echo -n "$file" | xclip -selection clipboard && notify-send "$file copied to clipboard" --icon=/home/poole/.local/share/icons/notify/wallpaper.svg & ;;
+	"Y")
+		echo -n "$(readlink -f "$file")" | xclip -selection clipboard && notify-send "$(readlink -f "$file") copied to clipboard" --icon=/home/poole/.local/share/icons/notify/wallpaper.svg & ;;
+	"d")
+		trash "$file" && notify-send "$file deleted." --icon=application-exit ;;
+	"G")
+		gimp "$file" & ;;
+    esac
+done

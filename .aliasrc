@@ -297,6 +297,7 @@ alias cleanup='paccache -ruk0 && yes | yay -Scc'
 
 # wttr() { curl -H "Accept-Language: ${LANG%_*}" wttr.in/"${1:-Orange}" ;}
 
+alias sxiv='nsxiv'
 
 ## }}}
 
