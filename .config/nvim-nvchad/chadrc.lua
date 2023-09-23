@@ -1,8 +1,8 @@
 ---@type ChadrcConfig 
  local M = {}
  M.ui = {
-  theme_toggle = { "tokyonight", "catppuccin" },
-  theme = 'tokyonight',
+  theme_toggle = { "bearded-arc", "catppuccin" },
+  theme = 'bearded-arc',
 --- custom status line config 
   statusline = {
     theme = "default", -- default/vscode/vscode_colored/minimal
