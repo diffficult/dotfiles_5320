@@ -138,21 +138,11 @@ bindsym $mod+Shift+q kill
 
 #bindsym $mod+d exec --no-startup-id rofi -eh 2
 
-bindsym $mod+d exec --no-startup-id rofi -show drun -lines 4 -eh 2
+bindsym $mod+d exec --no-startup-id rofi -show combi
 
-#bindsym $mod+d exec --no-startup-id rofi -show drun -lines 4 -font "PragmataPro 12" -eh 2 -width 60 -show-icons true
-#bindsym $mod+Shift-e exec --no-startup-id rofimoji -lines 4 -font "PragmataPro 14" -eh 2 -width 60 -show-icons true
+#bindsym $mod+y exec --no-startup-id yt-r
 
-#-modi 'drun,run,emoji:/usr/bin/rofimoji,window,ssh'
-
-#-opacity "80"
-
-#bindsym $mod+d exec rofi -show run -lines 3 -font "PragmataPro 16" -eh 2 -bc "$base01" -bg "$base01" -fg "$base07" -hlbg "$base03" -hlfg "$base05" -width 100 -padding 335 -opacity "85" 
-
-#bindsym $mod+d exec rofi -show run -lines 3 -font "PragmataPro 16" -eh 2 -color-window "#1f222d, #1f222d, #000000" -color-normal "#1f222d, #ffffff, #101218, #7780a1, #d1d4e0" -color-active "#1f222d, #268bd2, #ffffff, #268bd2, #d1d4e0" -color-urgent "#1f222d, #dc322f, #ffffff, #dc322f, #d1d4e0" -width 100 -padding 335 -opacity "85"
-
-#bindsym $mod+d exec rofi -show run -lines 3 -eh 2 -width 100 -padding 500 -opacity "85" -bw 0 -bc "$bg-color" -bg "$bg-color" -fg "$text-color" -hlbg "$bg-color" -hlfg "#9575cd" -font "Pragmata Pro 18"
-
+bindsym $mod+p exec --no-startup-id rofi-pass
 
 # Screenshot
 #bindsym $mod+Shift+Print exec --no-startup-id "mkdir -p ~/Pictures/Screenshots && scrot -q 100 ~/Pictures/Screenshots/scrot-$(date +%Y-%m-%d_%H-%M-%S).jpg"

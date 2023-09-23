@@ -41,7 +41,7 @@ export PAGER=$(find_alt less more most)
 export PLAYER=$(find_alt mpv mplayer ffplay cvlc $OPENER )
 export READER=$(find_alt zathura mupdf evince $OPENER )
 #export ROOTER=$(find_alt gksudo kdesudo )
-export IMAGEVIEWER=$(find_alt sxiv feh ristretto display eog $OPENER )
+export IMAGEVIEWER=$(find_alt nsxiv feh sxiv ristretto display eog $OPENER )
 export QUEUER=$(find_alt tsp fq ts )
 #export TERMER=$(find_alt urxvt xterm uxterm termite sakura lxterminal terminator mate-terminal pantheon-terminal konsole gnome-terminal xfce4-terminal $OPENER )
 
@@ -298,6 +298,8 @@ alias cleanup='paccache -ruk0 && yes | yay -Scc'
 # wttr() { curl -H "Accept-Language: ${LANG%_*}" wttr.in/"${1:-Orange}" ;}
 
 alias sxiv='nsxiv'
+
+alias cat='bat'
 
 ## }}}
 
