@@ -57,10 +57,10 @@
       <value type="string" value="Antergos"/>
     </property>
   </property>
-  <property name="log-level" type="uint" value="0"/>
-  <property name="log-level-apps" type="uint" value="0"/>
   <property name="log-max-size-enabled" type="bool" value="true"/>
   <property name="date-time-custom-format" type="string" value="%a %H:%M:%S"/>
   <property name="show-notifications-on" type="string" value="active-monitor"/>
   <property name="date-time-format" type="string" value="locale-default"/>
+  <property name="log-level" type="string" value="not-fully-shown"/>
+  <property name="log-level-apps" type="string" value="all"/>
 </channel>
