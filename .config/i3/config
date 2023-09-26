@@ -613,8 +613,8 @@ exec --no-startup-id /bin/bash -c "sleep 15 && dropbox stop && env DBUS_SESSION_
 exec --no-startup-id "nm-applet --sm-disable &"
 
 #bluetooth tray applet blueman-applet
+### turn off bluetooth by default on startup using [ $ gsettings set org.blueman.plugins.powermanager auto-power-on false ]
 exec --no-startup-id blueman-applet
-#exec --no-startup-id 
 
 #megasync client
 exec --no-startup-id megasync
