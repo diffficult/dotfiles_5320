@@ -144,6 +144,8 @@ bindsym $mod+d exec --no-startup-id rofi -show combi
 
 bindsym $mod+p exec --no-startup-id rofi-pass
 
+bindsym $mod+m exec --no-startup-id rofi-fontawesome2
+
 # Screenshot
 #bindsym $mod+Shift+Print exec --no-startup-id "mkdir -p ~/Pictures/Screenshots && scrot -q 100 ~/Pictures/Screenshots/scrot-$(date +%Y-%m-%d_%H-%M-%S).jpg"
 
