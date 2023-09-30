@@ -4,6 +4,7 @@
 #         without any warranty.
 #         Copyright 2012— Gregory Pakosz (@gpakosz).
 
+set-option -sa terminal-overrides ",xterm*:Tc"
 
 # -- session creation ----------------------------------------------------------
 
