@@ -30,6 +30,7 @@ zstyle ':prezto:load' pmodule \
   'environment' \
   'terminal' \
   'editor' \
+  'rsync' \
   'history' \
   'directory' \
   'spectrum' \
@@ -38,10 +39,10 @@ zstyle ':prezto:load' pmodule \
   'git' \
   'completion' \
   'docker' \
-  'autosuggestions' \
   'command-not-found' \
   'syntax-highlighting' \
   'history-substring-search' \
+  'autosuggestions' \
   'contrib-prompt' \
   'fzf' \
   'prompt'
