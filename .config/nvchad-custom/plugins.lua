@@ -621,6 +621,73 @@ local plugins = {
       }
     end,
   },
+-------- added
+  {
+    "rainbowhxch/accelerated-jk.nvim",
+    event = "CursorMoved",
+    config = function()
+      require "custom.configs.accelerated"
+    end,
+  },
+  {
+    "m-demare/hlargs.nvim",
+    event = "BufWinEnter",
+    config = function()
+      require("hlargs").setup {
+        hl_priority = 200,
+      }
+    end,
+  },
+  {
+    "MattesGroeger/vim-bookmarks",
+    cmd = { "BookmarkToggle", "BookmarkClear" },
+  },
+  {
+    "tzachar/local-highlight.nvim",
+    event = { "CursorHold", "CursorHoldI" },
+    opts = {
+      hlgroup = "Visual",
+    },
+  },
+  {
+    "smoka7/hop.nvim",
+    cmd = { "HopWord", "HopLine", "HopLineStart", "HopWordCurrentLine", "HopNodes" },
+    config = function()
+      require("hop").setup { keys = "etovxqpdygfblzhckisuran" }
+      dofile(vim.g.base46_cache .. "hop")
+    end,
+  },
+  {
+    "code-biscuits/nvim-biscuits",
+    event = "LspAttach",
+    config = function()
+      require "custom.configs.biscuits"
+    end,
+  },
+  {
+    "epwalsh/obsidian.nvim",
+    ft = "markdown",
+    config = function()
+      require("obsidian").setup {
+        dir = "/home/poole/Mega/shared/obsidian/",
+        disable_frontmatter = true,
+        completion = {
+          nvim_cmp = true,
+        },
+        mappings = {
+          ["ogf"] = require("obsidian.mapping").gf_passthrough(),
+        },
+      }
+    end,
+  },
+  {
+    "chrisgrieser/nvim-early-retirement",
+    event = "VeryLazy",
+    opts = {
+      retirementAgeMins = 5,
+      notificationOnAutoClose = false,
+    },
+  },
   -- Install a plugin
   {
     "max397574/better-escape.nvim",
@@ -629,9 +696,7 @@ local plugins = {
       require("better_escape").setup()
     end,
   },
-  {
-    "rafi/awesome-vim-colorschemes",
-  },
+
 
   -- To make a plugin not be loaded
   -- {
