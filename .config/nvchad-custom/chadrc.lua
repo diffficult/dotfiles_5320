@@ -7,8 +7,8 @@ local core = require "custom.utils.core"
 local highlights = require "custom.highlights"
 
 M.ui = {
- theme = "nightowl",
- theme_toggle = { "nightowl", "one_light" },
+ theme = "tokyonight",
+ theme_toggle = { "tokyonight", "one_light" },
  lsp_semantic_tokens = false,
  statusline = core.statusline,
  tabufline = core.tabufline,

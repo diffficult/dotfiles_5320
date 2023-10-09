@@ -629,6 +629,9 @@ local plugins = {
       require("better_escape").setup()
     end,
   },
+  {
+    "rafi/awesome-vim-colorschemes",
+  },
 
   -- To make a plugin not be loaded
   -- {
