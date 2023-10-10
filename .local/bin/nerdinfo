@@ -30,7 +30,7 @@ echo
 echo
 echo -e "  ${red}    shell  ${rst}"  " zsh    "
 echo -e "  ${grn}    wm     ${rst}"  " i3   "
-echo -e "  ${prp}    editor ${rst}"  " vim   "
+echo -e "  ${prp}    editor ${rst}"  " nvim  "
 echo -e "  ${cyn}    distro ${rst}"  " arch "
 echo
 echo
