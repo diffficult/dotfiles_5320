@@ -1,3 +1,11 @@
-# Example_config
+# Custom config for nvim+NvChad
 
-This can be used as an example custom config for NvChad. Do check the https://github.com/NvChad/nvcommunity
+This is a custom config for NvChad. Do check the https://github.com/NvChad/nvcommunity
+
+Requirements
+
+- nvim latest
+ 
+- NvChad
+
+- custom directory linked to this repo
