@@ -21,11 +21,31 @@ let mapleader = ','
 " more remaps
 "
 "
-nnoremap / /\v
-vnoremap / /\v
-nnoremap <leader><space> :noh<cr>
-nnoremap <tab> %
-vnoremap <tab> %
+set hidden
+nmap <leader>n :enew<cr>
+nmap <leader><leader> :bnext<CR>
+nmap <leader>. :bprevious<CR>
+nmap <leader>l :ls<CR>
+nmap / /\v
+vmap / /\v
+nmap <leader><space> :noh<cr>
+nmap <tab> %
+vmap <tab> %
+nmap / :set hlsearch<CR>/
+nmap <F2> :set paste! nopaste?<CR>
+nmap <F3> :set nonumber! nonumber?<CR>
+nmap <F4> :set hlsearch! hlsearch?<CR>
+
+function TrimWhitespace()
+ %s/\s*$//
+ ''
+ :endfunction
+command! Trim call TrimWhitespace()
+
+map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+      \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+      \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+map <C-n> :NERDTreeToggle<CR>
 
 
 set completeopt-=preview
@@ -94,36 +114,9 @@ set ttimeoutlen=0
 set clipboard=unnamed
 set clipboard^=unnamedplus
 
-:noremap / :set hlsearch<CR>/
-
-:noremap <F2> :set paste! nopaste?<CR>
-
-:noremap <F3> :set nonumber! nonumber?<CR>
-
-:noremap <F4> :set hlsearch! hlsearch?<CR>
 
 set background=dark
 
-function TrimWhitespace()
-  %s/\s*$//
-  ''
-:endfunction
-command! Trim call TrimWhitespace()
-
-
- map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
- \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
- \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
-
- map <C-n> :NERDTreeToggle<CR>
-
-
-set hidden
-let mapleader=","
-nmap <leader>n :enew<cr>
-nmap <leader><leader> :bnext<CR>
-nmap <leader>. :bprevious<CR>
-nmap <leader>l :ls<CR>
 
 
 "-------- vim-plug - Minimalist Vim Plugin Manager {{{
@@ -171,7 +164,7 @@ call plug#end()
 
 
 " colorscheme config
-" 
+"
 
 "" tokyonight specific
 " let g:tokyonight_style = 'storm' " available: night, storm
