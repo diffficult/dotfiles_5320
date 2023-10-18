@@ -17,7 +17,7 @@ PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:${PATH}"
 ###
 appname="weather"
 city="${BLOCK_INSTANCE:-}"
-format="{icon_weather} {celsius} °C"
+format="{icon_weather} {celsius}°C"
 
 
 ###
