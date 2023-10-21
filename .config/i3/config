@@ -749,7 +749,7 @@ set $base05 #d1d4e0
 set $base06 #FF1B6D
 set $base07 #1f222d
 
-font pango:Iosevka, FontAwesome 12
+font pango: Iosevka, FontAwesome 12
 
 #gaps config
 workspace $ws_2 gaps inner 15
