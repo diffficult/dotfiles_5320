@@ -37,6 +37,7 @@ mpv = "󰻏"
 nvr = ""
 nvim = ""
 fontm = ""
+fileroller = ""
 
 #[aliases.instance]
 #"realmonitor" = "nvr"
@@ -77,6 +78,7 @@ fontm = ""
 "Imager" = "rpimg"
 "mpv" = "mpv"
 "Font-manager" = "fontm"
+"File-roller" = "fileroller"
 
 [general]
 #separator = "  "
