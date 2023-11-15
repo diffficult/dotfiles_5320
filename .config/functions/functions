@@ -97,7 +97,7 @@ manned() {
 }
 
 # search commandlinefu.com
-cmdfu() { 
+cmdfu() {
 	curl "https://www.commandlinefu.com/commands/matching/$(echo "$@" \ | sed 's/ /-/g')/$(echo -n $@ | base64)/plaintext" | sed "s/\(^#.*\)/\x1b[32m\1\x1b[0m/g" | less -R ;
 }
 
@@ -305,3 +305,64 @@ detox-video() {
 }
 
 # }}}
+
+#
+# Useful functions 2023
+#
+#{{{
+
+
+# Viewing CSV Files in a Better Format
+#
+function view_csv_pretty {
+    if [ -z "$1" ]; then echo "Usage: view_csv_pretty <file.csv>"
+    else cat "$1" | column -s, -t | less -F -S -X -K
+    fi
+}
+
+# Check recently modified files in current directory
+#
+function recently_modified() {
+    recent_file=$(ls -t modified | head -n1)
+    echo "Most recently modified file: $recent_file"
+}
+
+# Make new zip file with files listed
+#
+function compress_files() {
+    if [ -z "$1" ]; then echo "Usage: compress_files <archive_name.zip> <file1> <file2> ..."
+    else zip -r "$1" "${@:2}"
+    fi
+}
+
+# search specific text in all the files in a directory
+#
+function search_text_in_files() {
+    if [ -z "$1" ] || [ -z "$2" ]; then echo "Usage: search_text_in_files <directory> <search_term>"
+    else grep -rnw "$1" -e "$2"
+    fi
+}
+
+# Show running process list taking up most memory
+#
+function process_with_most_memory() {
+    ps -eo pid,ppid,cmd,%mem,%cpu --sort=-%mem | head
+}
+
+# Show me listening ports
+#
+function list_open_ports() {
+    netstat -tuln
+}
+
+# List listening ports and to which process they belong to
+#
+function find_listening_ports() {
+    if [ -z "$1" ]; then echo "Usage: find_listening_ports <pid>"
+    else ss -tulnp | grep "$1"
+    fi
+}
+
+
+#}}}
+
