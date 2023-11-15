@@ -1,0 +1,37 @@
+#!/usr/bin/bash
+
+#PACKAGES=$(pacman -Qu | wc -l)
+#PACKAGES=4
+#Packages count exludes any pkg on pacman.conf that is ignored
+AUR=$(yay -Qua | wc -l)
+OFFICIAL=$(checkupdates | wc -l)
+PACKAGES=$(( AUR + OFFICIAL ))
+
+#PACKAGES=$(checkupdates | grep -v -c ignored)
+URGENT_VALUE=10
+FULLICON=
+SHORTICON=
+LABEL=
+# 
+OKCOLOR=#A8FF00
+WARNCOLOR=#FFAE00
+URGENTCOLOR=#FF0000
+
+if [[ $PACKAGES -gt 0 && $PACKAGES -gt $URGENT_VALUE ]]; then
+  echo ' <span foreground="'$URGENTCOLOR'">'"$PACKAGES"'</span>' # full-text
+  echo ' <span foreground="'$URGENTCOLOR'">'"[$PACKAGES]"'</span>' # short-text
+elif [[ $PACKAGES -gt 0 ]]; then
+  echo ' <span foreground="'$WARNCOLOR'">'"$PACKAGES"'</span>' # full-text
+  echo ' <span foreground="'$WARNCOLOR'">'"[$PACKAGES]"'</span>' # short-text
+elif [[ $PACKAGES -eq 0 ]]; then
+  echo ' <span foreground="'$OKCOLOR'">'"$FULLICON"'</span>' #full-text
+  echo ' <span foreground="'$OKCOLOR'">'"$SHORTICON"'</span>' #short-text
+fi
+
+#---------i3blocks actions-----------------------------------------------
+
+case $BLOCK_BUTTON in
+	2) pamac-manager ;; # middle click - opens pamac-updater
+	3) notify-send " $PACKAGES 📦 upgradable packages" " $AUR  from AUR
+ $OFFICIAL  from repos" ;; # right click
+esac

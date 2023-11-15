@@ -11,6 +11,9 @@
 #exec_always --no-startup-id $HOME/src/i3wsr/target/release/i3wsr
 exec_always --no-startup-id /usr/bin/i3wsr
 
+#Autostart basics (dunst, powermanager, picom, mpd, fix cursor)
+exec_always --no-startup-id ~/.config/i3/bin/autostart.sh
+
 # exec discord
 #exec_always --no-startup-id pavucontrol;
 
@@ -27,8 +30,9 @@ exec --no-startup-id gnome-keyring-daemon --start --components=pkcs11,secrets,ss
 #mpd
 ##exec --no-startup-id mpd .mpd/mpd.conf
 
-#pico compositor (picom) -CGb removed from exec
-exec --no-startup-id picom --config ~/.config/picom.conf
+#pi compositor (picom) -CGb removed from exec
+#now running from autostart.sh
+#exec --no-startup-id picom --config ~/.config/picom.conf
 
 #Set random wallpaper
 exec --no-startup-id feh --bg-fill "$(find /usr/share/backgrounds/ -type f |sort -R |tail -1)"
@@ -59,14 +63,15 @@ exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id xrdb -load .Xresources
 
 #XFCE power-manager
-exec --no-startup-id xfce4-power-manager
+#exec --no-startup-id xfce4-power-manager
 
 #XFCE notifications
-exec --no-startup-id /usr/lib/xfce4/notifyd/xfce4-notifyd
+#exec --no-startup-id /usr/lib/xfce4/notifyd/xfce4-notifyd
 #exec --no-startup-id systemctl --user start xfce4-notifyd
 
 # xrandr
-exec --no-startup-id xrandr --output eDP-1 --scale 0.8x0.8
+#exec --no-startup-id xrandr --output eDP-1 --scale 0.8x0.8
+exec --no-startup-id xrandr --output eDP-1 --scale 0.9x0.9
 
 #### TOUCHPAD SETTINGS using synaptics driver
 
@@ -350,17 +355,37 @@ new_window none
 # use xev to get keycodes
 # ------------------------
 
+##-- Variables ---------------------------
+set $terminal ~/.config/i3/bin/i3term.sh
+set $drawterm ~/.config/i3/bin/draw_area.sh
+set $music_player ~/.config/i3/bin/i3music.sh
+set $color_picker ~/.config/i3/bin/i3colorpicker.sh
+set $brightness ~/.config/i3/bin/i3brightness.sh
+set $volume ~/.config/i3/bin/i3volume.sh
+set $screenshot ~/.config/i3/bin/i3screenshot.sh
+set $alacritty alacritty --config-file ~/.config/alacritty/alacritty.yml
+#set $rofi_applets ~/.config/i3/bin
+set $file_manager nemo
+set $text_editor code
+set $web_browser google-chrome
+
 # set modkey (Super key)
 set $mod Mod4
+
+# set altkey (left Alt)
+set $alt Mod1
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
+# set Send Notification
+set $send-notify exec --no-startup-id dunstify -u low -h string:x-dunst-stack-tag:i3config
+
 ####
 
-# Scratchpad
+## Scratchpad
 # Make the currently focused window a scratchpad
-bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+Shift+minus move scratchpad, $send-notify 'Scratchpad'
 
 # Show the first scratchpad window
 bindsym $mod+minus scratchpad show
@@ -372,7 +397,8 @@ bindsym $mod+minus scratchpad show
 floating_modifier $mod
 
 # Lock screen with i3lock
-bindsym $mod+Shift+x exec --no-startup-id  "~/.config/i3/myblocks/lock2 -p -f Iosevka"
+#bindsym $mod+Shift+x exec --no-startup-id  "~/.config/i3/bin/lock.sh -p -f Iosevka"
+bindsym $alt+Control+l exec --no-startup-id  "~/.config/i3/bin/lock.sh -p -f Iosevka"
 
 # Lock the i3 with lockmy3 shell script
 #bindsym $mod+p exec --no-startup-id "~/.config/i3/myblocks/lockmyi3"
@@ -380,15 +406,23 @@ bindsym $mod+Shift+x exec --no-startup-id  "~/.config/i3/myblocks/lock2 -p -f Io
 
 # start a terminal
 bindsym $mod+Return exec --no-startup-id xfce4-terminal
+bindsym $mod+Shift+Return exec --no-startup-id $terminal --float
+bindsym $mod+$alt+Return exec --no-startup-id $terminal --full
 
 # kill focused window
 bindsym $mod+Shift+q kill
+
+## -- GUI Apps --
+bindsym $mod+Shift+f exec --no-startup-id $file_manager
+#bindsym $mod+Shift+e exec --no-startup-id $text_editor
+#bindsym $mod+Shift+w exec --no-startup-id $web_browser
 
 # Rofi exec
 bindsym $mod+d exec --no-startup-id rofi -show combi
 #bindsym $mod+y exec --no-startup-id yt-r
 bindsym $mod+p exec --no-startup-id rofi-pass
 bindsym $mod+m exec --no-startup-id rofi-fontawesome2
+bindsym $mod+n exec --no-startup-id ~/.config/rofi/bin/network_menu
 
 # Screenshot
 #bindsym $mod+Shift+Print exec --no-startup-id "mkdir -p ~/Pictures/Screenshots && scrot -q 100 ~/Pictures/Screenshots/scrot-$(date +%Y-%m-%d_%H-%M-%S).jpg"
@@ -432,21 +466,22 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # Split in horizontal orientation
-bindsym $mod+h split h
+bindsym $mod+h split h, $send-notify 'Split Horizontally'
 # Split in vertical orientation
-bindsym $mod+v split v
+bindsym $mod+v split v, $send-notify 'Split Vertically'
 
 # Enter fullscreen mode for the focused container
-bindsym $mod+f fullscreen
+bindsym $mod+f fullscreen, $send-notify 'Toggled Fullscreen'
 
 # Change container layout (stacked, tabbed, toggle split)
-bindsym $mod+s layout stacked
-bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
+bindsym $mod+s layout stacked, $send-notify 'Layout - Stacking'
+bindsym $mod+w layout tabbed, $send-notify 'Layout - Tabbed'
+bindsym $mod+e layout toggle split, $send-notify 'Layout - Split'
+#bindsym $mod+Shift+l layout toggle, $send-notify 'Cycling Layouts'
 #bindsym $mod+t layout toggle
 
 # Toggle tiling / floating
-bindsym $mod+Shift+space floating toggle
+bindsym $mod+Shift+space floating toggle, $send-notify 'Toggled Floating Mode'
 
 # change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
@@ -461,25 +496,25 @@ bindsym $mod+a focus parent
 #bindsym $mod+d focus child
 
 # Call cheatsheets
-bindsym $mod+c exec --no-startup-id i3-msg 'exec "$HOME/.config/i3/scripts/cht.sh"'
+#bindsym $mod+c exec --no-startup-id i3-msg 'exec "$HOME/.config/i3/bin/cht.sh"'
 
 # Reload the configuration file
-bindsym $mod+Shift+c reload
+bindsym $mod+Shift+c reload, $send-notify 'Configuration Reloaded!'
 
 # Restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r restart
+bindsym $mod+Shift+r restart, $send-notify 'i3wm Restarted!'
 
 # Exit i3 (logs you out of your X session)
 #bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # Toggle STICKY windows
-bindsym $mod+Shift+s sticky toggle
+bindsym $mod+Shift+s sticky toggle, $send-notify 'Toggled Sticky'
 
-#--------- restart nm applet --------------------------
-bindsym $mod+Shift+n exec killall nm-applet; nohup nm-applet &
+# Restart network manager applet
+# bindsym $mod+Shift+n exec killall nm-applet; nohup nm-applet &
 
-#--------- Toggle draw terminalrs on background
-bindsym $mod+z exec --no-startup-id ~/.config/i3/scripts/draw_area3
+# Toggle draw terminalrs on background
+bindsym $mod+z exec --no-startup-id $drawterm
 
 #####
 
@@ -502,7 +537,7 @@ bindsym $mod+Shift+Tab workspace next
 ## bindsym --release Caps_Lock exec polybar-msg hook keyboard-layout 1
 ## bindsym --release Shift+Caps_Lock exec polybar-msg hook keyboard-layout 1
 
-# Pulse Audio controls
+## Audio controls
 
 # Decrease sound volume
 #bindsym XF86AudioLowerVolume exec --no-startup-id /usr/bin/pactl set-sink-volume 0 -- '-5%'
@@ -511,14 +546,22 @@ bindsym $mod+Shift+Tab workspace next
 #bindsym XF86AudioRaiseVolume exec --no-startup-id /usr/bin/pactl set-sink-volume 0 -- '+5%'
 
 # Mute volume
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle && pkill -RTMIN+10 i3blocks # mute sound
+#bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle && pkill -RTMIN+10 i3blocks # mute sound
 
 # Mute Mic
-bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute 1 toggle
+#bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute 1 toggle
 
-# Old non working bindings in thinkpad
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% && pkill -RTMIN+10 i3blocks
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% && pkill -RTMIN+10 i3blocks
+# Volume bindings working on Dell 5320
+#bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% && pkill -RTMIN+10 i3blocks
+#bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% && pkill -RTMIN+10 i3blocks
+
+## -- Shell script based function key bindings --
+bindsym XF86MonBrightnessUp 	exec --no-startup-id "$brightness --inc"
+bindsym XF86MonBrightnessDown 	exec --no-startup-id "$brightness --dec"
+bindsym XF86AudioRaiseVolume 	exec --no-startup-id "$volume --inc"
+bindsym XF86AudioLowerVolume 	exec --no-startup-id "$volume --dec"
+bindsym XF86AudioMute 			exec --no-startup-id "$volume --toggle"
+bindsym XF86AudioMicMute 		exec --no-startup-id "$volume --toggle-mic"
 
 # Media player controls
 #bindsym XF86AudioPlay exec --no-startup-id playerctl play
@@ -674,8 +717,8 @@ mode $sysmenu {
     bindsym s         exec --no-startup-id systemctl suspend, mode "default"
     bindsym p         exec --no-startup-id systemctl poweroff, mode "default"
     bindsym b         exec --no-startup-id systemctl reboot, mode "default"
-    bindsym l         exec --no-startup-id "~/.config/i3/myblocks/lock2 -p -f Pragmata-Pro-Regular", mode "default"
-    bindsym t         exec --no-startup-id "~/.config/i3/scripts/logout.sh"
+    bindsym l         exec --no-startup-id "~/.config/i3/bin/lock.sh -p -f Pragmata-Pro-Regular", mode "default"
+    bindsym t         exec --no-startup-id "~/.config/i3/bin/logout.sh"
     bindsym Return    mode "default"
     bindsym Escape    mode "default"
 }
@@ -733,7 +776,8 @@ mode "focused" {
   bindsym Escape mode "default"
 }
 
-bindsym $mod+n mode "focused"
+#bindsym $mod+n mode "focused"
+
 #}}}
 #}}}
 # Appearance #{{{1
@@ -797,7 +841,7 @@ smart_borders on
 #client.background       $black
 
 bar {
-        status_command i3blocks -c ~/.config/i3/conf/myblocks.conf
+        status_command i3blocks -c ~/.config/i3/bar/myblocks.conf
         i3bar_command i3bar -t
         verbose yes
         id bar-1
