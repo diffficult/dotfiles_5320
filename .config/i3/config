@@ -385,7 +385,7 @@ set $send-notify exec --no-startup-id dunstify -u low -h string:x-dunst-stack-ta
 
 ## Scratchpad
 # Make the currently focused window a scratchpad
-bindsym $mod+Shift+minus move scratchpad, $send-notify 'Scratchpad'
+bindsym $mod+Shift+minus move scratchpad, $send-notify 'Scratchpad' -i ~/.local/share/icons/notify/scratchpad.svg
 
 # Show the first scratchpad window
 bindsym $mod+minus scratchpad show
@@ -471,12 +471,12 @@ bindsym $mod+h split h, $send-notify 'Split Horizontally'
 bindsym $mod+v split v, $send-notify 'Split Vertically'
 
 # Enter fullscreen mode for the focused container
-bindsym $mod+f fullscreen, $send-notify 'Toggled Fullscreen'
+bindsym $mod+f fullscreen, $send-notify 'Toggled Fullscreen' -i ~/.local/share/icons/notify/window_full.png
 
 # Change container layout (stacked, tabbed, toggle split)
-bindsym $mod+s layout stacked, $send-notify 'Layout - Stacking'
-bindsym $mod+w layout tabbed, $send-notify 'Layout - Tabbed'
-bindsym $mod+e layout toggle split, $send-notify 'Layout - Split'
+bindsym $mod+s layout stacked, $send-notify 'Layout - Stacking' -i ~/.local/share/icons/notify/window_stack.png
+bindsym $mod+w layout tabbed, $send-notify 'Layout - Tabbed' -i ~/.local/share/icons/notify/window_stack.png
+bindsym $mod+e layout toggle split, $send-notify 'Layout - Split' -i ~/.local/share/icons/notify/window_stack.png
 #bindsym $mod+Shift+l layout toggle, $send-notify 'Cycling Layouts'
 #bindsym $mod+t layout toggle
 
@@ -546,7 +546,7 @@ bindsym $mod+Shift+Tab workspace next
 #bindsym XF86AudioRaiseVolume exec --no-startup-id /usr/bin/pactl set-sink-volume 0 -- '+5%'
 
 # Mute volume
-#bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle && pkill -RTMIN+10 i3blocks # mute sound
+#bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle && pkill -RTMIN+10 i3blocks
 
 # Mute Mic
 #bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute 1 toggle
@@ -556,8 +556,8 @@ bindsym $mod+Shift+Tab workspace next
 #bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% && pkill -RTMIN+10 i3blocks
 
 ## -- Shell script based function key bindings --
-bindsym XF86MonBrightnessUp 	exec --no-startup-id "$brightness --inc"
-bindsym XF86MonBrightnessDown 	exec --no-startup-id "$brightness --dec"
+#bindsym XF86MonBrightnessUp 	exec --no-startup-id "$brightness --inc"
+#bindsym XF86MonBrightnessDown 	exec --no-startup-id "$brightness --dec"
 bindsym XF86AudioRaiseVolume 	exec --no-startup-id "$volume --inc"
 bindsym XF86AudioLowerVolume 	exec --no-startup-id "$volume --dec"
 bindsym XF86AudioMute 			exec --no-startup-id "$volume --toggle"
@@ -569,10 +569,10 @@ bindsym XF86AudioMicMute 		exec --no-startup-id "$volume --toggle-mic"
 #bindsym XF86AudioNext exec --no-startup-id playerctl next
 #bindsym XF86AudioPrev exec --no-startup-id playerctl previous
 
-bindsym XF86AudioPlay exec --no-startup-id mpc --host=0.0.0.0 --port=6600 toggle
-bindsym XF86AudioStop exec --no-startup-id mpc --host=0.0.0.0 --port=6600 stop
-bindsym XF86AudioPrev exec --no-startup-id ~/.config/i3/myblocks/mpcPrevSong.sh
-bindsym XF86AudioNext exec --no-startup-id mpc --host=0.0.0.0 --port=6600 next
+#bindsym XF86AudioPlay exec --no-startup-id mpc --host=0.0.0.0 --port=6600 toggle
+#bindsym XF86AudioStop exec --no-startup-id mpc --host=0.0.0.0 --port=6600 stop
+#bindsym XF86AudioPrev exec --no-startup-id ~/.config/i3/myblocks/mpcPrevSong.sh
+#bindsym XF86AudioNext exec --no-startup-id mpc --host=0.0.0.0 --port=6600 next
 
 #}}}
 # Binding modes {{{1

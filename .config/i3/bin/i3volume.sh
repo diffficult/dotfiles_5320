@@ -3,9 +3,13 @@
 ## Copyright (C) 2020-2023 Aditya Shakya <adi1090x@gmail.com>
 ##
 ## Script to manage speaker volume on Archcraft.
+#
+# dirty hack with pactl to make it work with volume module for i3blocks-contrib
+# need to get rid of pulsemixer to mute unmute mic and get % volume
+#
 
 # Icons
-iDIR='/usr/share/archcraft/icons/dunst'
+iDIR='/home/poole/.config/dunst/icons'
 notify_cmd='dunstify -u low -h string:x-dunst-stack-tag:obvolume'
 
 # Get Volume
@@ -33,24 +37,38 @@ notify_user() {
 }
 
 # Increase Volume
+## inc_volume() {
+## 	[[ `pulsemixer --get-mute` == 1 ]] && pulsemixer --unmute
+## 	pulsemixer --max-volume 100 --change-volume +5 && get_icon && notify_user
+## }
 inc_volume() {
-	[[ `pulsemixer --get-mute` == 1 ]] && pulsemixer --unmute
-	pulsemixer --max-volume 100 --change-volume +5 && get_icon && notify_user
+  pactl set-sink-volume 0 +5% && pkill -RTMIN+10 i3blocks && get_icon && notify_user
 }
 
 # Decrease Volume
+## dec_volume() {
+## 	[[ `pulsemixer --get-mute` == 1 ]] && pulsemixer --unmute
+## 	pulsemixer --max-volume 100 --change-volume -5 && get_icon && notify_user
+## }
 dec_volume() {
-	[[ `pulsemixer --get-mute` == 1 ]] && pulsemixer --unmute
-	pulsemixer --max-volume 100 --change-volume -5 && get_icon && notify_user
+  pactl set-sink-volume 0 -5% && pkill -RTMIN+10 i3blocks && get_icon && notify_user
 }
 
 # Toggle Mute
+## toggle_mute() {
+## 	if [[ `pulsemixer --get-mute` == 0 ]]; then
+## 		pulsemixer --toggle-mute && ${notify_cmd} -i "$iDIR/volume-mute.png" "Mute"
+## 	else
+## 		pulsemixer --toggle-mute && get_icon && ${notify_cmd} -i "$icon" "Unmute"
+## 	fi
+## }
+
 toggle_mute() {
-	if [[ `pulsemixer --get-mute` == 0 ]]; then
-		pulsemixer --toggle-mute && ${notify_cmd} -i "$iDIR/volume-mute.png" "Mute"
-	else
-		pulsemixer --toggle-mute && get_icon && ${notify_cmd} -i "$icon" "Unmute"
-	fi
+  if [[ `pactl get-sink-mute 0` == "Mute: no" ]]; then
+    pactl set-sink-mute 0 1 && pkill -RTMIN+10 i3blocks && ${notify_cmd} -i "$iDIR/volume-mute.png" "Mute"
+  else
+    pactl set-sink-mute 0 0 && pkill -RTMIN+10 i3blocks && get_icon && ${notify_cmd} -i "$icon" "Unmute"
+  fi
 }
 
 # Toggle Mic
