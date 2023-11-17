@@ -18,6 +18,7 @@
       <value type="string" value="com.github.wwmm.pulseeffects"/>
       <value type="string" value="discord"/>
       <value type="string" value="Dropbox"/>
+      <value type="string" value="dunstify"/>
       <value type="string" value="Electron"/>
       <value type="string" value="FileZilla"/>
       <value type="string" value="flameshot"/>
