@@ -24,8 +24,8 @@
   <property name="Gtk" type="empty">
     <property name="CanChangeAccels" type="bool" value="false"/>
     <property name="ColorPalette" type="empty"/>
-    <property name="FontName" type="string" value="JetBrainsMono Nerd Font 10"/>
-    <property name="MonospaceFontName" type="string" value="FantasqueSansMono Nerd Font Mono 10"/>
+    <property name="FontName" type="string" value="JetBrainsMono NF 10"/>
+    <property name="MonospaceFontName" type="string" value="JetBrainsMono NF 10"/>
     <property name="IconSizes" type="empty"/>
     <property name="KeyThemeName" type="empty"/>
     <property name="ToolbarStyle" type="string" value="icons"/>

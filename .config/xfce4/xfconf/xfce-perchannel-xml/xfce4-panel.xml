@@ -161,6 +161,9 @@
         <value type="string" value="networkmanager applet"/>
       </property>
       <property name="known-items" type="array">
+        <value type="string" value="dropbox-client-10723"/>
+        <value type="string" value="dropbox-client-10064"/>
+        <value type="string" value="dropbox-client-2823"/>
         <value type="string" value="TelegramDesktop"/>
         <value type="string" value="dropbox-client-61229"/>
         <value type="string" value="chrome_status_icon_1"/>

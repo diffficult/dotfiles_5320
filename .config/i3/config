@@ -22,7 +22,7 @@ exec --no-startup-id dbus-update-activation-environment --all
 
 #Autostart gnome-keyring
 #exec --no-startup-id gnome-keyring-daemon --start --components=pkcs11,secrets,ssh
-exec --no-startup-id gnome-keyring-daemon --start --components=pkcs11,secrets,ssh,gpg
+exec --no-startup-id /usr/bin/gnome-keyring-daemon --start --components=secrets,pkcs11,ssh,gpg
 
 #xscreensaver
 # exec --no-startup-id xscreensaver -no-splash
@@ -631,7 +631,7 @@ bindsym $mod+r mode "$mode_resize"
 
 
 # Transparency mode
-bindsym $mod+Shift+t mode "󰀻 transparency"
+bindsym $mod+Shift+t mode " transparency"
 mode "transparency" {
     bindsym $tld              exec --no-startup-id transset-df -a 0
     bindsym Shift+$tld        exec --no-startup-id transset-df -a 0.05
@@ -672,8 +672,8 @@ mode "transparency" {
 set $mode_gaps Gaps: (o) outer, (i) inner
 set $mode_gaps_outer Outer Gaps: +(8)|-(9)|0 (local), +(6)|-(7)|0(5) (global)
 set $mode_gaps_inner Inner Gaps: +(8)|-(9)|0 (local), +(6)|-(7)|0(5) (global)
-bindsym $mod+Shift+g mode "$mode_gaps"
 
+bindsym $mod+Shift+g mode "$mode_gaps"
 mode "$mode_gaps" {
         bindsym o      mode "$mode_gaps_outer"
         bindsym i      mode "$mode_gaps_inner"
