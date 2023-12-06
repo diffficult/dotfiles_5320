@@ -276,7 +276,7 @@ alias neocrux='neofetch --ascii --ascii_distro crux_small'
 alias neowin='neofetch --ascii --ascii_distro windows'
 alias disks='echo "╓───── m o u n t . p o i n t s"; echo "╙────────────────────────────────────── ─ ─ "; lsblk -a; echo ""; echo "╓───── d i s k . u s a g e"; echo "╙────────────────────────────────────── ─ ─ "; df -h;'
 
-#alias runalison='cd ~/.local/bin/Alison_Desktop && ./start-alison && clear && echo "Alison Desktop is running" && cd ~' 
+#alias runalison='cd ~/.local/bin/Alison_Desktop && ./start-alison && clear && echo "Alison Desktop is running" && cd ~'
 #alias killalison='cd ~/.local/bin/Alison_Desktop && ./stop-alison && clear && echo "Alison Desktop stopped" && cd ~'
 alias runalison='./.local/bin/alison.sh'
 alias killalison='./.local/bin/salison.sh'
@@ -384,13 +384,18 @@ webm2mp4() {for i in *.webm; do ffmpeg -i "$i" -vf "crop=trunc(iw/2)*2:trunc(ih/
 
 alias showme_cam01="nohup mpv rtsp://admin:admin1234admin@192.168.2.21:554/Channels/101 </dev/null >/dev/null 2>&1 &"
 alias showme_cam02="nohup mpv rtsp://admin:camaritas2018@192.168.1.164:554/Channels/101 </dev/null >/dev/null 2>&1 &"
-alias colegio_cam01='nohup mpv --geometry=48%+2+24 --video-aspect-override=16:9 "rtsp://admin:888888@192.168.3.30:554/cam/realmonitor?channel=01&subtype=0" </dev/null >/dev/null 2>&1 &'
-alias colegio_cam02='nohup mpv --geometry=48%+2+394 --video-aspect-override=16:9 "rtsp://admin:888888@192.168.3.30:554/cam/realmonitor?channel=02&subtype=0" </dev/null >/dev/null 2>&1 &'
-alias colegio_cam06='nohup mpv --geometry=48%+683+24 --video-aspect-override=16:9 "rtsp://admin:888888@192.168.3.30:554/cam/realmonitor?channel=06&subtype=0" </dev/null >/dev/null 2>&1 &'
+alias colegio_cam01='nohup mpv --geometry=49%+2+24 --video-aspect-override=16:9 "rtsp://admin:888888@192.168.3.30:554/cam/realmonitor?channel=01&subtype=0" </dev/null >/dev/null 2>&1 &'
+alias colegio_cam02='nohup mpv --geometry=49%+2+504 --video-aspect-override=16:9 "rtsp://admin:888888@192.168.3.30:554/cam/realmonitor?channel=02&subtype=0" </dev/null >/dev/null 2>&1 &'
+alias colegio_cam06='nohup mpv --geometry=49%+883+24 --video-aspect-override=16:9 "rtsp://admin:888888@192.168.3.30:554/cam/realmonitor?channel=06&subtype=0" </dev/null >/dev/null 2>&1 &'
 alias colegio_cam10='nohup mpv --geometry=50%x50% --video-aspect-override=16:9 "rtsp://admin:888888@192.168.3.30:554/cam/realmonitor?channel=10&subtype=0" </dev/null >/dev/null 2>&1 &'
-alias colegio_cam12='nohup mpv --geometry=48%+683+394 --video-aspect-override=16:9 "rtsp://admin:888888@192.168.3.30:554/cam/realmonitor?channel=12&subtype=0" </dev/null >/dev/null 2>&1 &'
+alias colegio_cam12='nohup mpv --geometry=48%+883+504 --video-aspect-override=16:9 "rtsp://admin:888888@192.168.3.30:554/cam/realmonitor?channel=12&subtype=0" </dev/null >/dev/null 2>&1 &'
 
-alias colegio_4cams="colegio_cam01 && colegio_cam02 && colegio_cam12 && colegio_cam06"
+colegio_cams() {
+    colegio_cam01
+    colegio_cam02
+    colegio_cam06
+    colegio_cam12
+}
 
 # }}}
 
