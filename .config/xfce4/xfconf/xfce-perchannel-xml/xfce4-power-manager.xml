@@ -12,5 +12,6 @@
     <property name="lid-action-on-battery" type="uint" value="1"/>
     <property name="logind-handle-lid-switch" type="bool" value="false"/>
     <property name="inactivity-sleep-mode-on-battery" type="uint" value="1"/>
+    <property name="critical-power-action" type="uint" value="3"/>
   </property>
 </channel>
