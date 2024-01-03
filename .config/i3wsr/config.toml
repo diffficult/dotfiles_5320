@@ -39,6 +39,7 @@ nvim = ""
 fontm = ""
 fileroller = ""
 feh = ""
+bluetooth= ""
 
 #[aliases.instance]
 #"realmonitor" = "nvr"
@@ -81,6 +82,7 @@ feh = ""
 "Font-manager" = "fontm"
 "File-roller" = "fileroller"
 "feh" = "feh"
+"blueman-manager" = "bluetooth"
 
 [general]
 #separator = "  "
