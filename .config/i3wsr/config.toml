@@ -46,7 +46,7 @@ bluetooth= ""
 #"ssh" = "ssh"
 #"nvim" = "nvim"
 
-[aliases]
+[aliases.class]
 "TelegramDesktop" = "telegram"
 "Org\\.gnome\\.Nautilus" = "nautilus"
 "libreoffice-calc" = "calc"
