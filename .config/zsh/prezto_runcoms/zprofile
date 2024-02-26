@@ -10,7 +10,7 @@
 # Variables
 #
 
-# QT env Variables for xdpi and for qt5ct 
+# QT env Variables for xdpi and for qt5ct
 
 export QT_QPA_PLATFORMTHEME="qt5ct"
 export QT_AUTO_SCREEN_SCALE_FACTOR=0
@@ -61,7 +61,7 @@ typeset -g cdpath fpath mailpath path
 #   $cdpath
 # )
 
-# PATHs 
+# PATHs
 
 dirs=(
   '/bin'
@@ -109,13 +109,13 @@ fi
 
 # Set keyboard to US-INTL with accents and deadkey
 
-setxkbmap -layout latam -variant deadtilde
+#setxkbmap -layout latam -variant deadtilde
 
 #
 # Hardware Settings
 #
 
-# Synaptics Dell Touchpad tweaks 
+# Synaptics Dell Touchpad tweaks
 
 # Enable tap to click
 #synclient TapButton1=1
