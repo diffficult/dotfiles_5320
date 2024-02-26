@@ -1,7 +1,7 @@
 [icons]
 telegram = ""
 firefox = ""
-#Alacritty = ""
+Alacritty = ""
 #Termite = ""
 gpick = "󰴱"
 #Nautilus = "📘"
@@ -83,6 +83,7 @@ bluetooth= ""
 "File-roller" = "fileroller"
 "feh" = "feh"
 "blueman-manager" = "bluetooth"
+"Alacritty" = "Alacritty"
 
 [general]
 #separator = "  "

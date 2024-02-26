@@ -708,9 +708,9 @@ mode "$mode_gaps_outer" {
 
 #}}}
 # System {{{2
-# https://wiki.archlinux.org/index.php/I3#Shutdown.2C_reboot.2C_lock_screen
+# https://wiki.archlinux.org/index.php/I3#Shutdown.2C_reboot.2C_lock_screen  
 # Shutdown, Reboot, Lock Screen, and Logout #657b83 ---------------------------------------------------------------------------
-set $sysmenu " [P] .  [H] . 󰒲 [S] .  [B] .  [L] .  [T]"
+set $sysmenu " Ⓟ .  Ⓗ . 󰒲 Ⓢ .  Ⓑ .  Ⓛ .  Ⓣ"
 bindsym $mod+Shift+e      mode $sysmenu
 mode $sysmenu {
     bindsym h         exec --no-startup-id systemctl hibernate, mode "default"
@@ -793,6 +793,7 @@ set $base05 #d1d4e0
 set $base06 #FF1B6D
 set $base07 #1f222d
 
+#Iosevka
 font pango: Iosevka, FontAwesome 12
 
 #gaps config
