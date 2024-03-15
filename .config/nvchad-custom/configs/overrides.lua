@@ -20,6 +20,21 @@ M.devicons = {
   override_by_filename = vim.tbl_extend(
     "force",
     {
+      ["yml"] = {
+        icon = "",
+        color = "#bbbbbb",
+        name = "Yml",
+      },
+      ["yaml"] = {
+        icon = "",
+        color = "#bbbbbb",
+        name = "Yaml",
+      },
+      ["scm"] = {
+        icon = "",
+        color = "#90a850",
+        name = "Query",
+      },
       ["makefile"] = {
         icon = "",
         color = "#f1502f",
@@ -74,6 +89,11 @@ M.devicons = {
         icon = "󰖟",
         color = "#519aba",
         name = "Http",
+      },
+      ["astro"] = {
+        icon = "",
+        color = "#f1502f",
+        name = "Astro",
       },
     },
     icon_multiple_filenames(filenames_list("tailwind.config", { "js", "cjs", "ts", "cts" }), {
@@ -146,25 +166,19 @@ M.treesitter = {
       ["i;"] = "textsubjects-container-inner",
     },
   },
-  textobjects = {
-    select = {
-      enable = true,
-      lookahead = true,
-      include_surrounding_whitespace = true,
-      keymaps = {
-        ["af"] = { query = "@function.outer", desc = "ts: all function" },
-        ["if"] = { query = "@function.inner", desc = "ts: inner function" },
-        ["ac"] = { query = "@class.outer", desc = "ts: all class" },
-        ["ic"] = { query = "@class.inner", desc = "ts: inner class" },
-        ["aC"] = { query = "@conditional.outer", desc = "ts: all conditional" },
-        ["iC"] = { query = "@conditional.inner", desc = "ts: inner conditional" },
-        ["aH"] = { query = "@assignment.lhs", desc = "ts: assignment lhs" },
-        ["aL"] = { query = "@assignment.rhs", desc = "ts: assignment rhs" },
-      },
-    },
-  },
   tree_setter = {
     enable = true,
+  },
+  textobjects = {
+    swap = {
+      enable = true,
+      swap_next = {
+        ["sa"] = "@parameter.inner",
+      },
+      swap_previous = {
+        ["sA"] = "@parameter.inner",
+      },
+    },
   },
   rainbow = {
     enable = true,
@@ -176,10 +190,6 @@ M.treesitter = {
       javascript = "rainbow-tags-react",
       tsx = "rainbow-tags",
     },
-  },
-  context_commentstring = {
-    enable = true,
-    enable_autocmd = false,
   },
   autotag = {
     enable = true,
@@ -202,9 +212,7 @@ M.mason = {
     "rustywind",
 
     -- Spell
-    "codespell",
     "marksman",
-    "grammarly-languageserver",
 
     -- Json
     "jsonlint",
@@ -242,35 +250,6 @@ M.mason = {
   },
 }
 
--- git support in nvimtree
-M.nvterm = {
-  terminals = {
-    shell = vim.o.shell,
-    list = {},
-    type_opts = {
-      float = {
-        relative = "editor",
-        row = 0.1,
-        col = 0.1,
-        width = 0.8,
-        height = 0.7,
-        border = "single",
-      },
-      horizontal = { location = "rightbelow", split_ratio = 0.3 },
-      vertical = { location = "rightbelow", split_ratio = 0.25 },
-    },
-  },
-  behavior = {
-    autoclose_on_quit = {
-      enabled = false,
-      confirm = true,
-    },
-    close_on_exit = true,
-    auto_insert = true,
-  },
-}
-
--- git support in nvimtree
 M.nvimtree = {
   filters = {
     dotfiles = false,
@@ -315,6 +294,13 @@ M.nvimtree = {
       show = {
         git = true,
       },
+      web_devicons = {
+        folder = {
+          enable = true, -- Special folder devicon icons
+          color = true,
+        },
+      },
+      -- git_placement = 'signcolumn',
       glyphs = {
         git = {
           unstaged = "",
@@ -366,6 +352,15 @@ M.telescope = {
       "tags",
       "mocks",
       "refactoring",
+      "^.git/",
+      "^./.git/",
+      "^node_modules/",
+      "^build/",
+      "^dist/",
+      "^target/",
+      "^vendor/",
+      "^lazy%-lock%.json$",
+      "^package%-lock%.json$",
     },
     layout_config = {
       horizontal = {
@@ -377,14 +372,12 @@ M.telescope = {
     "themes",
     "terms",
     "notify",
-    "frecency",
     "undo",
-    "vim_bookmarks",
     "ast_grep",
     "ctags_plus",
     "luasnip",
     "import",
-    "dap",
+    "fzf",
   },
   extensions = {
     fzf = {

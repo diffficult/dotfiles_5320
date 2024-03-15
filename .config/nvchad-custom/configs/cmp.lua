@@ -1,5 +1,5 @@
 local M = {}
--- local copilot_status_ok, copilot_cmp_comparators = pcall(require, "copilot_cmp.comparators")
+local copilot_status_ok, copilot_cmp_comparators = pcall(require, "copilot_cmp.comparators")
 local list_contains = vim.list_contains or vim.tbl_contains
 pcall(function()
   dofile(vim.g.base46_cache .. "cmp")
@@ -13,6 +13,23 @@ local function deprioritize_snippet(entry1, entry2)
   end
   if entry2:get_kind() == types.lsp.CompletionItemKind.Snippet then
     return true
+  end
+end
+
+--- Select item next/prev, taking into account whether the cmp window is
+--- top-down or bottoom-up so that the movement is always in the same direction.
+local select_item_smart = function(dir, opts)
+  return function(fallback)
+    if require("cmp").visible() then
+      opts = opts or { behavior = require("cmp").SelectBehavior.Select }
+      if require("cmp").core.view.custom_entries_view:is_direction_top_down() then
+        ({ next = require("cmp").select_next_item, prev = require("cmp").select_prev_item })[dir](opts)
+      else
+        ({ prev = require("cmp").select_next_item, next = require("cmp").select_prev_item })[dir](opts)
+      end
+    else
+      fallback()
+    end
   end
 end
 
@@ -143,15 +160,35 @@ M.cmp = {
     },
   },
   mapping = {
-    ["<Up>"] = require("cmp").mapping.select_prev_item(),
-    ["<Down>"] = require("cmp").mapping.select_next_item(),
+    ["<Up>"] = select_item_smart("prev"),
+    ["<Down>"] = select_item_smart("next"),
+    ["<Left>"] = function(fallback)
+      require("cmp").abort()
+      fallback()
+    end,
+    ["<Right>"] = function(fallback)
+      require("cmp").abort()
+      fallback()
+    end,
     ["<Tab>"] = require("cmp").mapping(function(fallback)
       if require("luasnip").expandable() then
         require("luasnip").expand()
       elseif require("luasnip").expand_or_jumpable() then
         require("luasnip").expand_or_jump()
+      elseif require("neogen").jumpable() then
+        require("neogen").jump()
       elseif check_backspace() then
         fallback()
+      else
+        fallback()
+      end
+    end, {
+      "i",
+      "s",
+    }),
+    ["<S-tab>"] = require("cmp").mapping(function(fallback)
+      if require("neogen").jumpable(true) then
+        require("neogen").jump_prev()
       else
         fallback()
       end
@@ -173,6 +210,7 @@ M.cmp = {
     ["<ESC>"] = require("cmp").mapping(function(fallback)
       if require("cmp").visible() then
         require("cmp").abort()
+        require("cmp").close()
       else
         fallback()
       end
@@ -195,21 +233,10 @@ M.cmp = {
     end,
   },
   sources = {
-  --  {
-  --    name = "copilot",
-  --    max_item_count = 2,
-  --  },
-    {
-      name = "codeium",
-      max_item_count = 2,
-    },
-    {
-      name = "cmp_tabnine",
-      max_item_count = 2,
-    },
     {
       name = "nvim_lsp",
-      keyword_length = 5,
+      keyword_length = 2,
+      max_item_count = 10,
       -- entry_filter = function(entry, ctx)
       --   return require("cmp").lsp.CompletionItemKind.Text ~= entry:get_kind()
       -- end,
@@ -233,7 +260,6 @@ M.cmp = {
     --   keyword_length = 5,
     --   option = buffer_option,
     -- },
-    { name = 'npm', keyword_length = 4 },
     -- {
     --   name = "fuzzy_buffer",
     --   keyword_length = 5,
@@ -251,7 +277,7 @@ M.cmp = {
     priority_weight = 2,
     comparators = {
       -- Definitions of compare function https://github.com/hrsh7th/nvim-cmp/blob/main/lua/cmp/config/compare.lua
-      -- copilot_cmp_comparators.prioritize or function() end,
+      copilot_cmp_comparators.prioritize or function() end,
       deprioritize_snippet,
       require("cmp").config.compare.exact,
       require("cmp").config.compare.locality,

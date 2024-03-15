@@ -13,11 +13,24 @@ M.override = {
   Repeat = { fg = "pink" },
   Include = { fg = "pink" },
   ["@definition"] = { underline = false },
-  ["@variable"] = { fg = "white" },
-  ["@namespace"] = { fg = "white" },
-  ["@function.builtin"] = { fg = "cyan" },
-  ["@function.call"] = { fg = "green" },
   ["@boolean"] = { fg = "green" },
+  ["@comment"] = { link = "Comment" },
+  ["@operator"] = { link = "Operator" },
+  ["@constant"] = { link = "Constant" },
+  ["@number.float"] = { link = "Float" },
+  ["@modules"] = { fg = "white" },
+  ["@type"] = { link = "Type" },
+  ["@attribute"] = { link = "Constant" },
+  ["@function.builtin"] = { fg = "cyan" },
+  ["@function.method"] = { link = "Function" },
+  ["@function.method.call"] = { link = "Function" },
+  ["@function.call"] = { link = "green" },
+
+  ["Function"] = { fg = "green" },
+  ["@function"] = { fg = "green" },
+  ["@property"] = { fg = "purple" },
+
+  ["@keyword.import"] = { link = "Include" },
   ["@text.danger"] = { fg = "red" },
   ["@text.note"] = { fg = "blue" },
   ["@text.header"] = { bold = true },
@@ -31,7 +44,7 @@ M.override = {
   ["@property.scss"] = { link = "@property.css" },
   ["@lsp.type.keyword"] = { link = "Keyword" },
   ["@lsp.type.operator"] = { link = "Operator" },
-  ["@lsp.type.parameter"] = { link = "@parameter" },
+  ["@lsp.type.parameter"] = { link = "@variable.parameter" },
   ["@lsp.type.property"] = { link = "@property" },
   ["@lsp.typemod.method.reference"] = { link = "Function" },
   ["@lsp.typemod.method.trait"] = { link = "Function" },
@@ -51,6 +64,12 @@ M.override = {
 ---@type HLTable
 M.add = {
 
+  ["@variable"] = { fg = "white" },
+  ["@variable.member"] = { fg = "white" },
+  ["@constructor"] = { fg = "green" },
+
+  DapStoppedLine = { link = "Visual" },
+
   EdgyWinBar = { bg = "black", fg = "white" },
   EdgyWinBarInactive = { bg = "black", fg = "white" },
   EdgyNormal = { bg = "black", fg = "white" },
@@ -61,16 +80,18 @@ M.add = {
   MultiCursorMain = { bg = "white", fg = "black2" },
 
   DapBreakpoint = { fg = "red" },
+  NvimDapVirtualText = { fg = "#6272A4" },
 
   LightBulbSign = { bg = "black", fg = "yellow" },
 
   NvimTreeOpenedFolderName = { fg = "purple", bold = true },
   NvimTreeOpenedFile = { fg = "green", bold = true },
+  NvimTreeFileIcon = { fg = "purple" },
 
   -- Cmp Highlights
-  CmpItemKindCodeium = { fg = "green" },
-  CmpItemKindTabNine = { fg = "pink" },
-  CmpItemKindCopilot = { fg = "cyan" },
+--  CmpItemKindCodeium = { fg = "green" },
+--  CmpItemKindTabNine = { fg = "pink" },
+--  CmpItemKindCopilot = { fg = "cyan" },
 
   PackageInfoOutdatedVersion = { fg = "red" },
   PackageInfoUpToDateVersion = { fg = "green" },
@@ -86,6 +107,16 @@ M.add = {
   -- SpectreSearch = { fg = "green" },
   -- SpectreBorder
   -- SpectreReplace
+
+  ObsidianTodo = { fg = "red" },
+  ObsidianDone = { fg = "green" },
+  ObsidianRightArrow = { fg = "cyan" },
+  ObsidianTilde = { fg = "cyan" },
+  ObsidianBullet = { fg = "yellow" },
+  ObsidianExtLinkIcon = { fg = "purple" },
+  ObsidianRefText = { fg = "pink" },
+  ObsidianHighlightText = { fg = "cyan" },
+  ObsidianTag = { fg = "cyan" },
 
   -- Tree Sitter Rainbow
   RainbowDelimiterRed = { fg = "red" },
@@ -144,7 +175,7 @@ M.add = {
 
   -- Custom highlights
   CopilotHl = { fg = "white", bg = "statusline_bg" },
-  HarpoonHl = { fg = "cyan", bg = "statusline_bg" },
+  RecordHl = { fg = "red", bg = "statusline_bg" },
   CmpHl = { fg = "red", bg = "statusline_bg" },
   NotificationHl = { fg = "white", bg = "statusline_bg" },
   TermHl = { fg = "green", bg = "statusline_bg" },

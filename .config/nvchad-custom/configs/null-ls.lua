@@ -7,7 +7,6 @@ end
 local b = null_ls.builtins
 
 local sources = {
-
   -- Formatting
   b.formatting.prettier,
   b.formatting.rustywind,
@@ -18,33 +17,12 @@ local sources = {
   b.formatting.gofumpt,
   b.formatting.tidy,
   b.formatting.goimports,
-  -- b.formatting.gofmt,
-  -- b.formatting.goimports_reviser,
-  -- b.diagnostics.golangci_lint,
-  -- b.diagnostics.revive,
-  -- b.formatting.lua_format,
-
-  -- Diagnostics
-  b.diagnostics.fish,
-  b.diagnostics.checkmake,
-  b.diagnostics.jsonlint,
-  b.diagnostics.eslint,
-  -- b.diagnostics.luacheck,
-  -- b.diagnostics.checkstyle.with {
-  --   extra_args = { "-c", "/google_checks.xml" },
-  -- },
-
+  
+  
   -- Completion
   b.completion.luasnip,
 
   -- Code actions
-  -- b.code_actions.gitsigns.with {
-  --   config = {
-  --     filter_actions = function(title)
-  --       return title:lower():match "blame" == nil -- filter out blame actions
-  --     end,
-  --   },
-  -- },
   b.code_actions.gomodifytags,
   b.code_actions.impl,
   b.code_actions.eslint,
@@ -74,4 +52,3 @@ null_ls.setup {
   --   end
   -- end,
 }
-

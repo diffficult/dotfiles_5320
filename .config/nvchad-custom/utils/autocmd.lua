@@ -1,6 +1,8 @@
 local autocmd = vim.api.nvim_create_autocmd
+local cmd = vim.api.nvim_command
 local augroup = vim.api.nvim_create_augroup
 local settings = require("custom.chadrc").settings
+local fn = vim.fn
 
 local function close_all_floating_wins()
   for _, win in ipairs(vim.api.nvim_list_wins()) do
@@ -11,22 +13,68 @@ local function close_all_floating_wins()
   end
 end
 
--- Auto resize panes when resizing nvim window
 autocmd("VimResized", {
+  desc = "Auto resize panes when resizing nvim window",
   pattern = "*",
   command = "tabdo wincmd =",
 })
 
--- Fix semantic tokens for lsp
+autocmd("VimEnter", {
+  desc = "Customize right click contextual menu.",
+  callback = function()
+    -- Disable right click message
+    cmd [[aunmenu PopUp.How-to\ disable\ mouse]]
+    -- cmd [[aunmenu PopUp.-1-]] -- You can remode a separator like this.
+    cmd [[menu PopUp.Toggle\ \Breakpoint <cmd>:lua require('dap').toggle_breakpoint()<CR>]]
+    cmd [[menu PopUp.Start\ \Debugger <cmd>:DapContinue<CR>]]
+  end,
+})
+
+autocmd("BufWritePre", {
+  desc = "Close all notifications on BufWritePre",
+  callback = function()
+    require("notify").dismiss { pending = true, silent = true }
+  end,
+})
+
 autocmd("LspAttach", {
+  desc = "Fix semantic tokens for lsp",
   callback = function(args)
     local client = vim.lsp.get_client_by_id(args.data.client_id)
     client.server_capabilities.semanticTokensProvider = nil
   end,
 })
 
--- Close Nvimtree before quit nvim
+autocmd({ "BufNewFile", "BufRead" }, {
+  pattern = { "**/node_modules/**", "node_modules", "/node_modules/*" },
+  callback = function()
+    vim.diagnostic.disable(0)
+  end,
+})
+
+autocmd({ "BufWritePre" }, {
+  desc = "Auto create dir when saving a file",
+  pattern = "*",
+  group = augroup("auto_create_dir", { clear = true }),
+  callback = function(ctx)
+    local dir = fn.fnamemodify(ctx.file, ":p:h")
+    utils.may_create_dir(dir)
+  end,
+})
+
+autocmd({ "BufRead" }, {
+  desc = "Display a message when the current file is not in utf-8 format",
+  pattern = "*",
+  group = augroup("non_utf8_file", { clear = true }),
+  callback = function()
+    if vim.bo.fileencoding ~= "utf-8" then
+      vim.notify("File not in UTF-8 format!", vim.log.levels.WARN, { title = "nvim-config" })
+    end
+  end,
+})
+
 autocmd("FileType", {
+  desc = "Close NvimTree before quit nvim",
   pattern = { "NvimTree" },
   callback = function(args)
     autocmd("VimLeavePre", {
@@ -38,8 +86,8 @@ autocmd("FileType", {
   end,
 })
 
--- Open new buffer if only Nvimtree is open
 autocmd("BufEnter", {
+  desc = "Open new buffer if only Nvimtree is open",
   nested = true,
   callback = function()
     local api = require "nvim-tree.api"
@@ -53,9 +101,35 @@ autocmd("BufEnter", {
   end,
 })
 
--- Close nvim if NvimTree is only running buffer
 autocmd("BufEnter", {
+  desc = "Close nvim if NvimTree is only running buffer",
   command = [[if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif]],
+})
+
+autocmd("BufWritePre", {
+  group = vim.api.nvim_create_augroup("TS_add_missing_imports", { clear = true }),
+  desc = "TS_add_missing_imports",
+  pattern = { "*.ts" },
+  callback = function()
+    local params = vim.lsp.util.make_range_params()
+    params.context = {
+      only = { "source.addMissingImports.ts" },
+    }
+    local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params)
+    for _, res in pairs(result or {}) do
+      for _, r in pairs(res.result or {}) do
+        if r.kind == "source.addMissingImports.ts" then
+          vim.lsp.buf.code_action {
+            apply = true,
+            context = {
+              only = { "source.addMissingImports.ts" },
+            },
+          }
+          vim.cmd "write"
+        end
+      end
+    end
+  end,
 })
 
 -- Define the VimEnter autocmd
@@ -92,26 +166,13 @@ autocmd("VimEnter", {
   end,
 })
 
--- Prefetch tabnine
-autocmd("BufRead", {
-  group = augroup("prefetch", { clear = true }),
-  pattern = "*",
-  callback = function()
-    local ok, _ = pcall(require, "cmp_tabnine")
-    if not ok then
-      return
-    end
-    require("cmp_tabnine"):prefetch(vim.fn.expand "%:p")
-  end,
-})
-
--- Don't auto comment new line
 autocmd("BufEnter", {
+  desc = "Prevent auto comment new line",
   command = [[set formatoptions-=cro]],
 })
 
--- Go to last loc when opening a buffer
 autocmd("BufReadPost", {
+  desc = "Go to last loc when opening a buffer",
   callback = function()
     local mark = vim.api.nvim_buf_get_mark(0, '"')
     local lcount = vim.api.nvim_buf_line_count(0)
@@ -121,8 +182,8 @@ autocmd("BufReadPost", {
   end,
 })
 
--- Git conflict popup
 autocmd("User", {
+  desc = "Git conflict popup",
   pattern = "GitConflictDetected",
   callback = function()
     vim.notify("Conflict detected in " .. vim.fn.expand "<afile>")
@@ -133,8 +194,21 @@ autocmd("User", {
   end,
 })
 
--- Load git-conflict only when a git file is opened
+autocmd("BufWritePost", {
+  desc = "Reload NvimTree after writing the buffer",
+  callback = function()
+    local bufs = fn.getbufinfo()
+    for _, buf in ipairs(bufs) do
+      if buf.name:find "NvimTree_" then
+        cmd "NvimTreeRefresh"
+        break
+      end
+    end
+  end,
+})
+
 autocmd({ "BufRead" }, {
+  desc = "Load git-conflict.nvim only when a git file is opened",
   group = vim.api.nvim_create_augroup("GitConflictLazyLoad", { clear = true }),
   callback = function()
     vim.fn.system("git -C " .. '"' .. vim.fn.expand "%:p:h" .. '"' .. " rev-parse")
@@ -147,94 +221,22 @@ autocmd({ "BufRead" }, {
   end,
 })
 
--- Disable status column in the following files
-autocmd({ "FileType", "BufWinEnter" }, {
-  callback = function()
-    local ft_ignore = {
-      "man",
-      "help",
-      "neo-tree",
-      "starter",
-      "TelescopePrompt",
-      "Trouble",
-      "NvimTree",
-      "nvcheatsheet",
-      "dapui_watches",
-      "dap-repl",
-      "dapui_console",
-      "dapui_stacks",
-      "spectre_panel",
-      "dapui_breakpoints",
-      "dapui_scopes",
-      "nvdash",
-    }
-    local b = vim.api.nvim_get_current_buf()
-    local f = vim.api.nvim_buf_get_option(b, "filetype")
-    for _, e in ipairs(ft_ignore) do
-      if f == e then
-        vim.api.nvim_win_set_option(0, "statuscolumn", "")
-        return
-      end
-    end
-  end,
-})
-
-autocmd({ "BufEnter", "BufNew" }, {
-  callback = function()
-    local ft_ignore = {
-      "man",
-      "help",
-      "neo-tree",
-      "starter",
-      "TelescopePrompt",
-      "Trouble",
-      "NvimTree",
-      "nvcheatsheet",
-      "dapui_watches",
-      "dap-repl",
-      "dapui_console",
-      "spectre_panel",
-      "dapui_stacks",
-      "dapui_breakpoints",
-      "dapui_scopes",
-    }
-    if vim.tbl_contains(ft_ignore, vim.bo.filetype) then
-      vim.cmd "setlocal statuscolumn="
-    end
-  end,
-})
-
--- vim.api.nvim_create_autocmd({ "User" }, {
---   pattern = "PersistedSavePre",
---   group = vim.api.nvim_create_augroup("PersistedHooks", {}),
---   callback = function()
---     pcall(vim.cmd, "bw minimap")
---     pcall(vim.cmd, "cclose")
-
---     local lazy_view = require "lazy.view"
---     if lazy_view.visible() then
---       lazy_view.close()
---     end
---     close_all_floating_wins()
---   end,
--- })
-
--- Highlight on yank
 autocmd("TextYankPost", {
+  desc = "Highlight on yank",
   command = "silent! lua vim.highlight.on_yank({higroup='YankVisual', timeout=200})",
   group = augroup("YankHighlight", { clear = true }),
 })
 
-autocmd('ModeChanged', {
-  group = vim.api.nvim_create_augroup('user_diagnostic', {clear = true}),
-  pattern = {'n:i', 'n:v', 'i:v'},
-  command = 'lua vim.diagnostic.disable(0)'
+autocmd("ModeChanged", {
+  group = vim.api.nvim_create_augroup("user_diagnostic", { clear = true }),
+  pattern = { "n:i", "n:v", "i:v" },
+  command = "lua vim.diagnostic.disable(0)",
 })
 
-autocmd('ModeChanged', {
-  group = vim.api.nvim_create_augroup('user_diagnostic', {clear = true}),
-  pattern = 'i:n',
-  command = 'lua vim.diagnostic.enable(0)'
+autocmd("ModeChanged", {
+  group = vim.api.nvim_create_augroup("user_diagnostic", { clear = true }),
+  pattern = "i:n",
+  command = "lua vim.diagnostic.enable(0)",
 })
 
 -- Show cursor line only in active window
@@ -294,6 +296,7 @@ autocmd("FileType", {
     "spectre_panel",
     "null-ls-info",
     "empty",
+    "noice",
     "neotest-output",
     "neotest-summary",
     "neotest-output-panel",
@@ -304,10 +307,22 @@ autocmd("FileType", {
         ]],
 })
 
--- Disable diagnostics in node_modules (0 is current buffer only)
 autocmd({ "BufRead", "BufNewFile" }, {
+  desc = "Disable diagnostics in node_modules",
   pattern = "*/node_modules/*",
   command = "lua vim.diagnostic.disable(0)",
+})
+
+autocmd("BufWritePre", {
+  callback = function(event)
+    local client = vim.lsp.get_clients({ bufnr = event.buf, name = "eslint" })[1]
+    if client then
+      local diag = vim.diagnostic.get(event.buf, { namespace = vim.lsp.diagnostic.get_namespace(client.id) })
+      if #diag > 0 then
+        vim.cmd "EslintFixAll"
+      end
+    end
+  end,
 })
 
 -- Nvimtree open file on creation
@@ -336,7 +351,7 @@ autocmd({ "ModeChanged" }, {
 })
 
 -- prevent comment from being inserted when entering new line in existing comment
-vim.api.nvim_create_autocmd("BufEnter", {
+autocmd("BufEnter", {
   callback = function()
     -- allow <CR> to continue block comments only
     -- https://stackoverflow.com/questions/10726373/auto-comment-new-line-in-vim-only-for-block-comments
@@ -347,57 +362,8 @@ vim.api.nvim_create_autocmd("BufEnter", {
   end,
 })
 
--- Go exclusive mappings
-autocmd("FileType", {
-  callback = function()
-    if vim.bo.ft == "go" then
-      require("core.utils").load_mappings "go"
-    else
-      require("custom.utils.core").remove_mappings "go"
-    end
-  end,
-})
-
--- Unlink the snippet and restore completion
--- autocmd("ModeChanged", {
---   pattern = "*",
---   callback = function()
---     if
---       ((vim.v.event.old_mode == "s" and vim.v.event.new_mode == "n") or vim.v.event.old_mode == "i")
---       and require("luasnip").session.current_nodes[vim.api.nvim_get_current_buf()]
---       and not require("luasnip").session.jump_active
---     then
---       require("luasnip").unlink_current()
---       require("cmp.config").set_global {
---         completion = { autocomplete = { require("cmp.types").cmp.TriggerEvent.TextChanged } },
---       }
---     end
---   end,
--- })
-
 -- Show `` in specific files
-vim.api.nvim_create_autocmd(
-  { "BufRead", "BufNewFile" },
-  { pattern = { "*.txt", "*.md", "*.json" }, command = "setlocal conceallevel=0" }
-)
-
--- Do not automatically trigger completion if we are in a snippet
--- autocmd("User", {
---   pattern = "LuaSnipInsertNodeEnter",
---   callback = function()
---     require("cmp.config").set_global { completion = { autocomplete = false } }
---   end,
--- })
-
--- But restore it when we leave.
--- vim.api.nvim_create_autocmd("User", {
---   pattern = "LuaSnipInsertNodeLeave",
---   callback = function()
---     require("cmp.config").set_global {
---       completion = { autocomplete = { require("cmp.types").cmp.TriggerEvent.TextChanged } },
---     }
---   end,
--- })
+autocmd({ "BufRead", "BufNewFile" }, { pattern = { "*.txt", "*.md", "*.json" }, command = "setlocal conceallevel=2" })
 
 -- Switch to insert mode when terminal is open
 local term_augroup = vim.api.nvim_create_augroup("Terminal", { clear = true })
@@ -435,7 +401,7 @@ autocmd("BufHidden", {
   end,
 })
 
-vim.api.nvim_create_autocmd({ "BufEnter", "BufNewFile" }, {
+autocmd({ "BufEnter", "BufNewFile" }, {
   callback = function()
     if vim.bo.filetype == "markdown" then
       -- override ufo method
@@ -447,7 +413,17 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufNewFile" }, {
   end,
 })
 
-vim.api.nvim_create_autocmd({ "User" }, {
+autocmd({ "tabnew" }, {
+  callback = function(args)
+    vim.schedule(function()
+      if vim.t.bufs == nil then
+        vim.t.bufs = vim.api.nvim_get_current_buf() == args.buf and {} or { args.buf }
+      end
+    end)
+  end,
+})
+
+autocmd({ "User" }, {
   pattern = "PersistedSavePre",
   group = group,
   callback = function()
@@ -553,13 +529,5 @@ autocmd({ "InsertEnter", "WinLeave" }, {
 --     if not view.is_visible() then
 --       api.tree.open()
 --     end
---   end,
--- })
-
--- Auto format on save, but it will mess with undo history
--- autocmd("BufWritePre", {
---   pattern = { "*" },
---   callback = function()
---     vim.lsp.buf.format { async = false }
 --   end,
 -- })
