@@ -40,6 +40,7 @@ fontm = ""
 fileroller = ""
 feh = ""
 bluetooth= ""
+protonvpn= ""
 
 #[aliases.instance]
 #"realmonitor" = "nvr"
@@ -84,6 +85,7 @@ bluetooth= ""
 "feh" = "feh"
 "blueman-manager" = "bluetooth"
 "Alacritty" = "Alacritty"
+"Protonvpn" = "protonvpn"
 
 [general]
 #separator = "  "
