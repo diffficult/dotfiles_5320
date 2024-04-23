@@ -294,7 +294,7 @@ zstyle ':prezto:module:fzf' disable-key-bindings 'no'
 zstyle ':prezto:module:fzf' disable-completion 'yes'
 
 # Set height of the fzf results - default: full height
-zstyle ':prezto:module:fzf' height '30%'
+zstyle ':prezto:module:fzf' height '45%'
 
 # Show file preview with ctrl+t and directory contents preview (needs tree) with alt-c
 zstyle ':prezto:module:fzf' preview 'yes'
