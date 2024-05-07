@@ -79,7 +79,7 @@ _fzf_comprun() {
 # BAT (alias cat)
 ###
 
-export BAT_THEME=tokyonight_night
+export BAT_THEME=TokyoNight
 
 ##
 # gpg agent
