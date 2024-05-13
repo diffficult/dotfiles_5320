@@ -1,4 +1,23 @@
 # {{{ ------ My shitty functions ---------
+
+# {{{ ------ VPN turn off whatever VPN is up -------
+#
+# choose VPN and turn on
+vpn-on() { nmcli con up "$1" ;}
+# kill VPN active VPN connection 
+function vpn-off() {
+    active_vpn=$(nmcli con show --active | grep wireguard | awk '{print $1}')
+    if [[ -n $active_vpn ]]; then
+        nmcli con down "$active_vpn"
+        echo "VPN : $active_vpn ❌"
+    else
+        echo "No   VPN connection found."
+    fi
+}
+#
+# }}}
+
+
 # ----- colors and stuff------------------
 function colortest-gradients2
 {

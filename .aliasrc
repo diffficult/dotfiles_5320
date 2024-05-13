@@ -374,7 +374,6 @@ cmdfu-random() { echo -e "`curl -sL https://www.commandlinefu.com/commands/rando
 
 webm2mp4() {for i in *.webm; do ffmpeg -i "$i" -vf "crop=trunc(iw/2)*2:trunc(ih/2)*2" -c:v libx264 -preset slow -crf 22 -c:a copy "${i%.*}.mp4"; done ;}
 
-
 # }}}
 
 
