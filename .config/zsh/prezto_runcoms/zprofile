@@ -20,6 +20,12 @@ export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
 
 export GTK_THEME=Nordic-darker
 
+## rofi-emoji XDG_DATA_DIRS pointed to /home/poole/.local/share/data/rofi-emoji/all_emojis.txt
+#
+export XDG_DATA_DIRS="$HOME/.local/share/data:$XDG_DATA_DIRS"
+#
+##
+
 #
 # Editors
 #
