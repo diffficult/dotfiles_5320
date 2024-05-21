@@ -42,6 +42,7 @@ feh = ""
 bluetooth= ""
 protonvpn= ""
 kitty = "󰄛"
+filer = ""
 
 #[aliases.instance]
 #"realmonitor" = "nvr"
@@ -88,6 +89,7 @@ kitty = "󰄛"
 "Alacritty" = "Alacritty"
 "Protonvpn" = "protonvpn"
 "kitty" = "kitty"
+"file.roller" = "filer"
 
 [general]
 #separator = "  "
