@@ -3,6 +3,13 @@
 # (‑●‑●)> dual licensed under the WTFPL v2 license and the MIT license,
 #         without any warranty.
 #         Copyright 2012— Gregory Pakosz (@gpakosz).
+#
+# ▄▄▄▄▄• ▌ ▄ ·. ▄• ▄▌▐▄• ▄ 
+# •██  ·██ ▐███▪█▪██▌ █▌█▌▪
+#  ▐█.▪▐█ ▌▐▌▐█·█▌▐█▌ ·██· 
+#  ▐█▌·██ ██▌▐█▌▐█▄█▌▪▐█·█▌
+#  ▀▀▀ ▀▀  █▪▀▀▀ ▀▀▀ •▀▀ ▀▀
+#
 
 set-option -sa terminal-overrides ",xterm*:Tc"
 
@@ -121,7 +128,7 @@ tmux_conf_theme_focused_pane_bg="$tmux_conf_theme_colour_2"
 # pane border style, possible values are:
 #   - thin (default)
 #   - fat
-tmux_conf_theme_pane_border_style=thin
+tmux_conf_theme_pane_border_style=fat
 
 # pane borders colours:
 tmux_conf_theme_pane_border="$tmux_conf_theme_colour_2"
@@ -164,7 +171,7 @@ tmux_conf_theme_status_attr="none"
 #     - #{hostname_full_ssh}
 #     - #{username}
 #     - #{username_ssh}
-tmux_conf_theme_terminal_title="#h  #S  #I #W"
+tmux_conf_theme_terminal_title="#h  #S  #I #W"
 
 # window status style
 #   - built-in variables are:
@@ -182,7 +189,12 @@ tmux_conf_theme_window_status_attr="none"
 #tmux_conf_theme_window_status_format="#I #{panerename}#{?#{||:#{window_bell_flag},#{window_zoomed_flag}}, ,}#{?window_bell_flag,!,}#{?window_zoomed_flag,Z,}"
 #tmux_conf_theme_window_status_format="#I #W#{?#{||:#{window_bell_flag},#{window_zoomed_flag}}, ,}#{?window_bell_flag,!,}#{?window_zoomed_flag,Z,}"
 #tmux_conf_theme_window_status_format="#{circled_window_index} #W#{?#{||:#{window_bell_flag},#{window_zoomed_flag}}, ,}#{?window_bell_flag,!,}#{?window_zoomed_flag,Z,}"
+
+#working status format no tags
 tmux_conf_theme_window_status_format="#I #W#{?#{||:#{window_bell_flag},#{window_zoomed_flag}}, ,}#{?window_bell_flag,🔔,}#{?window_zoomed_flag,🔍,}"
+
+#new status format with tags
+#tmux_conf_theme_window_status_format="#{@window_tag_format} #W#{?#{||:#{window_bell_flag},#{window_zoomed_flag}}, ,}#{?window_bell_flag,🔔,}#{?window_zoomed_flag,🔍,}"
 
 # window current status style
 #   - built-in variables are:
@@ -199,7 +211,12 @@ tmux_conf_theme_window_status_current_bg="$tmux_conf_theme_colour_4"
 tmux_conf_theme_window_status_current_attr="bold"
 #tmux_conf_theme_window_status_current_format="#I #W#{?#{||:#{window_bell_flag},#{window_zoomed_flag}}, ,}#{?window_bell_flag,!,}#{?window_zoomed_flag,Z,}"
 #tmux_conf_theme_window_status_current_format="#{circled_window_index} #W#{?#{||:#{window_bell_flag},#{window_zoomed_flag}}, ,}#{?window_bell_flag,!,}#{?window_zoomed_flag,Z,}"
+
+# working current window status NO tags
 tmux_conf_theme_window_status_current_format="#I #W#{?#{||:#{window_bell_flag},#{window_zoomed_flag}}, ,}#{?window_bell_flag,🔔,}#{?window_zoomed_flag,🔍,}"
+
+# new window current status with tags
+#tmux_conf_theme_window_status_current_format="#{@window_tag_format} #W#{?#{||:#{window_bell_flag},#{window_zoomed_flag}}, ,}#{?window_bell_flag,🔔,}#{?window_zoomed_flag,🔍,}"
 
 # window activity status style
 tmux_conf_theme_window_status_activity_fg="default"
@@ -253,7 +270,7 @@ tmux_conf_theme_right_separator_sub='\uE0B3'  #   PowerlineSymbols.otf font, see
 #     - #{uptime_s}
 #     - #{username}
 #     - #{username_ssh}
-tmux_conf_theme_status_left="  #S | #{?uptime_y, #{uptime_y}y,}#{?uptime_d, #{uptime_d}d,}#{?uptime_h, #{uptime_h}h,}#{?uptime_m, #{uptime_m}m,} "
+tmux_conf_theme_status_left="  #S | #{?uptime_y, #{uptime_y}y,}#{?uptime_d, #{uptime_d}d,}#{?uptime_h, #{uptime_h}h,}#{?uptime_m, #{uptime_m}m,} "
 tmux_conf_theme_status_right=" #{prefix}#{mouse}#{pairing}#{synchronized}#{?battery_status,#{battery_status},}#{?battery_bar, #{battery_bar},}#{?battery_percentage, #{battery_percentage},} | #{keyboard_layout2} |  #{username}#{root} "
 
 # status left style
@@ -350,7 +367,7 @@ tmux_conf_theme_clock_style="24"
 #   - disabled
 # on macOS, this requires installing reattach-to-user-namespace, see README.md
 # on Linux, this requires xsel, xclip or wl-copy
-tmux_conf_copy_to_os_clipboard=false
+tmux_conf_copy_to_os_clipboard=true
 
 
 # -- user customizations -------------------------------------------------------
@@ -422,6 +439,8 @@ tmux_conf_uninstall_plugins_on_reload=true
 set -g @plugin 'tmux-plugins/tpm'
 set -g @plugin 'diffficult/tmux-keyblayout'
 set -g @plugin 'tmux-plugins/tmux-yank'
+set -g @plugin 'diffficult/tmux-windtags'
+set -g @plugin 'joshmedeski/tmux-nerd-font-window-name'
 #set -g @plugin 'tmux-plugins/tmux-copycat'
 #set -g @plugin 'tmux-plugins/tmux-cpu'
 set -g @plugin 'tmux-plugins/tmux-resurrect'
