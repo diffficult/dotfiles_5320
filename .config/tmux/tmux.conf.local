@@ -438,19 +438,30 @@ tmux_conf_uninstall_plugins_on_reload=true
 # visit https://github.com/tmux-plugins for available plugins
 set -g @plugin 'tmux-plugins/tpm'
 set -g @plugin 'diffficult/tmux-keyblayout'
+#set -g @plugin 'diffficult/tmux-windtags'
+#set -g @plugin 'joshmedeski/tmux-nerd-font-window-name'
 set -g @plugin 'tmux-plugins/tmux-yank'
-set -g @plugin 'diffficult/tmux-windtags'
-set -g @plugin 'joshmedeski/tmux-nerd-font-window-name'
 #set -g @plugin 'tmux-plugins/tmux-copycat'
 #set -g @plugin 'tmux-plugins/tmux-cpu'
 set -g @plugin 'tmux-plugins/tmux-resurrect'
 set -g @plugin 'tmux-plugins/tmux-continuum'
+#set -g @continuum-restore 'on'
 set -g @plugin 'sainnhe/tmux-fzf'
 set -g @plugin 'omerxx/tmux-sessionx'
+set -g @plugin 'fcsonline/tmux-thumbs'
+set -g @plugin 'roosta/tmux-fuzzback'
+
 
 # --- TPM Plugin settings ----------------
 
 set -g @continuum-restore 'on'
+
+# -- tpm tmux-sessionx config ------
+
+set -g @fuzzback-bind S
+set -g @fuzzback-hide-preview 1
+set -g @fuzzback-popup 1 
+set -g @fuzzback-popup-size '90%'
 
 # -- tpm tmux-sessionx config ------
 
