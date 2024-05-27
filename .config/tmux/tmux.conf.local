@@ -243,6 +243,14 @@ tmux_conf_theme_left_separator_sub='\uE0B1'   #   you only need fonts patched wi
 tmux_conf_theme_right_separator_main='\uE0B2' #   Powerline symbols or the standalone
 tmux_conf_theme_right_separator_sub='\uE0B3'  #   PowerlineSymbols.otf font, see README.md
 
+#tmux_conf_theme_left_separator_main=' '
+#tmux_conf_theme_left_separator_sub='█'
+#tmux_conf_theme_right_separator_main=''
+#tmux_conf_theme_right_separator_sub='█'
+
+#set -g @catppuccin_status_left_separator  " "
+#set -g @catppuccin_status_right_separator ""
+
 # status left/right content:
 #   - separate main sections with "|"
 #   - separate subsections with ","
@@ -395,7 +403,7 @@ tmux_conf_copy_to_os_clipboard=true
 # bind c new-window -c '#{pane_current_path}' #!important
 
 # move status line to top
-#set -g status-position top
+set -g status-position top
 
 # navi binding to be used in ssh sessions
 # bind-key -T prefix C-g split-window \
@@ -413,7 +421,7 @@ tmux_conf_copy_to_os_clipboard=true
 # by default, launching tmux will update tpm and all plugins
 #   - true (default)
 #   - false
-tmux_conf_update_plugins_on_launch=false
+tmux_conf_update_plugins_on_launch=true
 
 # by default, reloading the configuration will update tpm and all plugins
 #   - true (default)
