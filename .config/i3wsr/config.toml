@@ -43,6 +43,8 @@ bluetooth= ""
 protonvpn= ""
 kitty = "󰄛"
 filer = ""
+wezterm = ""
+dunst = ""
 
 #[aliases.instance]
 #"realmonitor" = "nvr"
@@ -89,10 +91,12 @@ filer = ""
 "Alacritty" = "Alacritty"
 "Protonvpn" = "protonvpn"
 "kitty" = "kitty"
-"file.roller" = "filer"
+"file\\.roller" = "filer"
+"org\\.wezfurlong\\.wezterm" = "wezterm"
+"Dunst" = "dunst"
 
 [general]
-#separator = "  "
+#separator = " "
 #default_icon = ""
 default_icon = "💀"
 separator = "·"
