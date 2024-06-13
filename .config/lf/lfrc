@@ -17,8 +17,12 @@ set findlen 1
 set tabstop 4
 set info size
 set preview
-set previewer ~/.config/lf/previewer
-set cleaner ~/.config/lf/cleaner
+# set previewer ~/.config/lf/previewer
+# set cleaner ~/.config/lf/cleaner
+set previewer ctpv
+set cleaner ctpvclear
+&ctpv -s $id
+&ctpvquit $id
 set dircounts
 setlocal ~/Downloads sortby "atime"
 setlocal ~/Downloads reverse
@@ -29,7 +33,7 @@ setlocal ~/Downloads reverse
 cmd open &{{
   case $(file --mime-type "$(readlink -f $f)" -b) in
     text/*|application/json|inode/x-empty|application/octet-stream) lf -remote "send $id \$$EDITOR \$fx";;
-    *) for f in $fx; do open $f > /dev/null 2> /dev/null & done;;
+    *) for f in $fx; do xdg-open $f > /dev/null 2> /dev/null & done;;
   esac
 }}
 
@@ -233,7 +237,7 @@ map <space>c push :zip<space>
 # extract
 map <space>x extract
 # Open the directory in Finder on macOS
-map <space>f &if [[ -d $f ]]; then open $f; fi
+map <space>f &if [[ -d $f ]]; then xdg-open $f; fi
 
 cmap <tab> cmd-menu-complete
 cmap <backtab> cmd-menu-complete-back

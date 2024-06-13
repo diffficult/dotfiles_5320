@@ -22,11 +22,11 @@
 # file types (with matching order)
 ln             # LINK
 or             # ORPHAN
-tw      t       # STICKY_OTHER_WRITABLE
-ow             # OTHER_WRITABLE
-st      t       # STICKY
-di             # DIR
-pi      p       # FIFO
+tw      󰝉       # STICKY_OTHER_WRITABLE
+ow      󰉋       # OTHER_WRITABLE
+st      󰝉       # STICKY
+di             # DIR
+pi      󰟥       # FIFO
 so      󰤅       # SOCK
 bd      b       # BLK
 cd      c       # CHR
