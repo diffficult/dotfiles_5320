@@ -138,6 +138,13 @@ cmd bulk-rename ${{
   lf -remote "send $id unselect"
 }}
 
+# Bulk rename using vimv 
+
+cmd vimv ${{
+  /bin/sh -c "vimv $(echo -e "$fx" | xargs -i echo "\\'{}\\'" | xargs echo)"
+}}
+
+
 # Copy the file names (including extension) of the selections separated by \n
 cmd copy-filename ${{
   names="$(echo $fx | tr ' ' '\n' | xargs -I{} basename {})"
@@ -230,6 +237,7 @@ map I push A<c-a> # at the very beginning
 map rn push A<c-u> # rename the filename
 map re push A<c-f><c-k> # rename the extension
 map <c-r> bulk-rename
+map rb vimv # bulk rename using vimv
 
 # Use <space> as the leader key
 # compress (give a name like abc and it will compress the selected items to abc.zip)
