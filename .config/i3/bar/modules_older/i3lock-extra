@@ -39,17 +39,17 @@ deskshot() {
 	declare dist_mode=$1; shift
 
 	case "$dist_mode" in
-		blur) scrot -e "convert -gaussian-blur 4x8 $f ${cfg_tmpdir}/lockbg.png" "${cfg_tmpdir}/lockbg.png";;
+		blur) scrot -e "magick -gaussian-blur 4x8 $f ${cfg_tmpdir}/lockbg.png" "${cfg_tmpdir}/lockbg.png";;
 		pixelize)
 			scale_down=$(( 100/cfg_pixelize_scale ))
 			scale_up=$(( ( 100/cfg_pixelize_scale ) * cfg_pixelize_scale * cfg_pixelize_scale ))
 
-			scrot -e "convert $f -scale "$scale_down"% -scale "$scale_up"% ${cfg_tmpdir}/lockbg.png" "${cfg_tmpdir}/lockbg.png"
+			scrot -e "magick $f -scale "$scale_down"% -scale "$scale_up"% ${cfg_tmpdir}/lockbg.png" "${cfg_tmpdir}/lockbg.png"
 		;;
 	esac
 
 	if [[ "$1" ]]; then
-		convert -gravity center -composite -matte "${cfg_tmpdir}/lockbg.png" "$1" "${cfg_tmpdir}/lockbg.png"
+		magick -gravity center -composite -matte "${cfg_tmpdir}/lockbg.png" "$1" "${cfg_tmpdir}/lockbg.png"
 	fi
 	
 	image="${cfg_tmpdir}/lockbg.png"

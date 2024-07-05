@@ -7,7 +7,7 @@
 # - mpd
 # - mpc
 # - notify-send (libnotify)
-# * ImageMagick (convert)
+# * ImageMagick (magick)
 
 # Author : Wolfgang Mueller
 # You can use, edit and redistribute this script in any way you like.
@@ -66,7 +66,7 @@ text="$(escape "$title\n$song")"
 if [[ -n $cover ]]; then
 
     if [[ -n $COVER_RESIZE ]]; then
-        convert "$cover" -thumbnail $COVER_RESIZE -gravity center \
+        magick "$cover" -thumbnail $COVER_RESIZE -gravity center \
             -background "$COVER_BACKGROUND" -extent $COVER_RESIZE "$TEMP_PATH" >> "$LOGFILE" 2>&1
         cover="$TEMP_PATH"
     fi

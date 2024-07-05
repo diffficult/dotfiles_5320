@@ -310,6 +310,7 @@ for_window [class="gnome-power-statistics"] floating enable, border none
 for_window [class="Switchboard"] floating enable, border none
 for_window [class="file_progress"] floatin enable, border normal
 for_window [class="feh"] floating enable, border none
+for_window [class="nsxiv"] border none
 for_window [class="(?i)nm-connection-editor"] floating enable, border none
 
 # XFCE specific
@@ -337,6 +338,7 @@ for_window [class="(?i)rustdesk"] floating enable, move absolute position center
 for_window [class="Gpicview"] border none
 for_window [class="TelegramDesktop"] floating enable, border none
 for_window [class="steam"] floating enable, border none, resize set 960 640
+for_window [title="Administracion - Remote Desktop - RustDesk"] floating disable, border 0, move center
 
 # Arch specific
 for_window [class="Pamac-manager"] floating enable, border none
@@ -345,7 +347,7 @@ for_window [class="(?i)keepassx2"] floating enable, border normal
 for_window [class="(?i)keepassxc"] floating enable, border normal
 for_window [class="Gnome-disks"] floating enable, border none
 for_window [class="Blueman-manager"] floating enable
-for_window [class="Terminator Preferences"] border
+for_window [class="Terminator Preferences"] border none
 
 #Graphic glitch fix
 new_window none

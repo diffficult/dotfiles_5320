@@ -6,7 +6,7 @@ set -o errexit -o noclobber -o nounset
 HUE=(-level 0%,100%,0.6)
 EFFECT=(-filter Gaussian -resize 20% -define filter:sigma=1.5 -resize 500.5%)
 # default system sans-serif font
-FONT="$(convert -list font | awk "{ a[NR] = \$2 } /family: $(fc-match sans -f "%{family}\n")/ { print a[NR-1]; exit }")"
+FONT="$(magick -list font | awk "{ a[NR] = \$2 } /family: $(fc-match sans -f "%{family}\n")/ { print a[NR-1]; exit }")"
 IMAGE="$(mktemp).png"
 
 OPTIONS="Options:
@@ -18,7 +18,7 @@ OPTIONS="Options:
                      Note: this option will not lock the screen, it displays
                      the list and exits immediately."
 
-# move pipefail down as for some reason "convert -list font" returns 1
+# move pipefail down as for some reason "magick -list font" returns 1
 set -o pipefail
 trap 'rm -f "$IMAGE"' EXIT
 TEMP="$(getopt -o :hpglf: -l help,pixelate,greyscale,font: --name "$0" -- "$@")"
@@ -35,7 +35,7 @@ while true ; do
                 "") shift 2 ;;
                 *) FONT=$2 ; shift 2 ;;
             esac ;;
-        -l|--listfonts) convert -list font | awk -F: '/Font: / { print $2 }' | sort -du | ${PAGER:-less} ; exit 0 ;;
+        -l|--listfonts) magick -list font | awk -F: '/Font: / { print $2 }' | sort -du | ${PAGER:-less} ; exit 0 ;;
         --) shift ; break ;;
         *) echo "error" ; exit 1 ;;
     esac
@@ -58,7 +58,7 @@ esac
 
 VALUE="60" #brightness value to compare to
 scrot -z "$IMAGE"
-COLOR=$(convert "$IMAGE" -gravity center -crop 100x100+0+0 +repage -colorspace hsb \
+COLOR=$(magick "$IMAGE" -gravity center -crop 100x100+0+0 +repage -colorspace hsb \
     -resize 1x1 txt:- | awk -F '[%$]' 'NR==2{gsub(",",""); printf "%.0f\n", $(NF-1)}');
 if [ "$COLOR" -gt "$VALUE" ]; then #white background image and black text
     BW="black"
@@ -76,7 +76,7 @@ else #black
         --ringwrongcolor=00000055 --insidewrongcolor=0000001c)
 fi
 
-convert "$IMAGE" "${HUE[@]}" "${EFFECT[@]}" -font "$FONT" -pointsize 26 -fill "$BW" -gravity center \
+magick "$IMAGE" "${HUE[@]}" "${EFFECT[@]}" -font "$FONT" -pointsize 26 -fill "$BW" -gravity center \
     -annotate +0+160 "$TEXT" "$ICON" -gravity center -composite "$IMAGE"
 
 # try to use a forked version of i3lock with prepared parameters
