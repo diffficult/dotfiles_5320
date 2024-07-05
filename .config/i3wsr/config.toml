@@ -45,6 +45,7 @@ kitty = "󰄛"
 filer = ""
 wezterm = ""
 dunst = ""
+feh = ""
 
 #[aliases.instance]
 #"realmonitor" = "nvr"
@@ -94,6 +95,7 @@ dunst = ""
 "file\\.roller" = "filer"
 "org\\.wezfurlong\\.wezterm" = "wezterm"
 "Dunst" = "dunst"
+"nsxiv" = "nsxiv"
 
 [general]
 #separator = " "
