@@ -45,7 +45,7 @@ kitty = "󰄛"
 filer = ""
 wezterm = ""
 dunst = ""
-feh = ""
+nsxiv = ""
 
 #[aliases.instance]
 #"realmonitor" = "nvr"
