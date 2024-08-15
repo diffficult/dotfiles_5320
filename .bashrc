@@ -38,3 +38,5 @@ PS1='[\u@\h \W]\$ '
 source /etc/bash_completion.d/climate_completion
 
 
+
+[ ! -f "$HOME/.x-cmd.root/X" ] || . "$HOME/.x-cmd.root/X" # boot up x-cmd.

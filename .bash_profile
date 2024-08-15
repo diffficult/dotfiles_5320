@@ -11,3 +11,5 @@
 ## export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
  
 ## export GTK_THEME=Arc-Dark
+
+[ ! -f "$HOME/.x-cmd.root/X" ] || . "$HOME/.x-cmd.root/X" # boot up x-cmd.
