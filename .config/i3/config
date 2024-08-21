@@ -262,6 +262,7 @@ assign [class="Nautilus"] number $ws_3
 assign [class="Nemo"] number $ws_3
 assign [class="Thunar"] number $ws_3
 assign [class="Xfce4-terminal"] number $ws_2
+assign [class="kitty"] number $ws_2
 assign [class="libreoffice-writer"] number $ws_6
 assign [class="libreoffice-calc"] number $ws_6
 assign [class="libreoffice"] number $ws_6
@@ -277,7 +278,8 @@ assign [class="Seahorse"] number $ws_5
 assign [class="protonvpn"] number $ws_8
 assign [class="code-oss"] number $ws_6
 assign [class="(?i)steam"] number $ws_8
-assign [class="(?i)rustdesk"] number $ws_10
+assign [class="(?i)Rustdesk"] number $ws_10
+assign [class="(?i)Localsend"] number $ws_09
 
 ##}}}
 # Window behaviour {{{
@@ -312,6 +314,7 @@ for_window [class="file_progress"] floatin enable, border normal
 for_window [class="feh"] floating enable, border none
 for_window [class="nsxiv"] border none
 for_window [class="(?i)nm-connection-editor"] floating enable, border none
+for_window [class="(?i)Localsend"] floating enable, border none
 
 # XFCE specific
 for_window [class="Xfce4-terminal"] border none
@@ -334,7 +337,7 @@ for_window [class="Chrome"] border none
 for_window [class="chrome"] border none
 for_window [class="^discord$"] border none
 for_window [class="zathura"] border none
-for_window [class="(?i)rustdesk"] floating enable, move absolute position center
+for_window [class="(?i)Rustdesk"] floating enable, move absolute position center
 for_window [class="Gpicview"] border none
 for_window [class="TelegramDesktop"] floating enable, border none
 for_window [class="steam"] floating enable, border none, resize set 960 640
@@ -407,7 +410,7 @@ bindsym $alt+Control+l exec --no-startup-id  "~/.config/i3/bin/lock.sh -p -f Ios
 #bindsym $mod+Shift+p exec --no-startup-id "~/.config/i3/myblocks/lockmyi3 -- -d"
 
 # start a terminal
-bindsym $mod+Return exec --no-startup-id xfce4-terminal
+bindsym $mod+Return exec --no-startup-id kitty
 bindsym $mod+Shift+Return exec --no-startup-id $terminal --float
 bindsym $mod+$alt+Return exec --no-startup-id $terminal --full
 
