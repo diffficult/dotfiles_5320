@@ -46,6 +46,7 @@ filer = ""
 wezterm = ""
 dunst = ""
 nsxiv = ""
+localsend = ""
 
 #[aliases.instance]
 #"realmonitor" = "nvr"
@@ -96,6 +97,7 @@ nsxiv = ""
 "org\\.wezfurlong\\.wezterm" = "wezterm"
 "Dunst" = "dunst"
 "nsxiv" = "nsxiv"
+"localsend" = "localsend"
 
 [general]
 #separator = " "
