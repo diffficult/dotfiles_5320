@@ -47,6 +47,7 @@ wezterm = ""
 dunst = ""
 nsxiv = ""
 localsend = ""
+zed = "🧠"
 
 #[aliases.instance]
 #"realmonitor" = "nvr"
@@ -98,6 +99,7 @@ localsend = ""
 "Dunst" = "dunst"
 "nsxiv" = "nsxiv"
 "localsend" = "localsend"
+"dev\\.zed\\.Zed" = "zed"
 
 [general]
 #separator = " "
