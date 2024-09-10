@@ -190,7 +190,12 @@ fi
 export QT_AUTO_SCREEN_SCALE_FACTOR=0
 export QT_QPA_PLATFORMTHEME=qt5ct
 
+# AUTOSUGGESTION COLOR TWEAK
+#
+# options, 60, 237-248
+#
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=244'
 
 
-
+# x-cmd for the lazy user
 [ ! -f "$HOME/.x-cmd.root/X" ] || . "$HOME/.x-cmd.root/X" # boot up x-cmd.
