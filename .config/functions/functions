@@ -264,6 +264,16 @@ detox-unix() {
   done
 }
 
+# eg. FOO BAR LinuX.tar.gz --> FOO_BAR_LINUX.tar.gz
+detox-unixCAP() {
+  myArray=( "$@" )
+  for arg in "${myArray[@]}"; do
+    filter_name=$(echo "$arg" | sed 's/%20/ /g' | sed 's/ /_/g' | tr '[:upper:]' '[:lower:]')
+    mv "$arg" "$filter_name"
+  done
+}
+
+
 # eg. FOO BAR LinuX.TAR.GZ --> Foo Bar Linux.tar.gz
 detox-human() {
   myArray=( "$@" )
