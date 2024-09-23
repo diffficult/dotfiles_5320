@@ -319,7 +319,7 @@ for_window [class="(?i)Localsend"] floating enable, border none
 # XFCE specific
 for_window [class="Xfce4-terminal"] border none
 for_window [class="Thunar"] border none
-for_window [class="File-roller"] floating enable
+for_window [class="file-roller"] floating enable
 for_window [class="URxvt"] floating enable, border none
 for_window [class="St"] floating enable, border none
 for_window [class="Whatsie"] floating enable, border normal, resize set 680 680
