@@ -125,7 +125,7 @@ fi
 
 # Set keyboard to US-INTL with accents and deadkey
 
-#setxkbmap -layout latam -variant deadtilde
+setxkbmap -layout latam -variant deadtilde
 
 #
 # Hardware Settings
