@@ -45,6 +45,7 @@ zstyle ':prezto:load' pmodule \
   'autosuggestions' \
   'contrib-prompt' \
   'fzf' \
+  'zoxide' \
   'prompt'
 
 #
