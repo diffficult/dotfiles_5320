@@ -49,6 +49,7 @@ nsxiv = ""
 localsend = ""
 zed = "🧠"
 froller = "🗜"
+zen = ""
 
 #[aliases.instance]
 #"realmonitor" = "nvr"
@@ -102,6 +103,7 @@ froller = "🗜"
 "localsend" = "localsend"
 "dev\\.zed\\.Zed" = "zed"
 "file-roller" = "froller"
+"zen-alpha" = "zen"
 
 [general]
 #separator = " "
