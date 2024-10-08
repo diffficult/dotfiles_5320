@@ -190,7 +190,7 @@ alias bc='bc -q -l'                 # dont show opening msg, use math library
 # alias cal='cal | grep --before-context 6 --after-context 6 --color -e " $(date +%e)" -e "^$(date +%e)"' # show calendar for 3 months
 alias cal='cal -3m | grep -B6 -A6 --color -e " $(date +%e)" -e "^$(date +%e)"' # show calendar for 3 months
 alias cp='cp -aiv'                  # cp prompt confirmation
-alias mv='mv -iv'
+alias mv='mv -niv'
 alias df='df -hT --total'               # human readable, print filetype, and total
 alias du='du -d1 -h'                    # max depth, human readable
 alias feh='feh --auto-zoom --scale-down -g 1360x768 -B white'
@@ -277,14 +277,22 @@ alias neocrux='neofetch --ascii --ascii_distro crux_small'
 alias neowin='neofetch --ascii --ascii_distro windows'
 alias disks='echo "╓───── m o u n t . p o i n t s"; echo "╙────────────────────────────────────── ─ ─ "; lsblk -a; echo ""; echo "╓───── d i s k . u s a g e"; echo "╙────────────────────────────────────── ─ ─ "; df -h;'
 
-#alias runalison='cd ~/.local/bin/Alison_Desktop && ./start-alison && clear && echo "Alison Desktop is running" && cd ~'
-#alias killalison='cd ~/.local/bin/Alison_Desktop && ./stop-alison && clear && echo "Alison Desktop stopped" && cd ~'
-alias runalison='./.local/bin/alison.sh'
-alias killalison='./.local/bin/salison.sh'
-
 alias fzfb='fzf --preview "bat --color \"always\" {}"'
 
 alias cleanup='paccache -ruk0 && yes | yay -Scc'
+
+alias pkglist='pacman -Qs --color=always | less -R'
+
+alias yfzf="pacman -Slq | fzf --preview 'pacman -Si {}' --layout=reverse"
+
+alias openports='sudo netstat -tupln'
+
+alias yeet='yay -Rns'
+
+alias daty='date +%Y%m%d'
+
+# use 0x0.st to share file or command output
+0x0() { curl -F"file=@$1" https://0x0.st | tee -a "$HOME/d/0x0.log"; }
 
 #alias weatherm='curl wttr.in/mendoza'
 #alias weather='curl http://wttr.in/$LOCATION'
