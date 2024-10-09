@@ -42,9 +42,11 @@ zstyle ':prezto:load' pmodule \
   'command-not-found' \
   'syntax-highlighting' \
   'history-substring-search' \
+  'zsh-abbr' \
   'autosuggestions' \
   'contrib-prompt' \
   'fzf' \
+  'fzf-alias' \
   'zoxide' \
   'prompt'
 
