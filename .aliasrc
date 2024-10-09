@@ -4,17 +4,6 @@
 ##### SYSTEM #######
 ####################
 
-#-------- Exports {{{
-#------------------------------------------------------
-# set display
-#export DISPLAY=:0
-
-# set 256color support (doesnt work with older apps like abook)
-#export TERM="screen-256color"
-# export TERM="xterm-256color"
-
-
-#}}}
 #-------- Set Default Programs {{{
 #------------------------------------------------------
 # DESC: check and choose the first program in the array that is installed as the default
@@ -27,89 +16,25 @@ find_alt() { for i;do which "$i" >/dev/null && { echo "$i"; return 0;};done;retu
 export OPENER=$(find_alt xdg-open exo-open gnome-open )
 #export BROWSER=$(find_alt chromium-browser chromium qutebrowser google-chrome firefox $OPENER )
 #export BROWSER=/usr/bin/chromium
-export BROWSER=/usr/bin/google-chrome-stable
-# export BROWSER=$(find_alt qutebrowser chromium chromium-browser google-chrome firefox $OPENER )
-#export BROWSERCLI=$(find_alt w3m links2 links lynx elinks $OPENER )
+# export BROWSER=/usr/bin/google-chrome-stable
+export BROWSER=$(find_alt google-chrome-stable google-chrome-unstale chromium chromium-browser firefox $OPENER )
+export BROWSERCLI=$(find_alt w3m links2 links lynx elinks $OPENER )
 export BROWSERTOR=$(find_alt tor-browser-en)
 export EBOOKER=$(find_alt ebook-viewer $OPENER )
-export EDITOR=$(find_alt nvim vim vi nano pico $OPENER )
+export EDITOR=$(find_alt nvim vim vi nano $OPENER )
 export EDITORCLI=$(find_alt nvim vim nano pico vi $OPENER )
-export EDITORGUI=$(find_alt code subl gedit mousepad leafpad pluma $OPENER )
-export FILEMANAGER=$(find_alt nemo nautilus thunar spacefm $OPENER )
+export EDITORGUI=$(find_alt code subl mousepad leafpad gedit pluma $OPENER )
+export FILEMANAGER=$(find_alt nemo nautilus thunar dolphin spacefm thunar enlightenment_filemanager $OPENER )
 export FILEMANAGERCLI=$(find_alt ranger vifm mc $OPENER )
 export PAGER=$(find_alt less more most)
 export PLAYER=$(find_alt mpv mplayer ffplay cvlc $OPENER )
-export READER=$(find_alt zathura mupdf evince $OPENER )
+export READER=$(find_alt mupdf zathura evince $OPENER )
 #export ROOTER=$(find_alt gksudo kdesudo )
-export IMAGEVIEWER=$(find_alt nsxiv feh sxiv ristretto display eog $OPENER )
+export IMAGEVIEWER=$(find_alt sxiv feh ristretto display eog $OPENER )
 export QUEUER=$(find_alt tsp fq ts )
 #export TERMER=$(find_alt urxvt xterm uxterm termite sakura lxterminal terminator mate-terminal pantheon-terminal konsole gnome-terminal xfce4-terminal $OPENER )
 
 # }}}
-
-#-------- Set Path {{{
-#------------------------------------------------------
-# http://askubuntu.com/questions/49784/how-is-bin-added-to-my-path
-# Local installed package
-
-# if [ -d "$HOME/.config/vifm/scripts" ] ; then
-#   PATH="$HOME/.config/vifm/scripts:$PATH"
-# fi
-
-# Go Packages (Golang)
-#export GOPATH=~/.go
-#export PATH="$PATH:$GOPATH/bin"
-
-# NPM NodeJS Packages
-if [ -d "$HOME/node_modules/bin" ] ; then
-    export PATH="$HOME/node_modules/bin:$PATH"
-fi
-
-#NPM config
-if [ -d "$HOME/.config/npm" ] ; then
-    export PATH="$HOME/.config/npm:$PATH"
-fi
-
-# User Scripts
-if [ -d "$HOME/.scripts" ] ; then
-    export PATH="$HOME/.scripts:$PATH"
-fi
-
-# Alison Desktop
-if [ -d "$HOME/.local/bin/Alison_Desktop" ] ; then
-    export PATH="$HOME/.local/bin/Alison_Desktop:$PATH"
-fi
-
-# User Scripts on local/bin user
-if [ -d "$HOME/.local/bin/scripts" ] ; then
-    export PATH="$HOME/.local/bin/scripts:$PATH"
-fi
-
-# tools directory inside local/bin
-if [ -d "$HOME/.local/bin/scripts/tools" ] ; then
-    export PATH="$HOME/.local/bin/scripts/tools:$PATH"
-fi
-
-# cron directory inside local/bin
-if [ -d "$HOME/.local/bin/scripts/tools" ] ; then
-    export PATH="$HOME/.local/bin/scripts/tools:$PATH"
-fi
-
-# i3cmds directory
-if [ -d "$HOME/.local/bin/scripts/i3cmds" ] ; then
-    export PATH="$HOME/.local/bin/scripts/i3cmds:$PATH"
-fi
-
-# if [ -d "$HOME/.scripts/command" ] ; then
-#     export PATH="$HOME/.scripts/command:$PATH"
-# fi
-
-# }}}
-#-------- External Files {{{
-#------------------------------------------------------
-if [ -f ~/.hintrc ]; then
-    . ~/.hintrc
-fi
 
 #-------- Configurations {{{
 #------------------------------------------------------
@@ -119,10 +44,9 @@ cfg-cava() { $EDITORCLI ~/.config/cava/config ;}
 cfg-picom() { $EDITORCLI ~/.config/picom.conf ;}
 cfg-fstab() { sudo $EDITORCLI /etc/fstab ;}
 cfg-group() { sudo $EDITORCLI /etc/group ;}
-cfg-grub() { sudo $EDITORCLI /etc/default/grub ;}
 cfg-hintrc() { $EDITORCLI ~/.hintrc ;}
 cfg-hosts() { sudo $EDITORCLI /etc/hosts ;}
-cfg-i3wm() { $EDITORCLI ~/.config/i3/config ;}
+cfg-i3wm() { $EDITORCLI ~/.i3/config ;}
 cfg-inputrc() { $EDITORCLI ~/.inputrc ;}
 cfg-livestreamer() { $EDITORCLI ~/.livestreamerrc ;}
 cfg-megarc() { $EDITORCLI ~/.megarc ;}
@@ -148,7 +72,7 @@ cfg-sudoers() { sudo $EDITORCLI /etc/sudoers ;}
 cfg-sakura() { $EDITORCLI ~/.config/sakura/sakura.conf ;}
 cfg-surfraw() { $EDITORCLI ~/.config/surfraw/conf ;}
 cfg-syncthing() { $EDITORCLI ~/.config/syncthing/config.xml ;}
-cfg-tmuxrc() { $EDITORCLI ~/.tmux.conf ;}
+cfg-tmuxrc() { $EDITORCLI ~/.config/tmux/tmux.conf.local ;}
 cfg-tor() { sudo $EDITORCLI /etc/tor/torrc ;}
 cfg-tor-user() { $EDITORCLI ~/.torrc ;}
 cfg-torrentflix() { torrentflix --config=$EDITORCLI ;}
@@ -158,9 +82,9 @@ cfg-vimrc() { $EDITORCLI ~/.vimrc ;}
 cfg-xbindkeysrc() { $EDITORCLI ~/.xbindkeysrc && killall xbindkeys ; xbindkeys ;}
 cfg-xmodmap() { $EDITORCLI ~/.Xmodmap ;}
 cfg-xresources() { $EDITORCLI ~/.Xresources ;}
+cfg-yaourtrc() { $EDITORCLI ~/.yaourtrc ;}
 cfg-zshrc() { $EDITORCLI ~/.zshrc ;}
-cfg-zpreztorc() { $EDITORCLI ~/.zpreztorc ;}
-cfg-zprofile() { $EDITORCLI ~/.zprofile ;}
+cfg-zprezto() { $EDITORCLI ~/.zpreztorc ;}
 #}}}
 
 #-------- Configurations Reload {{{
@@ -181,50 +105,180 @@ rld-xresources() { xrdb -load ~/.Xresources ;}
 rld-zshrc() { source ~/.zshrc ;}
 # }}}
 
+#-------- Exports {{{
+#------------------------------------------------------
+# set display
+#export DISPLAY=:0
+
+# set 256color support (doesnt work with older apps like abook)
+#export TERM="screen-256color"
+# export TERM="xterm-256color"
+
+#}}}
+
+#-------- Set Path {{{
+#------------------------------------------------------
+# http://askubuntu.com/questions/49784/how-is-bin-added-to-my-path
+# Local installed package
+
+# if [ -d "$HOME/.config/vifm/scripts" ] ; then
+# 	PATH="$HOME/.config/vifm/scripts:$PATH"
+# fi
+
+# Go Packages (Golang)
+#export GOPATH=~/.go
+#export PATH="$PATH:$GOPATH/bin"
+
+# NPM NodeJS Packages
+if [ -d "$HOME/node_modules/bin" ] ; then
+    export PATH="$HOME/node_modules/bin:$PATH"
+fi
+
+#NPM config
+if [ -d "$HOME/.config/npm" ] ; then
+    export PATH="$HOME/.config/npm:$PATH"
+fi
+
+# User Scripts
+if [ -d "$HOME/.scripts" ] ; then
+    export PATH="$HOME/.scripts:$PATH"
+fi
+
+# Alison Desktop
+# if [ -d "$HOME/.local/bin/Alison_Desktop" ] ; then
+#     export PATH="$HOME/.local/bin/Alison_Desktop:$PATH"
+# fi
+
+# .local/bin directory
+if [ -d "$HOME/.local/bin" ] ; then
+    export PATH="$HOME/.local/bin:$PATH"
+fi
+
+
+# User Scripts on local/bin user
+if [ -d "$HOME/.local/bin/scripts" ] ; then
+    export PATH="$HOME/.local/bin/scripts:$PATH"
+fi
+
+# tools directory inside local/bin
+if [ -d "$HOME/.local/bin/scripts/tools" ] ; then
+    export PATH="$HOME/.local/bin/scripts/tools:$PATH"
+fi
+
+# cron directory inside local/bin
+if [ -d "$HOME/.local/bin/scripts/cron" ] ; then
+    export PATH="$HOME/.local/bin/scripts/cron:$PATH"
+fi
+
+# i3cmds directory
+if [ -d "$HOME/.local/bin/scripts/i3cmds" ] ; then
+    export PATH="$HOME/.local/bin/scripts/i3cmds:$PATH"
+fi
+
+# rofi menues applets commands
+if [ -d "$HOME/.config/rofi/bin" ] ; then
+    export PATH="$HOME/.config/rofi/bin:$PATH"
+fi
+
+# cargo/bin executables
+if [ -d "$HOME/.cargo/bin" ] ; then
+    export PATH="$HOME/.cargo/bin:$PATH"
+fi
+
+# if [ -d "$HOME/.scripts/command" ] ; then
+#     export PATH="$HOME/.scripts/command:$PATH"
+# fi
+
+# }}}
+
+#-------- File and Directory Operations {{{
+#------------------------------------------------------
+# DESC: Aliases and functions for file and directory operations
+
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
+alias ......="cd ../../../../.."
+
+alias cp='cp -aiv'                    # cp prompt confirmation
+alias mv='mv -iv'                     # mv interactive & verbose
+alias mkdir='mkdir -p -v'             # create if not exist, verbose
+alias rmdir='rmdir -v'                # rm empty directory only
+alias ln='ln -iv'                     # create symlinks, interactive & verbose
+
+# Create a new directory and enter it
+mkdircd() { mkdir -p -v $1; cd $1 ;}
+
+# Backup a file
+cpbak() { cp $1{,.bak} ;}
+
+# Show file permissions in octal format
+file-permission() { stat --format '%a %n' "$@" ;}
+
+# Display file type (MIME)
+file-type() { file --mime-type -b "$@" ;}
+
+# Remove files interactively
+alias derez='rm -Iv'
+
+# Move files (alias for mv)
+alias uhaul='mv -iv --'
+
+# Tree view of directories
+alias lt='eza --icons --tree --level=2'
+
+# }}}
+
 #-------- Alias (Substitution) {{{
 #------------------------------------------------------
 # DESC: alias for mainly for existing commands
 
-alias bc='bc -q -l'                 # dont show opening msg, use math library
-# alias cal='cal -3 | grep --color -EC6 "\b$(date +%e | sed "s/ //g")"' # show calendar for 3 months
+alias bc='bc -q -l'					# dont show opening msg, use math library
+alias cal='cal -3 | grep --color -EC6 "\b$(date +%e | sed "s/ //g")"' # show calendar for 3 months
 # alias cal='cal | grep --before-context 6 --after-context 6 --color -e " $(date +%e)" -e "^$(date +%e)"' # show calendar for 3 months
 alias cal='cal -3m | grep -B6 -A6 --color -e " $(date +%e)" -e "^$(date +%e)"' # show calendar for 3 months
-alias cp='cp -aiv'                  # cp prompt confirmation
-alias mv='mv -niv'
-alias df='df -hT --total'               # human readable, print filetype, and total
-alias du='du -d1 -h'                    # max depth, human readable
+alias cp='cp -aiv'					# cp prompt confirmation
+alias mv='mv -iv'         # mv interactive & verbose
+alias df='df -hT --total'				# human readable, print filetype, and total
+alias du='du -d1 -h'					# max depth, human readable
 alias feh='feh --auto-zoom --scale-down -g 1360x768 -B white'
-alias free='free -h'                    # human readable
-alias info='info --vi-keys'             # GNU info act like man command
+alias free='free -h'					# human readable
+alias info='info --vi-keys'				# GNU info act like man command
 alias ln='ln -iv'
 alias lsblk='lsblk -o "KNAME,HOTPLUG,SIZE,FSTYPE,TYPE,LABEL,MOUNTPOINT,UUID,MODEL,SERIAL"'
-alias mkdir='mkdir -p -v'               # create if not exist, verbose
+alias mkdir='mkdir -p -v'				# create if not exist, verbose
 alias mocp='padsp mocp'                                 # moc player working with pulseaudio
-alias mount='mount | column -t'             # align in column
-alias nano='nano -c -$'                 # word wrapping
-#alias periscope='periscope -l en'          # get english subtitles
-alias pdfgrep='pdfgrep -in'             # ignorecase, page number
+alias mount='mount | column -t'				# align in column
+alias nano='nano -c -$'					# word wrapping
+#alias periscope='periscope -l en'			# get english subtitles
+alias pdfgrep='pdfgrep -in'				# ignorecase, page number
 alias qcp='qcp -f do'                                   # renameutils bulk copy (destination column only)
 alias qmv='qmv -f do'                                   # renameutils bulk rename (destination column only)
-alias rmdir='rmdir -v'                          # rm empty directory only
-#alias sr='sr -browser=$BROWSERCLI'         # open in cli browser
-#alias surfraw='surfraw -browser=$BROWSER'      # open in gui browser
-alias w3m='w3m -num'                    # w3m web browser with line number
-alias wget='wget -N -c --hsts-file ~/.config/wget/wget-hsts'                    # continues/resumes
+alias rmdir='rmdir -v'			                # rm empty directory only
+#alias sr='sr -browser=$BROWSERCLI'			# open in cli browser
+#alias surfraw='surfraw -browser=$BROWSER'		# open in gui browser
+alias w3m='w3m -num'					# w3m web browser with line number
+alias wget='wget -N -c --hsts-file ~/.config/wget/wget-hsts'					# continues/resumes
 #alias youtube-viewer='youtube-viewer -C -f -4 --results=6'  # color, fullscreen, 480p, number of results
 alias visudo='sudo EDITOR="$EDITOR" visudo'
 
-alias derez='rm -Iv'                            # rm interactive, prompt once only
-alias uhaul='mv -iv --'                 # mv prompt confirmation
+alias derez='rm -Iv'			                # rm interactive, prompt once only
+alias uhaul='mv -iv --'					# mv prompt confirmation
 
-### ls replacement with eza (exa has been deprecated) written in rust
+# }}}
 
-alias ls='eza --icons --group-directories-first'
-alias l='ls -a -s changed'
+#-------- ls replacement with eza (exa was deprecated) written in rust {{{
+#------------------------------------------------------
+#
+#
+alias ls='eza --icons --group-directories-first -x'
+alias l='eza -x -a -s changed --icons --group-directories-first'
 alias ll='eza -l --icons --group-directories-first'
-alias la='ll -a -s changed'
-
-# general use
+alias la='eza -l -a -s changed --icons --group-directories-first'
+alias lg='eza -l --icons --git -a'
+#
+# general use ######################
 
 ## alias ls='exa'                                                          # ls
 ## alias l='exa -lbF --git'                                                # list, size, type, git
@@ -233,18 +287,29 @@ alias la='ll -a -s changed'
 ## alias la='exa -lbhHigUmuSa --time-style=long-iso --git --color-scale'  # all list
 ## alias lx='exa -lbhHigUmuSa@ --time-style=long-iso --git --color-scale' # all + extended list
 
-# specialty views
+# specialty views ##################
 
 ##alias lS='exa -1'                                                              # one column, just names
 
 alias lt='eza --icons --tree --level=2'                                         # tree
 
-###
+# }}}
 
-### fzf
+#-------- fzf {{{
+#------------------------------------------------------
 
 alias f='fzf --preview "bat --color \"always\" {}"'
 
+
+### search packages with yay and fzf (* marks an installed package)
+#alias yay-fzf="yay -Sl | awk '{print \$2(\$4==\"\" ? \"\" : \"  \")}' | fzf --multi --preview 'yay -Si {1}' | xargs -ro sudo yay -S"
+
+# Better alternative using fzf to search packages with pacman/yay
+#alias pacfzf="pacman -Slq | fzf --multi --preview 'pacman -Si {1}' --preview-window=:hidden --bind='ctrl-/:toggle-preview' | xargs -ro sudo pacman -S"
+#alias yayfzf="yay -Slq | fzf --multi --preview 'yay -Si {1}; echo; pacman -Qi {1} 2>/dev/null || echo Package not installed' --preview-window=:hidden --bind='ctrl-/:toggle-preview' | xargs -ro yay -S"
+
+### ytfzf alias for rofi
+#alias yt="~/.local/bin/yt-r"
 
 # color for common commands
 # tutorial video: http://www.youtube.com/watch?v=RbVCzxnKJL4
@@ -258,11 +323,11 @@ alias f='fzf --preview "bat --color \"always\" {}"'
 #    alias egrep='egrep --color=auto'
 #fi
 
+alias cat="bat"
+
 ## }}}
 
 
-
-#######################################################
 #-------- Alias (Good List) {{{
 #------------------------------------------------------
 # DESC: custom alias
@@ -277,22 +342,11 @@ alias neocrux='neofetch --ascii --ascii_distro crux_small'
 alias neowin='neofetch --ascii --ascii_distro windows'
 alias disks='echo "╓───── m o u n t . p o i n t s"; echo "╙────────────────────────────────────── ─ ─ "; lsblk -a; echo ""; echo "╓───── d i s k . u s a g e"; echo "╙────────────────────────────────────── ─ ─ "; df -h;'
 
+# Alison_Desktop aliases to start/stop service
+# alias runalison='~/.local/bin/alison.sh'
+# alias killalison='~/.local/bin/salison.sh'
+
 alias fzfb='fzf --preview "bat --color \"always\" {}"'
-
-alias cleanup='paccache -ruk0 && yes | yay -Scc'
-
-alias pkglist='pacman -Qs --color=always | less -R'
-
-alias yfzf="pacman -Slq | fzf --preview 'pacman -Si {}' --layout=reverse"
-
-alias openports='sudo netstat -tupln'
-
-alias yeet='yay -Rns'
-
-alias daty='date +%Y%m%d'
-
-# use 0x0.st to share file or command output
-0x0() { curl -F"file=@$1" https://0x0.st | tee -a "$HOME/d/0x0.log"; }
 
 #alias weatherm='curl wttr.in/mendoza'
 #alias weather='curl http://wttr.in/$LOCATION'
@@ -306,42 +360,19 @@ alias daty='date +%Y%m%d'
 
 # wttr() { curl -H "Accept-Language: ${LANG%_*}" wttr.in/"${1:-Orange}" ;}
 
-alias sxiv='nsxiv'
-
-alias cat='bat'
 
 ## }}}
-
-
-######
-### Single Wallpapers
-######
-
-alias wall-skull='feh --bg-fill ~/Pictures/just-another-skull.jpg'
-
-
-### find  -name '*fanart.jpg' -exec mogrify -resize 1920x1080\> {} \;
-
-# easy-mount() {
-#  if [ $# -lt 2 ]; then
-#    echo -e "Easy mount to /mnt/tmp"
-#    echo -e "\nUsage:   $0 //IP-Address/Share local_credentials_location"
-#    echo -e "\nExample: easy-mount //192.168.1.1/directory /etc/smbcred"
-#    return 1
-#  fi
-#  sudo mount.cifs $1 /mnt/tmp -o credentidals=$2,rw 0 0
-#}
 
 
 #-------- Clipboard and Upload {{{
 #------------------------------------------------------
 # DEMO: http://www.youtube.com/watch?v=fKP0FLp3uW0 (xclip)
-#   https://www.youtube.com/watch?v=Ww7Sl4d8F8A (pastebinit)
+# 	https://www.youtube.com/watch?v=Ww7Sl4d8F8A (pastebinit)
 # DESC: copy/paste for linux machines (Mac style)
 
-alias pbcopy='xclip -selection clipboard'   # copy to clipboard, ctrl+c, ctrl+shift+c
-alias pbpaste='xclip -selection clipboard -o'   # paste from clipboard, ctrl+v, ctrl+shitt+v
-alias pbselect='xclip -selection primary -o'    # paste from highlight, middle click, shift+insert
+alias pbcopy='xclip -selection clipboard'	# copy to clipboard, ctrl+c, ctrl+shift+c
+alias pbpaste='xclip -selection clipboard -o'	# paste from clipboard, ctrl+v, ctrl+shitt+v
+alias pbselect='xclip -selection primary -o'	# paste from highlight, middle click, shift+insert
 alias pbnoformatting='xclip -selection clipboard -o | xclip -selection clipboard'
 
 
@@ -357,110 +388,176 @@ alias pbuploadixio="cat "$1" | curl -F 'f:1=<-' ix.io | pbcopy && echo 'URL has 
 
 # }}}
 
+
+#-------- Network and Internet {{{
+#------------------------------------------------------
+# DESC: Network and internet-related aliases and functions
+
+# Check if a website is down
+down4me() { curl -s "http://downforeveryoneorjustme.com/$1" | sed '/just you/!d;s/<[^>]*>//g' ;}
+
+# Weather information
+alias weather='curl wttr.in/$LOCATION'
+alias wttr='curl wttr.in'
+alias wttr-help='curl wttr.in/:help'
+
+# Network tools
+alias myip='curl http://ipecho.net/plain; echo'
+alias ping='ping -c 5'
+alias speedtest='speedtest-cli'
+alias ports='netstat -tulanp'
+
+# Web browsers
+alias browser="$BROWSER"
+alias privatebrowser="$BROWSER --incognito"
+
+# Download managers
+alias wget='wget -c'
+alias curl='curl -O -L'
+
+# SSH
+alias sshconfig='$EDITOR ~/.ssh/config'
+alias sshkey='ssh-keygen -t rsa -b 4096 -C "$(whoami)@$(hostname)-$(date -I)"'
+
+# YouTube-related
+alias yt='youtube-dl --add-metadata -i'
+alias yta='yt -x -f bestaudio/best'
+#youtube-dl-stream() { youtube-dl -o - "$1" | $PLAYER - ;}
+
+# }}}
+
+
 #-------- Functions (Oneliner) {{{
 #------------------------------------------------------
+#
 
-cpbak() { cp $1{,.bak} ;}                 # create backup copy
-down4me() { curl -s "http://downforeveryoneorjustme.com/$1" | sed '/just you/!d;s/<[^>]*>//g' ;}   # check if a website is down
-killall-zombies() { kill -HUP $(ps -A -ostat,ppid | grep -e '[zZ]'| awk '{ print $2 }') ;}  # kill zombie process
-mkdircd() { mkdir -p -v $1; cd $1 ;}              # create folder then cd into it
-nohup-command() { nohup "$@" >/dev/null 2>&1& }   # background a process w/o error msg filling screen
-open() { xdg-open "$@" > /dev/null 2>&1 ;}        # open with default GUI program
-# view markdown as manpages
-# http://blog.metamatt.com/blog/2013/01/09/previewing-markdown-files-from-the-terminal/
+# Locate files and open them in nvim
+fzfedit() { locate $1 | fzf | xargs -n 1 nvim ;}
+
+# Create a backup copy of a file
+cpbak() { cp $1{,.bak} ;}
+
+# Check if a website is down
+down4me() { curl -s "http://downforeveryoneorjustme.com/$1" | sed '/just you/!d;s/<[^>]*>//g' ;}
+
+# Kill all zombie processes
+killall-zombies() { kill -HUP $(ps -A -ostat,ppid | grep -e '[zZ]'| awk '{ print $2 }') ;}
+
+# Create a directory and change into it
+mkdircd() { mkdir -p -v $1; cd $1 ;}
+
+# Run a command in the background without output
+nohup-command() { nohup "$@" >/dev/null 2>&1& }
+
+# Open a file with the default GUI program
+open() { xdg-open "$@" > /dev/null 2>&1 ;}
+
+# View markdown files as man pages
 mdless(){ pandoc -s -f markdown -t man "$*" | groff -T utf8 -man | less ;}
-# quickly cd out of directories using numbers, example: up 2
+
+# Quickly navigate up multiple directory levels
 up() { local x='';for i in $(seq ${1:-1});do x="$x../"; done;cd $x; }
-# show file access permission
-# http://unix.stackexchange.com/a/46921
+
+# Show file access permissions in octal format
 file-permission() { stat --format '%a %n' "$@" ;}
-# display mime of file application/zip, application/x-tar
+
+# Display MIME type of a file
 file-type() { file --mime-type -b "$@" ;}
-# call vim help page from shell prompt
+
+# Open Vim help from shell prompt
 function :h { vim +":h $1" +'wincmd o' +'nnoremap q :q!<CR>' ;}
-# display one random command from commandlinefu.com
+
+# Display a random command from commandlinefu.com
 cmdfu-random() { echo -e "`curl -sL https://www.commandlinefu.com/commands/random/json|sed -re 's/.*,"command":"(.*)","summary":"([^"]+).*/\\x1b[1;32m\2\\n\\n\\x1b[1;33m\1\\x1b[0m/g'`\n" ;}
 
+# Convert WebM videos to MP4 format
 webm2mp4() {for i in *.webm; do ffmpeg -i "$i" -vf "crop=trunc(iw/2)*2:trunc(ih/2)*2" -c:v libx264 -preset slow -crf 22 -c:a copy "${i%.*}.mp4"; done ;}
 
-# }}}
-
-
-####################
-##### CAMERAS #####
-####################
-
-alias showme_cam01="nohup mpv rtsp://admin:admin1234admin@192.168.2.21:554/Channels/101 </dev/null >/dev/null 2>&1 &"
-alias showme_cam02="nohup mpv rtsp://admin:camaritas2018@192.168.1.164:554/Channels/101 </dev/null >/dev/null 2>&1 &"
-alias colegio_cam01='nohup mpv --geometry=49%+2+24 --video-aspect-override=16:9 "rtsp://admin:888888@192.168.3.30:554/cam/realmonitor?channel=01&subtype=0" </dev/null >/dev/null 2>&1 &'
-alias colegio_cam02='nohup mpv --geometry=49%+2+504 --video-aspect-override=16:9 "rtsp://admin:888888@192.168.3.30:554/cam/realmonitor?channel=02&subtype=0" </dev/null >/dev/null 2>&1 &'
-alias colegio_cam06='nohup mpv --geometry=49%+883+24 --video-aspect-override=16:9 "rtsp://admin:888888@192.168.3.30:554/cam/realmonitor?channel=06&subtype=0" </dev/null >/dev/null 2>&1 &'
-alias colegio_cam10='nohup mpv --geometry=50%x50% --video-aspect-override=16:9 "rtsp://admin:888888@192.168.3.30:554/cam/realmonitor?channel=10&subtype=0" </dev/null >/dev/null 2>&1 &'
-alias colegio_cam12='nohup mpv --geometry=48%+883+504 --video-aspect-override=16:9 "rtsp://admin:888888@192.168.3.30:554/cam/realmonitor?channel=12&subtype=0" </dev/null >/dev/null 2>&1 &'
-
-colegio_cams() {
-    colegio_cam01
-    colegio_cam02
-    colegio_cam06
-    colegio_cam12
-}
+# Search for files in specific directories, select with fzf, and open in Code
+se() { du -a ~/bin/* ~/.scripts/* ~/.scripts/tools/* ~/.config/i3/myblocks/* ~/.config/i3/blocks/* | awk '{print $2}' | fzf | xargs -r code ;}
 
 # }}}
 
 
-####################
-##### LIFX COM #####
-####################
 
+#-------- Cameras Surveillance Work {{{
+#------------------------------------------------------
+#
+
+alias showme_cam01hd="mpv rtsp://admin:admin1234admin@192.168.2.21:554/Channels/101 --no-resume-playback &"
+alias showme_cam01sd="mpv rtsp://admin:admin1234admin@192.168.2.21:554/Channels/102 --no-resume-playback &"
+#alias showme_cam02="mpv rtsp://admin:camaritas2018@192.168.1.164:554/Channels/101 --no-resume-playback &"
+
+# }}}
+
+
+
+#-------- smart lights {{{
+#------------------------------------------------------
+#
+
+# LIFX Lights
 alias lifx-night="lifx -B 51 -K 1"
 alias lifx-day="lifx -B 60 -K 40"
 alias lifx-on="lifx -1"
 alias lifx-off="lifx -0"
 
-# }}}
-
-
-####################
-#####  RANDOM  #####
-####################
-
-#alias subl='subl3'
-
-se() { du -a ~/bin/* ~/.scripts/* ~/.scripts/tools/* ~/.config/i3/myblocks/* ~/.config/i3/blocks/* | awk '{print $2}' | fzf | xargs  -r subl ;}
-
-
+# Hue Lights
+alias hue-desk-on="lampe -s 8 y"
+alias hue-desk-off="lampe -s 8 n"
 
 # }}}
 
 
-####################
-##### INTERNET #####
-####################
-
-#-------- Youtube-dl (Stream|Download|RipAudio) {{{
+#-------- Dot File Management {{{
 #------------------------------------------------------
-# DESC: download/stream media from many online sites
-#youtube-dl-stream() { youtube-dl -o - "$1" | $PLAYER - ;}
-
-
-###############################
-##### DOT FILE MANAGEMENT #####
-###############################
-
+#
 
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles.git/ --work-tree=$HOME'
-
-#alias dotfiles='GIT_WORK_TREE=/home/website/  git --git-dir="./website.git/"  add ./'
 #alias dotpush= '/usr/bin/git --git-dir=$HOME/.deskdots/ --work-tree=$HOME push origin master'
 
-# dotfiles rm -rf --cached <fucked up directory>
+# }}}
 
-###############################
-##### extra aliases       #####
-###############################
+
+#-------- Crypto Prices {{{
+#------------------------------------------------------
+#
 
 alias btcprice='curl -s https://rate.sx/BTC'
 alias ethprice='curl -s https://rate.sx/ETH'
 alias zrxprice='curl -s https://rate.sx/ZRX'
 
-alias miclightoff='echo 0 | sudo tee /sys/class/leds/platform\:\:micmute/brightness'
+# }}}
+
+
+# -------- Telebit Aliases {{{
+#------------------------------------------------------
+#
+
+#alias telebit-pi4colegio="ssh -o ProxyCommand='openssl s_client -connect %h:443 -servername %h -quiet' raspi@chatty-skunk-9.telebit.io"
+
+# }}}
+
+
+#-------- Random {{{
+#------------------------------------------------------
+#
+
+alias long-time-no-update="sudo pacman -Sy archlinux-keyring --needed && sudo pacman -Su"
+
+#alias wall-skull='feh --bg-fill ~/Pictures/just-another-skull.jpg'
+
+
+### find  -name '*fanart.jpg' -exec mogrify -resize 1920x1080\> {} \;
+
+# easy-mount() {
+#  if [ $# -lt 2 ]; then
+#    echo -e "Easy mount to /mnt/tmp"
+#    echo -e "\nUsage:   $0 //IP-Address/Share local_credentials_location"
+#    echo -e "\nExample: easy-mount //192.168.1.1/directory /etc/smbcred"
+#    return 1
+#  fi
+#  sudo mount.cifs $1 /mnt/tmp -o credentidals=$2,rw 0 0
+#
+
+# }}}
