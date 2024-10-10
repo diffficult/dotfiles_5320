@@ -82,9 +82,9 @@ cfg-vimrc() { $EDITORCLI ~/.vimrc ;}
 cfg-xbindkeysrc() { $EDITORCLI ~/.xbindkeysrc && killall xbindkeys ; xbindkeys ;}
 cfg-xmodmap() { $EDITORCLI ~/.Xmodmap ;}
 cfg-xresources() { $EDITORCLI ~/.Xresources ;}
-cfg-yaourtrc() { $EDITORCLI ~/.yaourtrc ;}
 cfg-zshrc() { $EDITORCLI ~/.zshrc ;}
 cfg-zprezto() { $EDITORCLI ~/.zpreztorc ;}
+cfg-zprofile() { $EDITORCLI ~/.zprofile ;}
 #}}}
 
 #-------- Configurations Reload {{{
@@ -93,21 +93,21 @@ rld-bashrc() { source ~/.bashrc ;}
 rld-font() { fc-cache -v -f ;}
 rld-grub() { sudo grub-mkconfig -o /boot/grub/grub.cfg ;}
 rld-greenclip() { killall greenclip ; nohup greenclip daemon > /dev/null 2>&1 & }
-rld-keynav() { killall keynav ; keynav daemonize ;}
 rld-updatedb() { sudo updatedb ;}
 rld-xbindkeys() { killall xbindkeys ; xbindkeys ;}
 rld-hyperkey() { xmodmap ~/.Xmodmap; killall xcape ; xcape -e 'Hyper_L=Return' ; killall xbindkeys ; xbindkeys ;}
 rld-xcape() { killall xcape ; xcape -e 'Hyper_L=Return' ;}
 rld-xdefaults() { xrdb ~/.Xdefaults ;}
 rld-xmodmap() { xmodmap ~/.Xmodmap ;}
-rld-xmodmap-uskeyboardlayout() { setxkbmap -layout us ;} # reset back to US keyboard http://unix.stackexchange.com/a/151046
+rld-keyblayout() { setxkbmap -layout latam -variant deadtilde ;} # reset back to US keyboard http://unix.stackexchange.com/a/151046
 rld-xresources() { xrdb -load ~/.Xresources ;}
 rld-zshrc() { source ~/.zshrc ;}
+rld-zprezto() { source ~/.zpreztorc ;}
 # }}}
 
 #-------- Exports {{{
 #------------------------------------------------------
-# set display
+# set display.
 #export DISPLAY=:0
 
 # set 256color support (doesnt work with older apps like abook)
@@ -488,6 +488,19 @@ alias showme_cam01hd="mpv rtsp://admin:admin1234admin@192.168.2.21:554/Channels/
 alias showme_cam01sd="mpv rtsp://admin:admin1234admin@192.168.2.21:554/Channels/102 --no-resume-playback &"
 #alias showme_cam02="mpv rtsp://admin:camaritas2018@192.168.1.164:554/Channels/101 --no-resume-playback &"
 
+alias colegio_cam01='nohup mpv --geometry=49%+2+24 --video-aspect-override=16:9 "rtsp://admin:888888@192.168.3.30:554/cam/realmonitor?channel=01&subtype=0" </dev/null >/dev/null 2>&1 &'
+alias colegio_cam02='nohup mpv --geometry=49%+2+504 --video-aspect-override=16:9 "rtsp://admin:888888@192.168.3.30:554/cam/realmonitor?channel=02&subtype=0" </dev/null >/dev/null 2>&1 &'
+alias colegio_cam06='nohup mpv --geometry=49%+883+24 --video-aspect-override=16:9 "rtsp://admin:888888@192.168.3.30:554/cam/realmonitor?channel=06&subtype=0" </dev/null >/dev/null 2>&1 &'
+alias colegio_cam10='nohup mpv --geometry=50%x50% --video-aspect-override=16:9 "rtsp://admin:888888@192.168.3.30:554/cam/realmonitor?channel=10&subtype=0" </dev/null >/dev/null 2>&1 &'
+alias colegio_cam12='nohup mpv --geometry=48%+883+504 --video-aspect-override=16:9 "rtsp://admin:888888@192.168.3.30:554/cam/realmonitor?channel=12&subtype=0" </dev/null >/dev/null 2>&1 &'
+colegio_cams() {
+    colegio_cam01
+    colegio_cam02
+    colegio_cam06
+    colegio_cam12
+}
+
+
 # }}}
 
 
@@ -559,5 +572,21 @@ alias long-time-no-update="sudo pacman -Sy archlinux-keyring --needed && sudo pa
 #  fi
 #  sudo mount.cifs $1 /mnt/tmp -o credentidals=$2,rw 0 0
 #
+
+#turn off mic button light
+alias miclightoff='echo 0 | sudo tee /sys/class/leds/platform\:\:micmute/brightness'
+
+#use nmap to display open ports 
+alias openports='sudo netstat -tupln'
+
+#fuck off package
+alias yeet='yay -Rns'
+
+#to be used with file creation (command > filename-`daty`)
+alias daty='date +%Y%m%d'
+
+# use 0x0.st to share file or command output
+0x0() { curl -F"file=@$1" https://0x0.st | tee -a "$HOME/d/0x0.log"; }
+
 
 # }}}
