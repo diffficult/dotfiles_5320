@@ -359,3 +359,4 @@ abbr "rsync-update"="rsync --verbose --progress --human-readable --compress --ar
 abbr "tmuxa"="tmux a"
 abbr "tmuxl"="tmux list-sessions"
 abbr "y"="yazi"
+abbr "yf"="yayfzf"
