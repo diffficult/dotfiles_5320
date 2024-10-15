@@ -127,12 +127,18 @@ def _redraw_tab_bar(_):
         tm.mark_tab_bar_dirty()
 
 
-def is_pi_tab(tab_name: str) -> bool:
-    pi_keywords = ["pi3b", "pi4", "pi4b"]
-    return any(keyword in tab_name.lower() for keyword in pi_keywords)
+def is_pi_tab() -> bool:
+    tm = get_boss().active_tab_manager
+    if tm is not None:
+        active_tab = tm.active_tab
+        if active_tab:
+            tab_name = active_tab.name or active_tab.title
+            pi_keywords = ["pi3b", "pi4", "pi4b"]
+            return any(keyword in tab_name.lower() for keyword in pi_keywords)
+    return False
 
-def get_battery_cells(tab_name: str) -> list:
-    if not is_pi_tab(tab_name):
+def get_battery_cells() -> list:
+    if not is_pi_tab():
         return []
     try:
         with open("/sys/class/power_supply/BAT0/status", "r") as f:
@@ -187,8 +193,7 @@ def draw_tab(
     clock = datetime.now().strftime(" %H:%M")
     date = datetime.now().strftime(" %d.%m.%Y")
     cells = []
-    if is_pi_tab(tab.title):
-        cells.extend(get_battery_cells(tab.title))
+    cells.extend(get_battery_cells())
     cells.append((clock_color, clock))
     cells.append((date_color, date))
     right_status_length = RIGHT_MARGIN
