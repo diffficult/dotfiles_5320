@@ -1,0 +1,85 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run `zed: open default settings` from the
+// command palette
+{
+  // keymap mode
+  "vim_mode": false,
+  "base_keymap": "VSCode",
+  //autocomplete
+  "features": {
+    "inline_completion_provider": "supermaven"
+  },
+  //more
+  "relative_line_numbers": true,
+  // "format_on_save": true,
+
+  // Turn off telemetry
+  "telemetry": {
+    "diagnostics": false,
+    "metrics": false
+  },
+  // files
+  "file_types": {
+    "Dockerfile": ["Dockerfile", "Dockerfile.*"],
+    "JSON": ["json", "jsonc", "*.code-snippets"]
+  },
+  "languages": {
+    "Ruby": {
+      "language_servers": [
+        "tailwindcss-language-server",
+        "ruby-lsp",
+        "!solargraph"
+      ],
+      "formatter": {
+        "external": {
+          "command": "bundle",
+          "arguments": [
+            "exec",
+            "rubocop",
+            "--server",
+            "--auto-correct-all",
+            "--fail-level",
+            "error",
+            "--stdin",
+            "corrected.rb",
+            "--stderr"
+          ]
+        }
+      }
+    },
+    "Markdown": {
+      "soft_wrap": "preferred_line_length",
+      "preferred_line_length": 80,
+      "hard_tabs": false
+    },
+    "YAML": {
+      "hard_tabs": false
+    }
+  },
+  "file_scan_exclusions": ["*.git", "*.DS_Store"],
+  // Font
+  "assistant": {
+    "default_model": {
+      "provider": "zed.dev",
+      "model": "claude-3-5-sonnet-20240620"
+    },
+    "version": "2"
+  },
+  "ui_font_size": 16,
+  "ui_font_weight": 500,
+  "ui_font_family": "JetBrainsMono Nerd Font Mono",
+  "buffer_font_size": 16,
+  "buffer_font_family": "JetBrainsMono Nerd Font Mono",
+  "buffer_font_weight": 300,
+  // theme
+  "theme": {
+    "mode": "system",
+    "light": "Tokyo Night Storm",
+    "dark": "Tokyo Night Storm"
+  }
+}
