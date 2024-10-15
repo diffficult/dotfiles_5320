@@ -307,6 +307,7 @@ alias f='fzf --preview "bat --color \"always\" {}"'
 # Better alternative using fzf to search packages with pacman/yay
 #alias pacfzf="pacman -Slq | fzf --multi --preview 'pacman -Si {1}' --preview-window=:hidden --bind='ctrl-/:toggle-preview' | xargs -ro sudo pacman -S"
 #alias yayfzf="yay -Slq | fzf --multi --preview 'yay -Si {1}; echo; pacman -Qi {1} 2>/dev/null || echo Package not installed' --preview-window=:hidden --bind='ctrl-/:toggle-preview' | xargs -ro yay -S"
+alias yayfzf="yay -Sl | awk '{print \$2(\$4==\"\" ? \"\" : \"  \")}' | fzf --multi --preview 'yay -Si {1}' | xargs -ro yay -S"
 
 ### ytfzf alias for rofi
 #alias yt="~/.local/bin/yt-r"
