@@ -860,7 +860,7 @@ bar {
         tray_padding 0
         strip_workspace_numbers yes
         #mode dock
-        font pango: Iosevka, FontAwesome 12
+        font pango: Iosevka, Symbols Nerd Font Mono 12
         position top
         colors {
               separator  $base03
