@@ -62,19 +62,25 @@
     }
   },
   "file_scan_exclusions": ["*.git", "*.DS_Store"],
-  // Font
+  // ai
+  //  "ai": {
+  //    "anthropic": {
+  //      "api_key": "API-KEY"
+  //    }
+  //  },
   "assistant": {
     "default_model": {
-      "provider": "zed.dev",
-      "model": "claude-3-5-sonnet-20240620"
+      "provider": "anthropic",
+      "model": "claude-3-5-sonnet-latest"
     },
     "version": "2"
   },
+  // Font
   "ui_font_size": 16,
   "ui_font_weight": 500,
-  "ui_font_family": "JetBrainsMono Nerd Font Mono",
+  "ui_font_family": "FiraCode Nerd Font Mono",
   "buffer_font_size": 16,
-  "buffer_font_family": "JetBrainsMono Nerd Font Mono",
+  "buffer_font_family": "JetBrainsMono Nerd Font",
   "buffer_font_weight": 300,
   // theme
   "theme": {
