@@ -185,6 +185,11 @@ if [ -d "$HOME/.cargo/bin" ] ; then
     export PATH="$HOME/.cargo/bin:$PATH"
 fi
 
+# GO .local/share/go/bin executables
+if [ -d "$HOME/.local/share/go/bin" ] ; then
+    export PATH="$HOME/.local/share/go/bin:$PATH"
+fi
+
 # if [ -d "$HOME/.scripts/command" ] ; then
 #     export PATH="$HOME/.scripts/command:$PATH"
 # fi
@@ -501,6 +506,8 @@ colegio_cams() {
     colegio_cam12
 }
 
+
+alias colegio_tapo01='nohup mpv --geometry=49%+2+24 --video-aspect-override=16:9 "rtsp://clavetapo:clave161tapo@192.168.1.103:554/stream1" </dev/null >/dev/null 2>&1 &'
 
 # }}}
 
