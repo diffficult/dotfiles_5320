@@ -239,9 +239,6 @@ focus_follows_mouse no
 # Don't move mouse on workspace change
 mouse_warping none
 
-new_window pixel 1
-hide_edge_borders none
-for_window [all] border pixel 1
 #}}}
 # Window workspace assignment {{{
 ## ---------------------------
@@ -251,113 +248,89 @@ for_window [all] border pixel 1
 for_window [class="Spotify"] move to workspace number $ws_5
 for_window [class="open.spotify.com"] floating disable
 
-for_window [class="(?i)pavucontrol"] move scratchpad
 
-assign [class="(?i)google-chrome"] number $ws_1
-assign [class="(?i)zen-alpha"] number $ws_1
-assign [class="(?i)Subl"] number $ws_4
-assign [class="(?i)chromium"] number $ws_1
-assign [class="(?i)firefox"] number $ws_5
-# Xfce Related
-assign [class="Nautilus"] number $ws_3
-assign [class="Nemo"] number $ws_3
-assign [class="Thunar"] number $ws_3
-assign [class="Xfce4-terminal"] number $ws_2
-assign [class="kitty"] number $ws_2
-assign [class="libreoffice-writer"] number $ws_6
-assign [class="libreoffice-calc"] number $ws_6
-assign [class="libreoffice"] number $ws_6
-assign [class="libreoffice-startcenter|Soffice"] number $ws_6
-# assign [class="URxvt"] number $ws_8
-assign [class="(?i)gimp"] number $ws_6
-assign [class="Virt-manager"] number $ws_10
-assign [class="mpv"] number $ws_7
-assign [class="Gpicview"] number $ws_6
-assign [class="Zathura"] number $ws_7
-assign [class="TelegramDesktop"] number $ws_9
-assign [class="Seahorse"] number $ws_5
-assign [class="protonvpn"] number $ws_8
-assign [class="code-oss"] number $ws_6
-assign [class="(?i)steam"] number $ws_8
-assign [class="(?i)Rustdesk"] number $ws_10
-assign [class="(?i)Localsend"] number $ws_09
+### {{{ --- TESTING REFACTORING
 
-##}}}
+# Window workspace assignment {{{
+## ---------------------------
+
+# Browser workspace
+assign [class="(?i)(google-chrome|chromium|firefox|zen-alpha)"] number $ws_1
+
+# Terminal workspace 
+assign [class="(?i)(kitty|xfce4-terminal)"] number $ws_2
+
+# File manager workspace
+assign [class="(?i)(nautilus|nemo|thunar)"] number $ws_3
+
+# Development workspace config
+assign [class="(?i)(subl|code-oss|.*zed.*)"] number $ws_4
+for_window [class="(?i)(subl|code-oss|.*zed.*)"] layout stacked
+
+# Media workspace
+assign [class="(?i)(spotify|mpv|gpicview|zathura)"] number $ws_5
+for_window [class="Spotify"] move to workspace number $ws_5
+
+# Office workspace
+assign [class="(?i)(libreoffice.*|gimp)"] number $ws_6
+
+# Communication workspace
+assign [class="(?i)(telegramdesktop|localsend)"] number $ws_9
+
+# System workspace
+assign [class="(?i)(virt-manager|rustdesk|protonvpn)"] number $ws_10
+
 # Window behaviour {{{
+# Global settings
+new_window pixel 1
+hide_edge_borders none
+for_window [all] border pixel 1
+#new_window none
+#new_window pixel 1
 
-# create some rules to force floating on certain roles/classes
-for_window [window_role="pop-up"] floating enable
-for_window [title="teamviewer"] floating enable
-for_window [window_role="task_dialog"] floating enable
-for_window [window_role="bubble"] floating enable
-for_window [title="Preferences$"] floating enable
-for_window [window_role="Preferences"] floating enable
-for_window [title="Preferences$"] floating enable
-for_window [window_role="task_dialog"] floating enable
-for_window [window_type="dialog"] floating enable
-for_window [window_type="menu"] floating enable
+# Floating windows
+for_window [window_role="(pop-up|task_dialog|bubble|dialog|menu|Preferences)"] floating enable
+for_window [window_type="(dialog|menu)"] floating enable
+for_window [class="(?i)(pavucontrol|qt5ct|gsimplecal|file-roller|whatsie|steam|mpv|virt-manager|nautilus|nemo|seahorse|protonvpn|rustdesk|localsend)"] floating enable
 
-## Window size
-for_window [class="(?i)Pidgin"] floating_maximum_size 50 x 75
-for_window [id="Open Document"] floating_maximum_size 670 x 470
-for_window [window_role="task_dialog"] floating_maximum_size 670 x 470
+# Make Firefox popups floating
+for_window [class="(?i)firefox" window_role="pop-up"] floating enable
+
+# Make Zen Browser download/dialog windows floating
+#for_window [class="(?i)zen-alpha"] floating enable
+#for_window [class="(?i)zen-alpha" window_role="browser" title="(?i)Comprobante"] floating enable
+# prevents main window resizing when spawning a new popup.
+#for_window [class="(?i)zen-alpha" title="(?i)Comprobante"] floating enable, layout tabbed
+#for_window [class="(?i)zen-alpha" title="(?i)Comprobante"] floating enable, [class="(?i)zen-alpha" window_role="browser"] focus
+
+# Make Zen Browser windows use tabbed layout
+for_window [class="(?i)zen-alpha"] layout tabbed
+
+# Make specific popup windows join the tabbed layout
+for_window [class="(?i)zen-alpha" title="(?i)Comprobante"] focus
+
+# Border rules
+for_window [class="(?i)(sublime_text|subl|firefox|chrome|chromium|zen-alpha|discord|zathura|gpicview|telegramdesktop)"] border none
+
+# Specific window configs
 for_window [class="(?i)qt5ct"] floating enable, border normal, resize set 600 680, move absolute position center
 for_window [class="(?i)gsimplecal"] floating enable, move position mouse, move down 34 px
-#for_window [title="(?i)x220-calcurse"] floating enable, move position mouse, sticky enable, move down 24 px
-for_window [class="Pavucontrol"] floating enable, border none
-for_window [class="Sublime_text"] border none
-for_window [class="Subl"] border none
-for_window [class="Files"] border none
-for_window [class="Firefox"] border none
-for_window [class="gnome-power-statistics"] floating enable, border none
-for_window [class="Switchboard"] floating enable, border none
-for_window [class="file_progress"] floatin enable, border normal
-for_window [class="feh"] floating enable, border none
-for_window [class="nsxiv"] border none
-for_window [class="(?i)nm-connection-editor"] floating enable, border none
-for_window [class="(?i)Localsend"] floating enable, border none
-
-# XFCE specific
-for_window [class="Xfce4-terminal"] border none
-for_window [class="Thunar"] border none
-for_window [class="file-roller"] floating enable
-for_window [class="URxvt"] floating enable, border none
-for_window [class="St"] floating enable, border none
-for_window [class="Whatsie"] floating enable, border normal, resize set 680 680
-for_window [class="Steam"] floating enable, border normal
-for_window [class="mpv"] floating enable, border none
-for_window [class="Virt-manager"] floating stacked
-for_window [class="Nautilus"] floating enable, border none
-for_window [class="Nemo"] floating enable, border none
 for_window [class="(?i)nemo-preview-start"] floating enable, border pixel 4, move absolute position center
-for_window [class="(?i)Seahorse"] floating enable, move absolute position center
-for_window [class="protonvpn"] floating enable, move absolute position center
-for_window [class="Chromium"] border none
-for_window [class="chromium"] border none
-for_window [class="Chrome"] border none
-for_window [class="chrome"] border none
-for_window [class="zen-alpha"] border none
-for_window [class="^discord$"] border none
-for_window [class="zathura"] border none
-for_window [class="(?i)Rustdesk"] floating enable, move absolute position center
-for_window [class="Gpicview"] border none
-for_window [class="TelegramDesktop"] floating enable, border none
-for_window [class="steam"] floating enable, border none, resize set 960 640
 for_window [title="Administracion - Remote Desktop - RustDesk"] floating disable, border 0, move center
+for_window [class="steam"] floating enable, border none, resize set 960 640
 
-# Arch specific
-for_window [class="Pamac-manager"] floating enable, border none
-for_window [class="Pamac-updater"] floating enable, border none
-for_window [class="(?i)keepassx2"] floating enable, border normal
-for_window [class="(?i)keepassxc"] floating enable, border normal
-for_window [class="Gnome-disks"] floating enable, border none
-for_window [class="Blueman-manager"] floating enable
-for_window [class="Terminator Preferences"] border none
+for_window [class="(?i)pavucontrol"] move scratchpad
 
-#Graphic glitch fix
+# Maximum size constraints
+for_window [class="(?i)pidgin"] floating_maximum_size 50 x 75
+for_window [window_role="(Open Document|task_dialog)"] floating_maximum_size 670 x 470
+
+# Fix graphic glitch
 new_window none
 
-#}}}
+###{{{ --- REFACTORING END
+
+
 # Keybindings {{{
 # use xev to get keycodes
 # ------------------------
@@ -374,7 +347,7 @@ set $alacritty alacritty --config-file ~/.config/alacritty/alacritty.yml
 #set $rofi_applets ~/.config/i3/bin
 set $file_manager nemo
 set $text_editor code
-set $web_browser google-chrome
+set $web_browser zen-alpha
 
 # set modkey (Super key)
 set $mod Mod4
@@ -755,7 +728,7 @@ mode $sysmenu {
 mode "focused" {
 
   # hardcoded focus keybindings
-  bindsym b [class="(?i)chrome"] focus
+  bindsym b [class="(?i)zen-alpha"] focus
   bindsym w [class="(?i)xfce4-terminal"] focus
   # bindsym w [class="(?i)terminal" title="weechat"] focus
   bindsym m [class="(?i)nemo"] focus
