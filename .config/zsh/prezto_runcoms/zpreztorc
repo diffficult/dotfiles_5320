@@ -48,6 +48,8 @@ zstyle ':prezto:load' pmodule \
   'fzf' \
   'fzf-alias' \
   'zoxide' \
+  'ask-zsh' \
+  'fabric' \
   'prompt'
 
 #
