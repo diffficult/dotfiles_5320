@@ -1,3 +1,4 @@
+abbr "az"="ask-zsh"
 abbr "dk"="docker"
 abbr "dka"="docker attach"
 abbr "dkb"="docker build"
