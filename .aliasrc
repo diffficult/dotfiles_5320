@@ -338,6 +338,9 @@ alias cat="bat"
 #------------------------------------------------------
 # DESC: custom alias
 
+alias cd='z'
+alias old-cd='nocorrect cd'
+
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
