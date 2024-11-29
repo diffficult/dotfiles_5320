@@ -1,314 +1,172 @@
+##
 #
-# Sets Prezto options.
+#  ▒███████▒ ██▓███   ██▀███  ▓█████ ▒███████▒▄▄▄█████▓ ▒█████
+#  ▒ ▒ ▒ ▄▀░▓██░  ██▒▓██ ▒ ██▒▓█   ▀ ▒ ▒ ▒ ▄▀░▓  ██▒ ▓▒▒██▒  ██▒
+#  ░ ▒ ▄▀▒░ ▓██░ ██▓▒▓██ ░▄█ ▒▒███   ░ ▒ ▄▀▒░ ▒ ▓██░ ▒░▒██░  ██▒
+#    ▄▀▒   ░▒██▄█▓▒ ▒▒██▀▀█▄  ▒▓█  ▄   ▄▀▒   ░░ ▓██▓ ░ ▒██   ██░
+#  ▒███████▒▒██▒ ░  ░░██▓ ▒██▒░▒████▒▒███████▒  ▒██▒ ░ ░ ████▓▒░
+#  ░▒▒ ▓░▒░▒▒▓▒░ ░  ░░ ▒▓ ░▒▓░░░ ▒░ ░░▒▒ ▓░▒░▒  ▒ ░░   ░ ▒░▒░▒░
+#  ░░▒ ▒ ░ ▒░▒ ░       ░▒ ░ ▒░ ░ ░  ░░░▒ ▒ ░ ▒    ░      ░ ▒ ▒░
+#  ░ ░ ░ ░ ░░░         ░░   ░    ░   ░ ░ ░ ░ ░  ░      ░ ░ ░ ▒
+#    ░ ░                ░        ░  ░  ░ ░                 ░ ░
+#  ░                                 ░
+#
 
 #
-# General
+# CORE SETTINGS
 #
 
-# Set case-sensitivity for completion, history lookup, etc.
-# zstyle ':prezto:*:*' case-sensitive 'yes'
-
-# Color output (auto set to 'no' on dumb terminals).
+# Color output (auto set to 'no' on dumb terminals)
 zstyle ':prezto:*:*' color 'yes'
 
-# Add additional directories to load prezto modules from
+# Module directories configuration
 zstyle ':prezto:load' pmodule-dirs $HOME/.zprezto/contrib
-
-# Allow module overrides when pmodule-dirs causes module name collisions
+zstyle ':prezto:load' pmodule-dirs $HOME/.config/zsh/modules
 zstyle ':prezto:load' pmodule-allow-overrides 'yes'
 
-# Set the Zsh modules to load (man zshmodules).
-# zstyle ':prezto:load' zmodule 'attr' 'stat'
-
-# Set the Zsh functions to load (man zshcontrib).
-# zstyle ':prezto:load' zfunction 'zargs' 'zmv'
-
-
-# Set the Prezto modules to load (browse modules).
-# The order matters.
-zstyle ':prezto:load' pmodule \
-  'environment' \
-  'terminal' \
-  'editor' \
-  'rsync' \
-  'history' \
-  'directory' \
-  'spectrum' \
-  'utility' \
-  'ssh' \
-  'git' \
-  'completion' \
-  'docker' \
-  'command-not-found' \
-  'syntax-highlighting' \
-  'history-substring-search' \
-  'zsh-abbr' \
-  'autosuggestions' \
-  'contrib-prompt' \
-  'fzf' \
-  'fzf-alias' \
-  'zoxide' \
-  'ask-zsh' \
-  'fabric' \
-  'prompt'
-
 #
-# Autosuggestions
+# MODULE LOADING
 #
 
-# Set the query found color.
-zstyle ':prezto:module:autosuggestions:color' found ''
-zstyle ':prezto:module:autosuggestions' color 'yes'
+# Core modules (essential functionality)
+ zstyle ':prezto:load' pmodule \
+   'environment' \
+   'terminal' \
+   'editor' \
+   'rsync' \
+   'history' \
+   'directory' \
+   'spectrum' \
+   'utility' \
+   'ssh' \
+   'git' \
+   'completion' \
+   'docker' \
+   'command-not-found' \
+   'syntax-highlighting' \
+   'history-substring-search' \
+   'zsh-abbr' \
+   'autosuggestions' \
+   'contrib-prompt' \
+   'fzf' \
+   'fzf-alias' \
+   'zoxide' \
+   'fabric' \
+   'ask-zsh' \
+   'aichat' \
+   'prompt'
 
 #
-# Editor
+# COMPLETION SETTINGS
 #
 
-# Set the key mapping style to 'emacs' or 'vi'.
-zstyle ':prezto:module:editor' key-bindings 'emacs'
-
-# Auto convert .... to ../..
-zstyle ':prezto:module:editor' dot-expansion 'yes'
-
-# Allow the zsh prompt context to be shown.
-#zstyle ':prezto:module:editor' ps-context 'yes'
-
-#
-# Git
-#
-
-# Ignore submodules when they are 'dirty', 'untracked', 'all', or 'none'.
-# zstyle ':prezto:module:git:status:ignore' submodules 'all'
-
-#
-# GNU Utility
-#
-
-# Set the command prefix on non-GNU systems.
-# zstyle ':prezto:module:gnu-utility' prefix 'g'
-
-#
-# History Substring Search
-#
-
-# Set the query found color.
-# zstyle ':prezto:module:history-substring-search:color' found ''
-
-# Set the query not found color.
-# zstyle ':prezto:module:history-substring-search:color' not-found ''
-
-# Set the search globbing flags.
-# zstyle ':prezto:module:history-substring-search' globbing-flags ''
-
-#
-# Pacman
-#
-
-# Set the Pacman frontend.
-#zstyle ':prezto:module:pacman' frontend 'yay'
-
-#
-# Prompt
-#
-
-# Set the prompt theme to load.
-# Setting it to 'random' loads a random theme.
-# Auto set to 'off' on dumb terminals.
-zstyle ':prezto:module:prompt' theme 'pure'
-
-
-# Set how themes that use promptpwd function display the pwd, can be 'short', 'long', or 'full'
-# zstyle ':prezto:module:prompt' pwd-length 'short'
-
-
-# Pure Prompt Styling and Options
-# new  updated config to follow new pure.zsh formatting
-
-# turn on git stash status
-zstyle :prompt:pure:git:stash show yes
-
-# change the path color
-#zstyle :prompt:pure:path color white
-
-# OPTION to change the symbol used 
-# ie PURE_PROMPT_SYMBOL=❯❯❯ to display only ❯❯❯ or you could set symbol and colors as the old config
-# first part makes normal prompt red/yellow/green and takes the color for each ❯ from the style prompt:error when a wrong command is entered
-PURE_PROMPT_SYMBOL='%(?.%F{red}❯%F{yellow}❯%F{green}.%F{$prompt_pure_colors[prompt:error]}❯%F{$prompt_pure_colors[prompt:error]}❯%F{$prompt_pure_colors[prompt:error]})❯%f'
-
-# Other options include
-# PURE_CMD_MAX_EXEC_TIME  The max execution time of a process before its run time is shown when it exits. 5 seconds
-# PURE_GIT_PULL=0 Prevents Pure from checking whether the current Git remote has been updated.  
-# PURE_GIT_UNTRACKED_DIRTY=0  Do not include untracked files in dirtiness check. Mostly useful on large repos (like WebKit).  
-# PURE_GIT_DELAY_DIRTY_CHECK  Time in seconds to delay git dirty checking when git status takes > 5 seconds.  1800 seconds
-# PURE_PROMPT_SYMBOL  Defines the prompt symbol.  ❯
-# PURE_PROMPT_VICMD_SYMBOL  Defines the prompt symbol used when the vicmd keymap is active (VI-mode). ❮
-# PURE_GIT_DOWN_ARROW Defines the git down arrow symbol.  ⇣
-# PURE_GIT_UP_ARROW Defines the git up arrow symbol.  ⇡
-# PURE_GIT_STASH_SYMBOL Defines the git stash symbol. ≡
-
-
-# change colors for success or error (default to magenta for success and red for error)
-# zstyle :prompt:pure:prompt:success color green
-# zstyle :prompt:pure:prompt:continuation color 242
-zstyle :prompt:pure:prompt:error color red 
-
-
-#
-# Python
-#
-
-# Auto switch the Python virtualenv on directory change.
-# zstyle ':prezto:module:python:virtualenv' auto-switch 'yes'
-
-# Automatically initialize virtualenvwrapper if pre-requisites are met.
-# zstyle ':prezto:module:python:virtualenv' initialize 'yes'
-
-#
-# Ruby
-#
-
-# Auto switch the Ruby version on directory change.
-# zstyle ':prezto:module:ruby:chruby' auto-switch 'yes'
-
-#
-# Screen
-#
-
-# Auto start a session when Zsh is launched in a local terminal.
-# zstyle ':prezto:module:screen:auto-start' local 'yes'
-
-# Auto start a session when Zsh is launched in a SSH connection.
-# zstyle ':prezto:module:screen:auto-start' remote 'yes'
-
-#
-# SSH
-#
-
-# Set the SSH identities to load into the agent.
-zstyle ':prezto:module:ssh:load' identities 'id_rsa' 'home' 'work' 'raccoonesque' 'github' 'gitlab'
-
-#
-# Syntax Highlighting
-#
-
-# Set syntax highlighters.
-# By default, only the main highlighter is enabled.
-zstyle ':prezto:module:syntax-highlighting' highlighters \
-   'main' \
-   'brackets' \
-   'pattern' \
-   'line' 
-#   'cursor' \
-#   'root'
-#
-# Set syntax highlighting styles.
-# zstyle ':prezto:module:syntax-highlighting' styles \
-#   'builtin' 'bg=blue' \
-#   'command' 'bg=blue' \
-#   'function' 'bg=blue'
-#
-# Set syntax pattern styles.
-# zstyle ':prezto:module:syntax-highlighting' pattern \
-#   'rm*-rf*' 'fg=white,bold,bg=red'
-
-#
-# Terminal
-#
-
-# Auto set the tab and window titles.
-zstyle ':prezto:module:terminal' auto-title 'yes'
-
-# Set the window title format.
-#zstyle ':prezto:module:terminal:window-title' format '%n@%m: %s'
-
-# Set the tab title format.
-# zstyle ':prezto:module:terminal:tab-title' format '%m: %s'
-
-# Set the terminal multiplexer title format.
-#zstyle ':prezto:module:terminal:multiplexer-title' format '%s'
-
-#
-# Tmux
-#
-
-# Auto start a session when Zsh is launched in a local terminal.
-# zstyle ':prezto:module:tmux:auto-start' local 'yes'
-
-# Auto start a session when Zsh is launched in a SSH connection.
-# zstyle ':prezto:module:tmux:auto-start' remote 'yes'
-
-# Integrate with iTerm2.
-# zstyle ':prezto:module:tmux:iterm' integrate 'yes'
-
-# Set the default session name:
-# zstyle ':prezto:module:tmux:session' name 'YOUR DEFAULT SESSION NAME'
-
-#
-# command-not-found
-#
-#zstyle ':prezto:module:command-not-found'
-
-#
-# Completion
-#
-#
-#export LSCOLORS='ExGxBxDxCxEgEdxbxgxcxd' # ls colors like in Linux
-# used https://geoff.greer.fm/lscolors/ to convert them to LS_COLORS:
+# Set LS_COLORS for completion
 LS_COLORS='rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:';
 export LS_COLORS
 zstyle ':completion:*:default' list-colors "$LS_COLORS"
 
+# SSH completion configuration
+zstyle ':completion:*:ssh:*' hosts
+zstyle ':completion:*:(ssh|scp|rsync):*' hosts-host
+zstyle ':completion:*:(ssh|scp|rsync):*' hosts-domain
+zstyle ':completion:*:(ssh|scp|rsync):*' users
 
-
-#Aliases
-
-#if [ -f $HOME/.zsh_aliases ]; then
-#    . $HOME/.zsh_aliases
-#fi
-
-# Alias Tips
-# Alias-tips is a plugin to help remembering aliases you once defined. It works by trying to find>
-#zstyle ":prezto:module:alias-tips" text "Alias tip: "
-
-
-# enhancd
+#
+# EDITOR SETTINGS
 #
 
-zstyle ':prezto:module:enhancd' command 'fzy'
-zstyle ':prezto:module:enhancd' command 'cd'
-#zstyle ':prezto:module:enhancd' show-fullpath "ENHANCD_DOT_SHOW_FULLPATH"
+zstyle ':prezto:module:editor' key-bindings 'emacs'
+zstyle ':prezto:module:editor' dot-expansion 'yes'
 
-# fzf
-# 
-# https://github.com/gpanders/fzf-prezto >> old unmaitained in use @x220
-# https://github.com/lildude/fzf-prezto >> newest currently in use @Desktop 
+#
+# HISTORY SETTINGS
+#
 
-# Forcefully Set to fzf installation directory path - default will try to detect the correct location
-# zstyle ':prezto:module:fzf' fzf-base '/home/poole/.zprezto/contrib/fzf'
+zstyle ':prezto:module:history' histfile "${ZDOTDIR:-$HOME}/.zsh_history"
+zstyle ':prezto:module:history' histsize 10000
+zstyle ':prezto:module:history' savehist 10000
 
-# Set the default command to use when input is tty - default is to set it to these in the order in which they're found:
-# - `rg --files --hidden --glob "!.git/*"`
-# - `fd --type f --hidden --exclude .git`
-# - `ag -l --hidden -g "" --ignore .git`,
-zstyle ':prezto:module:fzf' fzf-default-command 'rg --files --hidden --glob "!.git/*"'
+#
+# AUTOSUGGESTIONS SETTINGS
+#
 
-# Disable keybindings - default: no
+zstyle ':prezto:module:autosuggestions:color' found ''
+zstyle ':prezto:module:autosuggestions' color 'yes'
+
+#
+# SYNTAX HIGHLIGHTING SETTINGS
+#
+
+zstyle ':prezto:module:syntax-highlighting' highlighters \
+   'main' \
+   'brackets' \
+   'pattern' \
+   'line'
+
+#
+# UTILITY SETTINGS
+#
+
+zstyle -s ':prezto:module:utility:download' helper 'aria2c'
+zstyle ':prezto:module:pacman' frontend 'yay'
+
+#
+# SSH SETTINGS
+#
+
+zstyle ':prezto:module:ssh:load' identities 'id_rsa' 'home' 'work' 'raccoonesque' 'gitlab'
+
+#
+# TERMINAL SETTINGS
+#
+
+zstyle ':prezto:module:terminal' auto-title 'yes'
+zstyle ':prezto:module:terminal:tab-title' format '%m: %s'
+
+#
+# PROMPT SETTINGS
+#
+
+zstyle ':prezto:module:prompt' theme 'pure'
+zstyle :prompt:pure:git:stash show yes
+PURE_PROMPT_SYMBOL='%(?.%F{red}❯%F{yellow}❯%F{green}.%F{$prompt_pure_colors[prompt:error]}❯%F{$prompt_pure_colors[prompt:error]}❯%F{$prompt_pure_colors[prompt:error]})❯%f'
+zstyle :prompt:pure:prompt:continuation color 242
+zstyle :prompt:pure:prompt:error color red
+
+#
+# FZF SETTINGS
+#
+
+# Since we're using fd in zshrc, we can remove or comment the ag setting
+# zstyle ':prezto:module:fzf' fzf-default-command 'ag -l --hidden -g "" --ignore .git'
 zstyle ':prezto:module:fzf' disable-key-bindings 'no'
-
-# Disable completion - default: no
 zstyle ':prezto:module:fzf' disable-completion 'yes'
-
-# Set height of the fzf results - default: full height
-zstyle ':prezto:module:fzf' height '45%'
-
-# Show file preview with ctrl+t and directory contents preview (needs tree) with alt-c
+zstyle ':prezto:module:fzf' height '40%'
 zstyle ':prezto:module:fzf' preview 'yes'
-
-# Open fzf results in a tmux pane, if using tmux - default: no
 zstyle ':prezto:module:fzf' tmux 'yes'
-
-# Order output in reverse order - default: no
 zstyle ':prezto:module:fzf' reverse 'yes'
+zstyle ':prezto:module:fzf' color-scheme 'JellyX'
 
-# Set the color scheme
-zstyle ':prezto:module:fzf' color-scheme 'JellyX'        #  'Solarized Light'
+#
+# DEPRECATED OR UNUSED SETTINGS
+#
+
+# Python virtualenv (uncomment if needed)
+# zstyle ':prezto:module:python:virtualenv' auto-switch 'yes'
+# zstyle ':prezto:module:python:virtualenv' initialize 'yes'
+
+# Ruby chruby (uncomment if needed)
+# zstyle ':prezto:module:ruby:chruby' auto-switch 'yes'
+
+# Screen settings (uncomment if needed)
+# zstyle ':prezto:module:screen:auto-start' local 'yes'
+# zstyle ':prezto:module:screen:auto-start' remote 'yes'
+
+# Tmux settings (uncomment if needed)
+# zstyle ':prezto:module:tmux:auto-start' local 'yes'
+# zstyle ':prezto:module:tmux:auto-start' remote 'yes'
+# zstyle ':prezto:module:tmux:iterm' integrate 'yes'
+# zstyle ':prezto:module:tmux:session' name 'YOUR DEFAULT SESSION NAME'
+
+# Unused case-sensitive setting
+# zstyle ':prezto:*:*' case-sensitive 'yes'
