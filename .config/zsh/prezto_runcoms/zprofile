@@ -36,6 +36,10 @@ export GOPATH="$XDG_DATA_HOME/go"
 
 export W3M_DIR="$XDG_DATA_HOME/w3m"
 
+# TeX Live config path
+#
+export TEXMFVAR=$HOME/.config/texlive/texmf-var
+
 #
 # Editors
 #
