@@ -255,7 +255,7 @@ for_window [class="open.spotify.com"] floating disable
 ## ---------------------------
 
 # Browser workspace
-assign [class="(?i)(google-chrome|chromium|firefox|zen-alpha)"] number $ws_1
+assign [class="(?i)(google-chrome|chromium|firefox|zen-alpha|zen-beta)"] number $ws_1
 
 # Terminal workspace 
 assign [class="(?i)(kitty|xfce4-terminal)"] number $ws_2
@@ -297,20 +297,20 @@ for_window [class="(?i)(pavucontrol|qt5ct|gsimplecal|file-roller|whatsie|steam|m
 for_window [class="(?i)firefox" window_role="pop-up"] floating enable
 
 # Make Zen Browser download/dialog windows floating
-#for_window [class="(?i)zen-alpha"] floating enable
-#for_window [class="(?i)zen-alpha" window_role="browser" title="(?i)Comprobante"] floating enable
+#for_window [class="(?i)zen-alpha|zen-beta"] floating enable
+#for_window [class="(?i)zen-alpha|zen-beta" window_role="browser" title="(?i)Comprobante"] floating enable
 # prevents main window resizing when spawning a new popup.
-#for_window [class="(?i)zen-alpha" title="(?i)Comprobante"] floating enable, layout tabbed
-#for_window [class="(?i)zen-alpha" title="(?i)Comprobante"] floating enable, [class="(?i)zen-alpha" window_role="browser"] focus
+#for_window [class="(?i)zen-alpha|zen-beta" title="(?i)Comprobante"] floating enable, layout tabbed
+#for_window [class="(?i)zen-alpha|zen-beta" title="(?i)Comprobante"] floating enable, [class="(?i)zen-alpha|zen-beta" window_role="browser"] focus
 
 # Make Zen Browser windows use tabbed layout
-for_window [class="(?i)zen-alpha"] layout tabbed
+for_window [class="(?i)zen-alpha|zen-beta"] layout tabbed
 
 # Make specific popup windows join the tabbed layout
-for_window [class="(?i)zen-alpha" title="(?i)Comprobante"] focus
+for_window [class="(?i)zen-alpha|zen-beta" title="(?i)Comprobante"] focus
 
 # Border rules
-for_window [class="(?i)(sublime_text|subl|firefox|chrome|chromium|zen-alpha|discord|zathura|gpicview|telegramdesktop)"] border none
+for_window [class="(?i)(sublime_text|subl|firefox|chrome|chromium|zen-alpha|zen-beta|discord|zathura|gpicview|telegramdesktop)"] border none
 
 # Specific window configs
 for_window [class="(?i)qt5ct"] floating enable, border normal, resize set 600 680, move absolute position center
@@ -347,7 +347,7 @@ set $alacritty alacritty --config-file ~/.config/alacritty/alacritty.yml
 #set $rofi_applets ~/.config/i3/bin
 set $file_manager nemo
 set $text_editor code
-set $web_browser zen-alpha
+set $web_browser zen-beta
 
 # set modkey (Super key)
 set $mod Mod4
@@ -728,7 +728,7 @@ mode $sysmenu {
 mode "focused" {
 
   # hardcoded focus keybindings
-  bindsym b [class="(?i)zen-alpha"] focus
+  bindsym b [class="(?i)zen-beta"] focus
   bindsym w [class="(?i)xfce4-terminal"] focus
   # bindsym w [class="(?i)terminal" title="weechat"] focus
   bindsym m [class="(?i)nemo"] focus
