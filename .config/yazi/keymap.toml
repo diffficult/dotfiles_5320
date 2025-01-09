@@ -47,11 +47,11 @@ keymap = [
 	{ on = "J", run = "seek 5",  desc = "Seek down 5 units in the preview" },
 
 	# Selection
-	{ on = "<Space>", run = [ "select --state=none", "arrow 1" ], desc = "Toggle the current selection state" },
+	{ on = "<Space>", run = [ "toggle --state=none", "arrow 1" ], desc = "Toggle the current selection state" },
 	{ on = "v",       run = "visual_mode",                        desc = "Enter visual mode (selection mode)" },
 	{ on = "V",       run = "visual_mode --unset",                desc = "Enter visual mode (unset mode)" },
-	{ on = "<C-a>",   run = "select_all --state=true",            desc = "Select all files" },
-	{ on = "<C-r>",   run = "select_all --state=none",            desc = "Inverse selection of all files" },
+	{ on = "<C-a>",   run = "toggle_all --state=true",            desc = "Select all files" },
+	{ on = "<C-r>",   run = "toggle_all --state=none",            desc = "Inverse selection of all files" },
 
 	# Operation
 	{ on = "o",         run = "open",                        desc = "Open selected files" },
@@ -66,7 +66,8 @@ keymap = [
 	{ on = "_",         run = "link --relative",             desc = "Symlink the relative path of yanked files" },
 	{ on = "<C-->",     run = "hardlink",                    desc = "Hardlink yanked files" },
 	{ on = "Y",         run = "unyank",                      desc = "Cancel the yank status" },
-	{ on = "X",         run = "unyank",                      desc = "Cancel the yank status" },
+	{ on = "<C-y>",     run = "shell --confirm '{ cat \"$1\"; } | xclip -selection clipboard'", desc = "Copy file contents" },
+  { on = "X",         run = "unyank",                      desc = "Cancel the yank status" },
 	{ on = "d",         run = "remove",                      desc = "Trash selected files" },
 	{ on = "D",         run = "remove --permanently",        desc = "Permanently delete selected files" },
 	{ on = "a",         run = "create",                      desc = "Create a file (ends with / for directories)" },
@@ -149,6 +150,13 @@ keymap = [
 	# Help
 	{ on = "~",    run = "help", desc = "Open help" },
 	{ on = "<F1>", run = "help", desc = "Open help" },
+
+  # max-preview
+  { on = "T", run  = "plugin --sync max-preview", desc = "Maximize or restore preview" },
+
+  #Dropping to shell
+  { on = "<C-s>", run = "shell '$SHELL' --block --confirm", desc = "Open zshell here"},
+
 ]
 
 [tasks]

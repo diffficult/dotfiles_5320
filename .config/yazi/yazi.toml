@@ -4,7 +4,7 @@
 
 [manager]
 ratio          = [ 1, 2, 4 ]
-sort_by        = "modified"
+sort_by        = "mtime"
 sort_sensitive = false
 sort_reverse   = true
 sort_dir_first = true
@@ -104,10 +104,20 @@ preloaders = [
 	{ mime = "font/*", run = "font" },
 	{ mime = "application/vnd.ms-opentype", run = "font" },
 ]
+
+prepend_previewers = [
+#  { name = "*.md", run = "glow" },
+  { name = "*.csv", run = "rich-preview"}, # for csv files
+#  { name = "*.md", run = "rich-preview" }, # for markdown (.md) files
+  { name = "*.ipynb", run = "rich-preview"}, # for jupyter notebooks (.ipynb)
+  { name = "*.json", run = "rich-preview"}, # for json (.json) files
+#  { name = "*.lang_type", run = "rich-preview"} # for particular language files eg. .py, .go., .lua, etc.
+]
+
 previewers = [
   { name = "*/", run = "folder", sync = true },
-  { name = "*.md", run = "preview" },
-  { name = "*.csv", run = "preview" },
+  { name = "*.md", run = "code" },
+#  { name = "*.csv", run = "preview" },
   # Code
   { mime = "text/*", run = "code" },
   { mime = "*/xml", run = "code" },
@@ -143,7 +153,7 @@ cd_origin = "top-center"
 cd_offset = [ 0, 2, 50, 3 ]
 
 # create
-create_title  = "Create:"
+create_title  = ["Create:", "Create (dir):"]
 create_origin = "top-center"
 create_offset = [ 0, 2, 50, 3 ]
 
