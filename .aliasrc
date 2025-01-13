@@ -303,7 +303,7 @@ alias lt='eza --icons --tree --level=2'                                         
 #-------- fzf {{{
 #------------------------------------------------------
 
-alias f='fzf --preview "bat --color \"always\" {}"'
+# alias f='fzf --preview "bat --color \"always\" {}"'
 
 
 ### search packages with yay and fzf (* marks an installed package)
