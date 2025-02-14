@@ -26,6 +26,11 @@ if [[ -f ~/.aliasrc ]]; then
     source "$HOME/.aliasrc"
 fi
 
+# Source secrets if found on functions directory
+if [[ -f "$HOME/.config/functions/.secrets" ]]; then
+  source "$HOME/.config/functions/.secrets"
+fi
+
 # Source function directory
 if [ -d "$HOME/.config/functions" ]; then
   for f in $HOME/.config/functions/*
