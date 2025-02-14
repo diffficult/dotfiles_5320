@@ -255,7 +255,7 @@ for_window [class="open.spotify.com"] floating disable
 ## ---------------------------
 
 # Browser workspace
-assign [class="(?i)(google-chrome|chromium|firefox|zen-alpha|zen-beta)"] number $ws_1
+assign [class="(?i)(google-chrome|chromium|firefox|zen-alpha|zen-beta|zen|Navigator)"] number $ws_1
 
 # Terminal workspace 
 assign [class="(?i)(kitty|xfce4-terminal)"] number $ws_2
@@ -268,11 +268,15 @@ assign [class="(?i)(subl|code-oss|.*zed.*)"] number $ws_4
 for_window [class="(?i)(subl|code-oss|.*zed.*)"] layout stacked
 
 # Media workspace
-assign [class="(?i)(spotify|mpv|gpicview|zathura)"] number $ws_5
+assign [class="(?i)(brave-browser|Keepass)"] number $ws_5
 for_window [class="Spotify"] move to workspace number $ws_5
 
 # Office workspace
 assign [class="(?i)(libreoffice.*|gimp)"] number $ws_6
+
+# Media workspace
+assign [class="(?i)(mpv|gpicview|zathura)"] number $ws_7
+for_window [class="Spotify"] move to workspace number $ws_5
 
 # Communication workspace
 assign [class="(?i)(telegramdesktop|localsend)"] number $ws_9
