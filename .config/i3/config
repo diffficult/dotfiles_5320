@@ -308,13 +308,13 @@ for_window [class="(?i)firefox" window_role="pop-up"] floating enable
 #for_window [class="(?i)zen-alpha|zen-beta" title="(?i)Comprobante"] floating enable, [class="(?i)zen-alpha|zen-beta" window_role="browser"] focus
 
 # Make Zen Browser windows use tabbed layout
-for_window [class="(?i)zen-alpha|zen-beta"] layout tabbed
+for_window [class="(?i)zen|Navigator"] layout tabbed
 
 # Make specific popup windows join the tabbed layout
-for_window [class="(?i)zen-alpha|zen-beta" title="(?i)Comprobante"] focus
+for_window [class="(?i)Navigator|zen" title="(?i)Comprobante"] focus
 
 # Border rules
-for_window [class="(?i)(sublime_text|subl|firefox|chrome|chromium|zen-alpha|zen-beta|discord|zathura|gpicview|telegramdesktop)"] border none
+for_window [class="(?i)(sublime_text|subl|firefox|chrome|chromium|zen|Navigator|discord|zathura|gpicview|telegramdesktop)"] border none
 
 # Specific window configs
 for_window [class="(?i)qt5ct"] floating enable, border normal, resize set 600 680, move absolute position center
@@ -351,7 +351,7 @@ set $alacritty alacritty --config-file ~/.config/alacritty/alacritty.yml
 #set $rofi_applets ~/.config/i3/bin
 set $file_manager nemo
 set $text_editor code
-set $web_browser zen-beta
+set $web_browser zen-browser
 
 # set modkey (Super key)
 set $mod Mod4
