@@ -323,6 +323,8 @@ for_window [class="(?i)nemo-preview-start"] floating enable, border pixel 4, mov
 for_window [title="Administracion - Remote Desktop - RustDesk"] floating disable, border 0, move center
 for_window [class="steam"] floating enable, border none, resize set 960 640
 
+for_window [class="st|drawn-st"] floating enable, border none
+
 for_window [class="(?i)pavucontrol"] move scratchpad
 
 # Maximum size constraints
