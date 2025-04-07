@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.1" encoding="UTF-8"?>
 
 <channel name="xfce4-desktop" version="1.0">
   <property name="desktop-icons" type="empty">
@@ -11,6 +11,9 @@
       <property name="show-network-removable" type="bool" value="true"/>
       <property name="show-device-removable" type="bool" value="true"/>
       <property name="show-unknown-removable" type="bool" value="true"/>
+      <property name="migrated-4.19" type="array">
+        <value type="string" value="5b8a080aa1b90610bfc40d4bf5f1c3638bb7977b"/>
+      </property>
     </property>
     <property name="icon-size" type="uint" value="32"/>
     <property name="tooltip-size" type="empty"/>
@@ -19,7 +22,6 @@
   <property name="backdrop" type="empty">
     <property name="screen0" type="empty">
       <property name="monitor0" type="empty">
-        <property name="image-path" type="string" value="/usr/share/backgrounds/night_photo_22.jpg"/>
         <property name="image-style" type="empty"/>
         <property name="image-show" type="empty"/>
         <property name="workspace0" type="empty">
@@ -102,17 +104,17 @@
         <property name="workspace0" type="empty">
           <property name="color-style" type="int" value="0"/>
           <property name="image-style" type="int" value="5"/>
-          <property name="last-image" type="string" value="/usr/share/backgrounds/xfce/xfce-stripes.png"/>
+          <property name="last-image" type="string" value="/usr/share/backgrounds/xfce/xfce-stripes.svg"/>
         </property>
         <property name="workspace1" type="empty">
           <property name="color-style" type="int" value="0"/>
           <property name="image-style" type="int" value="5"/>
-          <property name="last-image" type="string" value="/usr/share/backgrounds/xfce/xfce-stripes.png"/>
+          <property name="last-image" type="string" value="/usr/share/backgrounds/xfce/xfce-stripes.svg"/>
         </property>
         <property name="workspace2" type="empty">
           <property name="color-style" type="int" value="0"/>
           <property name="image-style" type="int" value="5"/>
-          <property name="last-image" type="string" value="/usr/share/backgrounds/xfce/xfce-stripes.png"/>
+          <property name="last-image" type="string" value="/usr/share/backgrounds/xfce/xfce-stripes.svg"/>
         </property>
       </property>
       <property name="monitorHDMI1" type="empty">
@@ -156,7 +158,7 @@
         <property name="workspace4" type="empty">
           <property name="color-style" type="int" value="0"/>
           <property name="image-style" type="int" value="5"/>
-          <property name="last-image" type="string" value="/usr/share/backgrounds/xfce/xfce-verticals.png"/>
+          <property name="last-image" type="string" value="/usr/share/backgrounds/xfce/xfce-verticals.svg"/>
         </property>
       </property>
       <property name="monitorDisplayPort-2" type="empty">
@@ -214,4 +216,5 @@
     <property name="window-width" type="int" value="1053"/>
     <property name="window-height" type="int" value="698"/>
   </property>
+  <property name="last-settings-migration-version" type="uint" value="1"/>
 </channel>
