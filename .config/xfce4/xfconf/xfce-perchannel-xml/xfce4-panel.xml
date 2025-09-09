@@ -161,6 +161,7 @@
         <value type="string" value="networkmanager applet"/>
       </property>
       <property name="known-items" type="array">
+        <value type="string" value="dropbox-client-253157"/>
         <value type="string" value="Fcitx"/>
         <value type="string" value="dropbox-client-175963"/>
         <value type="string" value="dropbox-client-3245"/>
@@ -249,7 +250,7 @@
       <property name="enable-keyboard-shortcuts" type="bool" value="true"/>
       <property name="mpris-players" type="string" value="chromium.instance1578;chromium.instance23374"/>
       <property name="play-sound" type="bool" value="true"/>
-      <property name="known-players" type="string" value="Chrome"/>
+      <property name="known-players" type="string" value="Chrome;zen"/>
     </property>
   </property>
   <property name="configver" type="int" value="2"/>
