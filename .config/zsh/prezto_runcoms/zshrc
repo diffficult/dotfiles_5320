@@ -206,3 +206,5 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=244'
 
 # Fabric (commented out)
 # if [ -f "/home/poole/.config/fabric/fabric-bootstrap.inc" ]; then . "/home/poole/.config/fabric/fabric-bootstrap.inc"; fi
+
+source /etc/bash_completion.d/climate_completion
