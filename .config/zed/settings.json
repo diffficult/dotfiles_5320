@@ -12,7 +12,7 @@
   "base_keymap": "VSCode",
   //autocomplete
   "features": {
-    "inline_completion_provider": "supermaven"
+    "edit_prediction_provider": "copilot"
   },
   //more
   "relative_line_numbers": true,
@@ -68,10 +68,10 @@
   //      "api_key": "API-KEY"
   //    }
   //  },
-  "assistant": {
+  "agent": {
     "default_model": {
-      "provider": "anthropic",
-      "model": "claude-3-5-sonnet-latest"
+      "provider": "google",
+      "model": "gemini-2.5-pro-exp-03-25"
     },
     "version": "2"
   },
@@ -85,7 +85,7 @@
   // theme
   "theme": {
     "mode": "system",
-    "light": "Tokyo Night Storm",
+    "light": "Catppuccin Macchiato (Blur)",
     "dark": "Tokyo Night Storm"
   }
 }
