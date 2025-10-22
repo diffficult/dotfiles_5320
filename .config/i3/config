@@ -98,7 +98,10 @@ exec --no-startup-id synclient HorizScrollDelta=-"$(synclient | grep HorizScroll
 ###### END TOUCHPAD SETTINGS
 
 # Set keyboard to ES LATAM deadtilde and model Dell Latitude Laptop
-exec --no-startup-id setxkbmap -layout latam -variant deadtilde
+#exec --no-startup-id setxkbmap -layout latam -variant deadtilde
+
+# Set keyboard to ES ES since the keyboard is ISO Spanish (upside down L shaped enter)
+exec --no-startup-id setxkbmap -layout es -variant nodeadkeys
 
 # Redshift tray icon
 exec --no-startup-id redshift-gtk
