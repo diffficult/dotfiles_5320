@@ -98,16 +98,16 @@
       <property name="favorites" type="array">
       </property>
       <property name="recent" type="array">
+        <value type="string" value="org.wezfurlong.wezterm.desktop"/>
+        <value type="string" value="kitty.desktop"/>
+        <value type="string" value="xfce4-terminal.desktop"/>
+        <value type="string" value="brave-browser.desktop"/>
         <value type="string" value="xfce-ui-settings.desktop"/>
         <value type="string" value="google-chrome.desktop"/>
         <value type="string" value="xfce-display-settings.desktop"/>
         <value type="string" value="xfce-keyboard-settings.desktop"/>
         <value type="string" value="mpv.desktop"/>
         <value type="string" value="org.xfce.Parole.desktop"/>
-        <value type="string" value="org.gnome.seahorse.Application.desktop"/>
-        <value type="string" value="xfce-mouse-settings.desktop"/>
-        <value type="string" value="xfce4-power-manager-settings.desktop"/>
-        <value type="string" value="redshift-gtk.desktop"/>
       </property>
     </property>
     <property name="plugin-15" type="string" value="separator">
@@ -161,6 +161,10 @@
         <value type="string" value="networkmanager applet"/>
       </property>
       <property name="known-items" type="array">
+        <value type="string" value="dropbox-client-1657"/>
+        <value type="string" value="dropbox-client-1652"/>
+        <value type="string" value="dropbox-client-4382"/>
+        <value type="string" value="dropbox-client-1588"/>
         <value type="string" value="dropbox-client-253157"/>
         <value type="string" value="Fcitx"/>
         <value type="string" value="dropbox-client-175963"/>
