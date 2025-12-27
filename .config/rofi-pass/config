@@ -132,3 +132,25 @@ insert_pass="Alt+n"
 # xdotool
 # wtype
 #backend=xdotool
+#
+
+# Icon mappings for password paths
+# Add icons (emojis or fontawesome) that will be prepended to matching path segments
+# Format: searchterm=icon
+# Example usage:
+# - If you have "colegio/network/info" and search for "colegio", it shows as "🏫 colegio/network/info"
+# - If you search for "network", paths like "colegio/network/info" show as "colegio/🖥️ network/info"
+# You can use emojis or fontawesome icons
+declare -A path_icons=(
+    ["network"]="🖥️ "
+    ["colegio"]="🏫 "
+    ["commerce"]="🏦 "
+    ["email"]="📧 "
+    ["work"]="💼 "
+    ["personal"]="👤 "
+    ["social"]="👥 "
+    ["network"]="📡 "
+    ["android"]=" "
+    #["server"]="🖥️ "
+    #["vpn"]="🔒 "
+)
