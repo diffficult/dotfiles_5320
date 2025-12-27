@@ -1,37 +1,174 @@
 #!/usr/bin/bash
+#
+# Pacman/AUR package update checker for i3blocks
+# Checks for available updates and displays count with color coding
+#
 
-#PACKAGES=$(pacman -Qu | wc -l)
-#PACKAGES=4
-#Packages count exludes any pkg on pacman.conf that is ignored
-AUR=$(yay -Qua | wc -l)
-OFFICIAL=$(checkupdates | wc -l)
-PACKAGES=$(( AUR + OFFICIAL ))
+set -euo pipefail
 
-#PACKAGES=$(checkupdates | grep -v -c ignored)
+################################################################################
+# Configuration
+################################################################################
+
 URGENT_VALUE=10
-FULLICON=
-SHORTICON=
-LABEL=
-# 
+FULLICON=
+SHORTICON=
+LABEL=
+
+# Color scheme
 OKCOLOR=#A8FF00
 WARNCOLOR=#FFAE00
 URGENTCOLOR=#FF0000
 
-if [[ $PACKAGES -gt 0 && $PACKAGES -gt $URGENT_VALUE ]]; then
-  echo ' <span foreground="'$URGENTCOLOR'">'"$PACKAGES"'</span>' # full-text
-  echo ' <span foreground="'$URGENTCOLOR'">'"[$PACKAGES]"'</span>' # short-text
-elif [[ $PACKAGES -gt 0 ]]; then
-  echo ' <span foreground="'$WARNCOLOR'">'"$PACKAGES"'</span>' # full-text
-  echo ' <span foreground="'$WARNCOLOR'">'"[$PACKAGES]"'</span>' # short-text
-elif [[ $PACKAGES -eq 0 ]]; then
-  echo ' <span foreground="'$OKCOLOR'">'"$FULLICON"'</span>' #full-text
-  echo ' <span foreground="'$OKCOLOR'">'"$SHORTICON"'</span>' #short-text
-fi
+# Cache file to avoid constant rechecking
+CACHE_DIR="${HOME}/.cache/i3blocks-modules"
+CACHE_FILE="${CACHE_DIR}/pacman.cache"
 
-#---------i3blocks actions-----------------------------------------------
+################################################################################
+# Error handling
+################################################################################
 
-case $BLOCK_BUTTON in
-	2) pamac-manager ;; # middle click - opens pamac-updater
-	3) notify-send " $PACKAGES 📦 upgradable packages" " $AUR  from AUR
- $OFFICIAL  from repos" ;; # right click
-esac
+check_dependencies() {
+    local missing=()
+
+    if ! command -v checkupdates &> /dev/null; then
+        missing+=("pacman-contrib")
+    fi
+
+    if ! command -v yay &> /dev/null; then
+        missing+=("yay")
+    fi
+
+    if [[ ${#missing[@]} -gt 0 ]]; then
+        echo "❌ Missing: ${missing[*]}"
+        echo "❌ Missing deps"
+        echo "#FF0000"
+        exit 1
+    fi
+}
+
+################################################################################
+# Package counting with error handling
+################################################################################
+
+count_packages() {
+    local aur=0
+    local official=0
+
+    # Count AUR packages with error handling and timeout
+    if yay_output=$(timeout 10 yay -Qua 2>/dev/null); then
+        aur=$(echo "$yay_output" | wc -l)
+    else
+        # If yay fails or times out, try to use cached value or default to 0
+        if [[ -f "$CACHE_FILE" ]]; then
+            source "$CACHE_FILE"
+            aur="${CACHED_AUR:-0}"
+        else
+            aur=0
+        fi
+    fi
+
+    # Count official packages with error handling and timeout
+    if checkupdates_output=$(timeout 10 checkupdates 2>/dev/null); then
+        official=$(echo "$checkupdates_output" | wc -l)
+    else
+        # If checkupdates fails (e.g., during database lock), use cached value
+        if [[ -f "$CACHE_FILE" ]]; then
+            source "$CACHE_FILE"
+            official="${CACHED_OFFICIAL:-0}"
+        else
+            official=0
+        fi
+    fi
+
+    # Save to cache for next time
+    mkdir -p "$CACHE_DIR"
+    cat > "$CACHE_FILE" << EOF
+CACHED_AUR=$aur
+CACHED_OFFICIAL=$official
+CACHED_TOTAL=$((aur + official))
+CACHED_TIME=$(date +%s)
+EOF
+
+    echo "$aur" "$official"
+}
+
+################################################################################
+# Display package count
+################################################################################
+
+display_packages() {
+    local packages=$1
+
+    if [[ $packages -gt 0 && $packages -gt $URGENT_VALUE ]]; then
+        echo ' <span foreground="'$URGENTCOLOR'">'"$packages"'</span>' # full-text
+        echo ' <span foreground="'$URGENTCOLOR'">'"$packages"'</span>' # short-text
+    elif [[ $packages -gt 0 ]]; then
+        echo ' <span foreground="'$WARNCOLOR'">'"$packages"'</span>' # full-text
+        echo ' <span foreground="'$WARNCOLOR'">'"$packages"'</span>' # short-text
+    elif [[ $packages -eq 0 ]]; then
+        echo ' <span foreground="'$OKCOLOR'"></span>' #full-text
+        echo ' <span foreground="'$OKCOLOR'"></span>' #short-text
+    fi
+}
+
+################################################################################
+# Update function - runs in st terminal on workspace 2
+################################################################################
+
+run_update() {
+    # Switch to workspace 2, open st terminal, run update, close when done
+    i3-msg 'workspace 2; exec st -c "floating_update" -g 100x30 -e bash -c "echo '\''Starting system update...'\''; yay -Syu --noconfirm; echo '\'''\''; echo '\''Update completed! Press Enter to close...'\''; read"'
+}
+
+################################################################################
+# Show notification with package details
+################################################################################
+
+show_notification() {
+    local total=$1
+    local aur=$2
+    local official=$3
+
+    if [[ $total -eq 0 ]]; then
+        notify-send -u normal -t 5000 " System Up-to-Date" \
+            " No packages to update\n System is fully updated!"
+    else
+        # FontAwesome icons for different package sources
+        notify-send -u normal -t 8000 " $total Upgradable Packages" \
+            " $aur packages from AUR\n $official packages from official repos\n\n Left-click to update"
+    fi
+}
+
+################################################################################
+# Main logic
+################################################################################
+
+main() {
+    # Check dependencies first
+    check_dependencies
+
+    # Count packages
+    read -r AUR OFFICIAL < <(count_packages)
+    PACKAGES=$((AUR + OFFICIAL))
+
+    # Handle click events
+    if [[ -n "${BLOCK_BUTTON:-}" ]]; then
+        case $BLOCK_BUTTON in
+            1)  # Left click - run update
+                run_update &
+                ;;
+            2)  # Middle click - open pamac-manager
+                pamac-manager &
+                ;;
+            3)  # Right click - show notification
+                show_notification "$PACKAGES" "$AUR" "$OFFICIAL" &
+                ;;
+        esac
+    fi
+
+    # Display package count
+    display_packages "$PACKAGES"
+}
+
+main "$@"

@@ -67,7 +67,7 @@ toggle_mute() {
   if [[ `pactl get-sink-mute 0` == "Mute: no" ]]; then
     pactl set-sink-mute 0 1 && pkill -RTMIN+10 i3blocks && ${notify_cmd} -i "$iDIR/volume-mute.png" "Mute"
   else
-    pactl set-sink-mute 0 0 && pkill -RTMIN+10 i3blocks && get_icon && ${notify_cmd} -i "$icon" "Unmute"
+    pactl set-sink-mute 0 0 && pkill -RTMIN+10 i3blocks && get_icon && ${notify_cmd} -i "$iDIR/volume-mid.png" "Unmute"
   fi
 }
 
