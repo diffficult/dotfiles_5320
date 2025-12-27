@@ -8,6 +8,11 @@
 // command palette
 {
   // keymap mode
+  "icon_theme": {
+    "mode": "system",
+    "light": "Catppuccin Mocha",
+    "dark": "Catppuccin Mocha"
+  },
   "vim_mode": false,
   "base_keymap": "VSCode",
   //autocomplete
@@ -15,7 +20,7 @@
     "edit_prediction_provider": "copilot"
   },
   //more
-  "relative_line_numbers": true,
+  "relative_line_numbers": "enabled",
   // "format_on_save": true,
 
   // Turn off telemetry
@@ -73,19 +78,18 @@
       "provider": "google",
       "model": "gemini-2.5-pro-exp-03-25"
     },
-    "version": "2"
   },
   // Font
   "ui_font_size": 16,
-  "ui_font_weight": 500,
+  "ui_font_weight": 450.0,
   "ui_font_family": "FiraCode Nerd Font Mono",
   "buffer_font_size": 16,
   "buffer_font_family": "JetBrainsMono Nerd Font",
-  "buffer_font_weight": 300,
+  "buffer_font_weight": 200.0,
   // theme
   "theme": {
     "mode": "system",
-    "light": "Catppuccin Macchiato (Blur)",
-    "dark": "Tokyo Night Storm"
+    "light": "Tokyo Night Storm",
+    "dark": "Nord Dark"
   }
 }
