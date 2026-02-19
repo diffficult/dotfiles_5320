@@ -1,8 +1,8 @@
 # pyright: reportMissingImports=false
 from datetime import datetime
+
 from kitty.boss import get_boss
 from kitty.fast_data_types import Screen, add_timer, get_options
-from kitty.utils import color_as_int
 from kitty.tab_bar import (
     DrawData,
     ExtraData,
@@ -12,43 +12,31 @@ from kitty.tab_bar import (
     draw_attributed_string,
     draw_title,
 )
+from kitty.utils import color_as_int
 
 opts = get_options()
-icon_fg = as_rgb(color_as_int(opts.color16))
-icon_bg = as_rgb(color_as_int(opts.color8))
-bat_text_color = as_rgb(color_as_int(opts.color15))
-clock_color = as_rgb(color_as_int(opts.color15))
-date_color = as_rgb(color_as_int(opts.color8))
-SEPARATOR_SYMBOL, SOFT_SEPARATOR_SYMBOL = ("", "")
+
+SEPARATOR_SYMBOL, SOFT_SEPARATOR_SYMBOL = ("", "")
+LEFT_SEPARATOR_SYMBOL, LEFT_SOFT_SEPARATOR_SYMBOL = ("", "")
+
 RIGHT_MARGIN = 1
 REFRESH_TIME = 1
-# ICON = "  "
-ICON = " 󰄛 "
-UNPLUGGED_ICONS = {
-    10: "",
-    20: "",
-    30: "",
-    40: "",
-    50: "",
-    60: "",
-    70: "",
-    80: "",
-    90: "",
-    100: "",
-}
-PLUGGED_ICONS = {
-    1: "",
-}
-UNPLUGGED_COLORS = {
-    15: as_rgb(color_as_int(opts.color1)),
-    16: as_rgb(color_as_int(opts.color15)),
-}
-PLUGGED_COLORS = {
-    15: as_rgb(color_as_int(opts.color1)),
-    16: as_rgb(color_as_int(opts.color6)),
-    99: as_rgb(color_as_int(opts.color6)),
-    100: as_rgb(color_as_int(opts.color2)),
-}
+
+ICON = "  "
+
+# Hard-coded active tab colors
+ACTIVE_TAB_BG = as_rgb((114 << 16) | (135 << 8) | 253)  # #7287fd
+ACTIVE_TAB_FG = as_rgb((24 << 16) | (25 << 8) | 38)  # #181926
+
+# Time foreground color
+TIME_FG = as_rgb((202 << 16) | (211 << 8) | 245)  # #cad3f5
+
+icon_fg = as_rgb(color_as_int(opts.color16))
+icon_bg = as_rgb(color_as_int(opts.color8))
+
+
+timer_id = None
+right_status_length = -1
 
 
 def _draw_icon(screen: Screen, index: int) -> int:
@@ -75,20 +63,39 @@ def _draw_left_status(
 ) -> int:
     if screen.cursor.x >= screen.columns - right_status_length:
         return screen.cursor.x
+
     tab_bg = screen.cursor.bg
     tab_fg = screen.cursor.fg
     default_bg = as_rgb(int(draw_data.default_bg))
+
+    # Hard-code active tab appearance
+    if tab.is_active:
+        screen.cursor.bg = ACTIVE_TAB_BG
+        screen.cursor.fg = ACTIVE_TAB_FG
+        screen.cursor.bold = True
+        tab_bg = ACTIVE_TAB_BG
+        tab_fg = ACTIVE_TAB_FG
+    else:
+        screen.cursor.bold = False
+
     if extra_data.next_tab:
-        next_tab_bg = as_rgb(draw_data.tab_bg(extra_data.next_tab))
+        next_tab_bg = (
+            ACTIVE_TAB_BG
+            if extra_data.next_tab.is_active
+            else as_rgb(draw_data.tab_bg(extra_data.next_tab))
+        )
         needs_soft_separator = next_tab_bg == tab_bg
     else:
         next_tab_bg = default_bg
         needs_soft_separator = False
+
     if screen.cursor.x <= len(ICON):
         screen.cursor.x = len(ICON)
+
     screen.draw(" ")
     screen.cursor.bg = tab_bg
     draw_title(draw_data, screen, tab, index)
+
     if not needs_soft_separator:
         screen.draw(" ")
         screen.cursor.fg = tab_bg
@@ -105,21 +112,65 @@ def _draw_left_status(
                 screen.cursor.fg = default_bg
         screen.draw(" " + SOFT_SEPARATOR_SYMBOL)
         screen.cursor.fg = prev_fg
-    end = screen.cursor.x
-    return end
 
-
-def _draw_right_status(screen: Screen, is_last: bool, cells: list) -> int:
-    if not is_last:
-        return 0
-    draw_attributed_string(Formatter.reset, screen)
-    screen.cursor.x = screen.columns - right_status_length
-    screen.cursor.fg = 0
-    for color, status in cells:
-        screen.cursor.fg = color
-        screen.draw(status)
-    screen.cursor.bg = 0
     return screen.cursor.x
+
+
+def _draw_right_status(
+    draw_data: DrawData, screen: Screen, is_last: bool, cells: list[str]
+) -> int:
+    if not is_last or not cells:
+        return 0
+
+    draw_attributed_string(Formatter.reset, screen)
+
+    total_length = sum(len(s) for s in cells) + len(
+        cells
+    )  # separators between + left separator
+    start_x = screen.columns - RIGHT_MARGIN - total_length
+
+    # Avoid overwriting if there is no room
+    if start_x <= 0:
+        return 0
+
+    time_bg = as_rgb(int(draw_data.inactive_bg))
+    date_bg = ACTIVE_TAB_BG
+
+    bg_colors = [time_bg, date_bg]
+    fg_colors = [TIME_FG, ACTIVE_TAB_FG]
+    bold_flags = [False, True]
+
+    x = start_x
+
+    # Left separator pointing into first block
+    screen.cursor.x = x
+    screen.cursor.bg = 0
+    screen.cursor.fg = bg_colors[0]
+    screen.cursor.bold = False
+    screen.draw(LEFT_SEPARATOR_SYMBOL)
+    x = screen.cursor.x
+
+    for i, text in enumerate(cells):
+        screen.cursor.x = x
+        screen.cursor.bg = bg_colors[i]
+        screen.cursor.fg = fg_colors[i]
+        screen.cursor.bold = bold_flags[i]
+        screen.draw(text)
+        x = screen.cursor.x
+
+        if i < len(cells) - 1:
+            # Separator between blocks (points left)
+            screen.cursor.bg = bg_colors[i]
+            screen.cursor.fg = bg_colors[i + 1]
+            screen.cursor.bold = False
+            screen.draw(LEFT_SEPARATOR_SYMBOL)
+            x = screen.cursor.x
+
+    screen.cursor.bold = False
+    screen.cursor.bg = 0
+    screen.cursor.fg = 0
+
+    return x
 
 
 def _redraw_tab_bar(_):
@@ -128,55 +179,6 @@ def _redraw_tab_bar(_):
         tm.mark_tab_bar_dirty()
 
 
-def is_pi_tab() -> bool:
-    tm = get_boss().active_tab_manager
-    if tm is not None:
-        active_tab = tm.active_tab
-        if active_tab:
-            tab_name = active_tab.name or active_tab.title
-            pi_keywords = ["pi3b", "pi4", "pi4b"]
-            return any(keyword in tab_name.lower() for keyword in pi_keywords)
-    return False
-
-def get_battery_cells() -> list:
-    if not is_pi_tab():
-        return []
-    try:
-        with open("/sys/class/power_supply/BAT0/status", "r") as f:
-            status = f.read()
-        with open("/sys/class/power_supply/BAT0/capacity", "r") as f:
-            percent = int(f.read())
-        if status == "Discharging\n":
-            # TODO: declare the lambda once and don't repeat the code
-            icon_color = UNPLUGGED_COLORS[
-                min(UNPLUGGED_COLORS.keys(), key=lambda x: abs(x - percent))
-            ]
-            icon = UNPLUGGED_ICONS[
-                min(UNPLUGGED_ICONS.keys(), key=lambda x: abs(x - percent))
-            ]
-        elif status == "Not charging\n":
-            icon_color = UNPLUGGED_COLORS[
-                min(UNPLUGGED_COLORS.keys(), key=lambda x: abs(x - percent))
-            ]
-            icon = PLUGGED_ICONS[
-                min(PLUGGED_ICONS.keys(), key=lambda x: abs(x - percent))
-            ]
-        else:
-            icon_color = PLUGGED_COLORS[
-                min(PLUGGED_COLORS.keys(), key=lambda x: abs(x - percent))
-            ]
-            icon = PLUGGED_ICONS[
-                min(PLUGGED_ICONS.keys(), key=lambda x: abs(x - percent))
-            ]
-        percent_cell = (bat_text_color, str(percent) + "% ")
-        icon_cell = (icon_color, icon)
-        return [percent_cell, icon_cell]
-    except FileNotFoundError:
-        return []
-
-
-timer_id = None
-right_status_length = -1
 def draw_tab(
     draw_data: DrawData,
     screen: Screen,
@@ -189,17 +191,16 @@ def draw_tab(
 ) -> int:
     global timer_id
     global right_status_length
+
     if timer_id is None:
         timer_id = add_timer(_redraw_tab_bar, REFRESH_TIME, True)
-    clock = datetime.now().strftime(" %H:%M")
-    date = datetime.now().strftime(" %d.%m.%Y")
-    cells = []
-    cells.extend(get_battery_cells())
-    cells.append((clock_color, clock))
-    cells.append((date_color, date))
-    right_status_length = RIGHT_MARGIN
-    for cell in cells:
-        right_status_length += len(str(cell[1]))
+
+    clock = datetime.now().strftime(" %H:%M") + " "
+    date = datetime.now().strftime(" %d.%m.%Y") + " "
+
+    cells = [clock, date]
+
+    right_status_length = RIGHT_MARGIN + sum(len(s) for s in cells) + len(cells)
 
     _draw_icon(screen, index)
     _draw_left_status(
@@ -212,9 +213,5 @@ def draw_tab(
         is_last,
         extra_data,
     )
-    _draw_right_status(
-        screen,
-        is_last,
-        cells,
-    )
+    _draw_right_status(draw_data, screen, is_last, cells)
     return screen.cursor.x

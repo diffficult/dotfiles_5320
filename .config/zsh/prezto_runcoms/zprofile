@@ -101,6 +101,10 @@ for d in "${dirs[@]}"; do
   fi
 done
 
+if [[ -d "$HOME/.npm-global" ]]; then
+  PATH="$HOME/.npm-global/bin:$PATH"
+fi
+
 export PATH
 
 # Set the list of directories that Zsh searches for programs.
@@ -117,7 +121,7 @@ export PATH
 # Mouse-wheel scrolling has been disabled by -X (disable screen clearing).
 # Remove -X and -F (exit if the content fits on one screen) to enable it.
 if [[ -z "$LESS" ]]; then
-  export LESS='-g -i -M -R -S -w -X -z-4'
+  export LESS='-g -i -M -R -S -w -X'
 fi
 
 # Set the Less input preprocessor.
@@ -150,5 +154,4 @@ setxkbmap -layout latam -variant deadtilde
 # Enable horizontal scroll with two fingers
 #synclient HorizTwoFingerScroll=1
 #
-
 

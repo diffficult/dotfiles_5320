@@ -208,3 +208,5 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=244'
 # if [ -f "/home/poole/.config/fabric/fabric-bootstrap.inc" ]; then . "/home/poole/.config/fabric/fabric-bootstrap.inc"; fi
 
 source /etc/bash_completion.d/climate_completion
+# opencode
+export PATH=/home/poole/.opencode/bin:$PATH

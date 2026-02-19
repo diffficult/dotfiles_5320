@@ -1,22 +1,30 @@
-# A TOML linter such as https://taplo.tamasfe.dev/ can use this schema to validate your config.
-# If you encounter any issues, please make an issue at https://github.com/yazi-rs/schemas.
-"$schema" = "https://yazi-rs.github.io/schemas/yazi.json"
+# Minimal yazi.toml for Yazi 25.12.29
+# Kitty terminal on Wayland/Hyprland
+# Last updated: 2026-01-04
+#
+# IMPORTANT: For Kitty graphics protocol to work in tmux, add this to ~/.tmux.conf:
+#
+#   # Enable Kitty graphics protocol passthrough
+#   set-option -g allow-passthrough on
+#
+#   # Set default terminal with 256 colors
+#   set-option -g default-terminal "tmux-256color"
+#
+#   # Enable True Color support for Kitty
+#   set-option -ga terminal-overrides ",xterm-kitty:Tc"
+#
+# After editing tmux.conf, restart all tmux sessions for changes to take effect.
 
-[mgr]
-ratio          = [ 1, 2, 4 ]
-sort_by        = "mtime"
-sort_sensitive = false
-sort_reverse   = true
-sort_dir_first = true
-sort_translit  = false
-linemode       = "none"
-show_hidden    = false
-show_symlink   = true
-scrolloff      = 5
-mouse_events   = [ "click", "scroll" ]
-title_format   = "Yazi: {cwd}"
-
+# ============================================================================
+# PREVIEW SECTION - REQUIRED FOR ALL PREVIEWS
+# ============================================================================
+# Set image preview adaptor to "kitty" to use the native Kitty graphics protocol.
+# This works in tmux ONLY if tmux is configured with "allow-passthrough on".
+# See the required tmux.conf settings below.
 [preview]
+adaptor         = "kitty"
+image_backend   = "kitty"
+image_protocol  = "kitty"
 wrap            = "no"
 tab_size        = 2
 max_width       = 600
@@ -29,33 +37,55 @@ sixel_fraction  = 15
 ueberzug_scale  = 1
 ueberzug_offset = [ 0, 0, 0, 0 ]
 
+# ============================================================================
+# MANAGER SECTION - BASIC FILE MANAGER BEHAVIOR
+# ============================================================================
+[manager]
+ratio          = [ 1, 2, 4 ]
+# Sort files by name, options: "alphabetical", "natural", "modified", "created", "size"
+sort_by = "modified"
+sort_sensitive = false
+sort_reverse   = false
+sort_dir_first = true
+sort_translit  = false
+linemode       = "none"
+show_hidden    = false
+show_symlink   = true
+scrolloff      = 5
+mouse_events   = [ "click", "scroll" ]
+title_format   = "Yazi: {cwd}"
+
+# ============================================================================
+# OPENER SECTION - WHAT PROGRAMS OPEN WHICH FILES
+# ============================================================================
 [opener]
 edit = [
-	{ run = '${EDITOR:-vi} "$@"', desc = "$EDITOR", block = true, for = "unix" },
-	{ run = 'code %*',    orphan = true, desc = "code",           for = "windows" },
-	{ run = 'code -w %*', block = true,  desc = "code (block)",   for = "windows" },
+  { run = '$EDITOR "$@"', block = true, desc = "$EDITOR", for = "linux" },
+  { run = 'nvim "$@"', block = true, desc = "neovim", for = "linux" },
+  { run = 'kitty --detach nvim "$@"', block = true, desc = "neovim (detached)", for = "linux" },
+  { run = 'zeditor "$@"', orphan = true, desc = "zed-editor", for = "linux" },
+  { run = 'xdg-open "$@"', orphan = true, desc = "xdg-open", for = "linux" },
 ]
 open = [
-	{ run = 'xdg-open "$1"',                desc = "Open", for = "linux" },
-	{ run = 'open "$@"',                    desc = "Open", for = "macos" },
-	{ run = 'start "" "%1"', orphan = true, desc = "Open", for = "windows" },
+	{ run = 'xdg-open "$@"', orphan = true, spread = true, desc = "Open", for = "linux" },
 ]
 reveal = [
-	{ run = 'xdg-open "$(dirname "$1")"',           desc = "Reveal", for = "linux" },
-	{ run = 'open -R "$1"',                         desc = "Reveal", for = "macos" },
-	{ run = 'explorer /select,"%1"', orphan = true, desc = "Reveal", for = "windows" },
-	{ run = '''exiftool "$1"; echo "Press enter to exit"; read _''', block = true, desc = "Show EXIF", for = "unix" },
+	{ run = 'xdg-open "$(dirname "$1")"', orphan = true, desc = "Reveal", for = "linux" },
+	{ run = '''exiftool "$1"; echo "Press enter to exit"; read _''', block = true, desc = "Show EXIF" },
 ]
 extract = [
-	{ run = 'ya pub extract --list "$@"', desc = "Extract here", for = "unix" },
-	{ run = 'ya pub extract --list %*',   desc = "Extract here", for = "windows" },
+	{ run = 'ya pub extract --list "$@"', desc = "Extract here" },
 ]
 play = [
-	{ run = 'mpv --force-window "$@"', orphan = true, for = "unix" },
-	{ run = 'mpv --force-window %*', orphan = true, for = "windows" },
-	{ run = '''mediainfo "$1"; echo "Press enter to exit"; read _''', block = true, desc = "Show media info", for = "unix" },
+	{ run = 'mpv --force-window "$@"', orphan = true, spread = true, desc = "Play" },
+	{ run = 'mpv --force-window %*',   orphan = true, desc = "Play", for = "windows" },
+	{ run = '''mediainfo "$1"; echo "Press enter to exit"; read _''', block = true, desc = "Show media info" },
 ]
 
+
+# ============================================================================
+# OPENER SECTION - WHAT PROGRAMS OPEN WHICH FILES
+# ============================================================================
 [open]
 rules = [
 	# Folder
@@ -66,6 +96,8 @@ rules = [
 	{ mime = "image/*", use = [ "open", "reveal" ] },
 	# Media
 	{ mime = "{audio,video}/*", use = [ "play", "reveal" ] },
+	# PDF
+	{ mime = "application/pdf", use = [ "open", "reveal" ] },
 	# Archive
 	{ mime = "application/{,g}zip", use = [ "extract", "reveal" ] },
 	{ mime = "application/x-{tar,bzip*,7z-compressed,xz,rar}", use = [ "extract", "reveal" ] },
@@ -78,159 +110,21 @@ rules = [
 	{ name = "*", use = [ "open", "reveal" ] },
 ]
 
-[tasks]
-micro_workers    = 10
-macro_workers    = 25
-bizarre_retry    = 5
-image_alloc      = 536870912  # 512MB
-image_bound      = [ 0, 0 ]
-suppress_preload = false
-
+# ============================================================================
+# PLUGIN SECTION - PLUGIN CONFIGURATION
+# ============================================================================
 [plugin]
 
-fetchers = [
-	# Mimetype
-	{ id = "mime", name = "*", run = "mime", if = "!mime", prio = "high" },
+# Git status fetcher
+prepend_fetchers = [
+	{ id = "git", url = "*", run = "git" },
+	{ id = "git", url = "*/", run = "git" },
 ]
 
-prepend_preloaders = [
-  # Office Documents
-  { mime = "application/openxmlformats-officedocument.*", run = "office" },
-  { mime = "application/oasis.opendocument.*", run = "office" },
-  { mime = "application/ms-*", run = "office" },
-  { mime = "application/msword", run = "office" },
-  { name = "*.docx", run = "office" },
-]
-
-preloaders = [
-	# Image
-	{ mime = "image/{avif,hei?,jxl,svg+xml}", run = "magick" },
-	{ mime = "image/*", run = "image" },
-	# Video
-	{ mime = "video/*", run = "video" },
-	# PDF
-	{ mime = "application/pdf", run = "pdf" },
-	# Font
-	{ mime = "font/*", run = "font" },
-	{ mime = "application/vnd.ms-opentype", run = "font" },
-]
-
+# Archive preview with ouch
 prepend_previewers = [
-#  { name = "*.md", run = "glow" },
-  { name = "*.csv", run = "rich-preview"}, # for csv files
-#  { name = "*.md", run = "rich-preview" }, # for markdown (.md) files
-  { name = "*.ipynb", run = "rich-preview"}, # for jupyter notebooks (.ipynb)
-  { name = "*.json", run = "rich-preview"}, # for json (.json) files
-#  { name = "*.lang_type", run = "rich-preview"} # for particular language files eg. .py, .go., .lua, etc.
-  # Office Documents
-  { mime = "application/openxmlformats-officedocument.*", run = "office" },
-  { mime = "application/oasis.opendocument.*", run = "office" },
-  { mime = "application/ms-*", run = "office" },
-  { mime = "application/msword", run = "office" },
-  { name = "*.docx", run = "office" },
+	{ mime = "text/markdown", run = 'piper -- CLICOLOR_FORCE=1 glow -p -w=$w "$1"' },
+	{ name = "*.md", run = 'piper -- CLICOLOR_FORCE=1 glow -p -w=$w "$1"' },
+	{ mime = "application/*zip", run = "ouch" },
+	{ mime = "application/x-{tar,bzip*,7z-compressed,xz,rar}", run = "ouch" },
 ]
-
-previewers = [
-  { name = "*/", run = "folder", sync = true },
-  { name = "*.md", run = "code" },
-#  { name = "*.csv", run = "preview" },
-  # Code
-  { mime = "text/*", run = "code" },
-  { mime = "*/xml", run = "code" },
-  { mime = "*/{xml,javascript,x-wine-extension-ini}", run = "code" },
-  # Font
-  { mime = "font/*", run = "font" },
-  { mime = "application/vnd.ms-opentype", run = "font" },
-  { mime = "*/x-wine-extension-ini", run = "code" },
-  # JSON
-  { mime = "application/{json,x-ndjson}", run = "json" },
-  # Image
-  { mime = "image/{avif,hei?,jxl,svg+xml}", run = "magick" },
-  { mime = "image/*", run = "image" },
-  # Video
-  { mime = "video/*", run = "video" },
-  # PDF
-  { mime = "application/pdf", run = "pdf" },
-  # Archive
-  { mime = "application/{,g}zip", run = "archive" },
-  { mime = "application/x-{tar,bzip*,7z-compressed,xz,rar,iso9660-image}", run = "archive" },
-  # Empty file
-  { mime = "inode/x-empty", run = "empty" },
-  # Fallback
-  { name = "*", run = "preview" },
-]
-
-[input]
-cursor_blink = false
-
-# cd
-cd_title  = "Change directory:"
-cd_origin = "top-center"
-cd_offset = [ 0, 2, 50, 3 ]
-
-# create
-create_title  = ["Create:", "Create (dir):"]
-create_origin = "top-center"
-create_offset = [ 0, 2, 50, 3 ]
-
-# rename
-rename_title  = "Rename:"
-rename_origin = "hovered"
-rename_offset = [ 0, 1, 50, 3 ]
-
-# filter
-filter_title  = "Filter:"
-filter_origin = "top-center"
-filter_offset = [ 0, 2, 50, 3 ]
-
-# find
-find_title  = [ "Find next:", "Find previous:" ]
-find_origin = "top-center"
-find_offset = [ 0, 2, 50, 3 ]
-
-# search
-search_title  = "Search via {n}:"
-search_origin = "top-center"
-search_offset = [ 0, 2, 50, 3 ]
-
-# shell
-shell_title  = [ "Shell:", "Shell (block):" ]
-shell_origin = "top-center"
-shell_offset = [ 0, 2, 50, 3 ]
-
-[confirm]
-# trash
-trash_title 	= "Trash {n} selected file{s}?"
-trash_origin	= "center"
-trash_offset	= [ 0, 0, 70, 20 ]
-
-# delete
-delete_title 	= "Permanently delete {n} selected file{s}?"
-delete_origin	= "center"
-delete_offset	= [ 0, 0, 70, 20 ]
-
-# overwrite
-overwrite_title   = "Overwrite file?"
-overwrite_content = "Will overwrite the following file:"
-overwrite_origin  = "center"
-overwrite_offset  = [ 0, 0, 50, 15 ]
-
-# quit
-quit_title   = "Quit?"
-quit_content = "The following task is still running, are you sure you want to quit?"
-quit_origin  = "center"
-quit_offset  = [ 0, 0, 50, 15 ]
-
-[select]
-open_title  = "Open with:"
-open_origin = "hovered"
-open_offset = [ 0, 1, 50, 7 ]
-
-[which]
-sort_by      	 = "none"
-sort_sensitive = false
-sort_reverse 	 = false
-sort_translit  = false
-
-[log]
-enabled = false

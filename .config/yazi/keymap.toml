@@ -56,7 +56,7 @@ keymap = [
 	# Operation
 	{ on = "o",         run = "open",                        desc = "Open selected files" },
 	{ on = "O",         run = "open --interactive",          desc = "Open selected files interactively" },
-	{ on = "<Enter>",   run = "open",                        desc = "Open selected files" },
+	{ on = "<Enter>",   run = "plugin smart-enter",          desc = "Smart enter: open file or enter directory" },
 	{ on = "<S-Enter>", run = "open --interactive",          desc = "Open selected files interactively" },
 	{ on = "y",         run = "yank",                        desc = "Yank selected files (copy)" },
 	{ on = "x",         run = "yank --cut",                  desc = "Yank selected files (cut)" },
@@ -72,6 +72,7 @@ keymap = [
 	{ on = "D",         run = "remove --permanently",        desc = "Permanently delete selected files" },
 	{ on = "a",         run = "create",                      desc = "Create a file (ends with / for directories)" },
 	{ on = "r",         run = "rename --cursor=before_ext",  desc = "Rename selected file(s)" },
+	{ on = "C",         run = "plugin ouch --args=compress", desc = "Compress selected files with ouch" },
 	{ on = ";",         run = "shell --interactive",         desc = "Run a shell command" },
 	{ on = ":",         run = "shell --block --interactive", desc = "Run a shell command (block until finishes)" },
 	{ on = ".",         run = "hidden toggle",               desc = "Toggle the visibility of hidden files" },
@@ -80,20 +81,23 @@ keymap = [
 	{ on = "<C-s>",     run = "escape --search",             desc = "Cancel the ongoing search" },
 	{ on = "z",         run = "plugin zoxide",               desc = "Jump to a directory using zoxide" },
 	{ on = "Z",         run = "plugin fzf",                  desc = "Jump to a directory or reveal a file using fzf" },
+	{ on = "'",         run = "plugin yamb --args=jump",     desc = "Jump to a bookmark" },
+	{ on = [ "g", "b" ], run = "plugin yamb --args=save",    desc = "Save current directory as bookmark" },
 
 	# Linemode
-	{ on = [ "m", "s" ], run = "linemode size",        desc = "Set linemode to size" },
-	{ on = [ "m", "p" ], run = "linemode permissions", desc = "Set linemode to permissions" },
-	{ on = [ "m", "c" ], run = "linemode ctime",       desc = "Set linemode to ctime" },
-	{ on = [ "m", "m" ], run = "linemode mtime",       desc = "Set linemode to mtime" },
-	{ on = [ "m", "o" ], run = "linemode owner",       desc = "Set linemode to owner" },
-	{ on = [ "m", "n" ], run = "linemode none",        desc = "Set linemode to none" },
+	{ on = [ "m", "s" ], run = "linemode size",        desc = "Linemode: size" },
+	{ on = [ "m", "p" ], run = "linemode permissions", desc = "Linemode: permissions" },
+	{ on = [ "m", "b" ], run = "linemode btime",       desc = "Linemode: btime" },
+	{ on = [ "m", "m" ], run = "linemode mtime",       desc = "Linemode: mtime" },
+	{ on = [ "m", "o" ], run = "linemode owner",       desc = "Linemode: owner" },
+	{ on = [ "m", "n" ], run = "linemode none",        desc = "Linemode: none" },
 
-	# Copy
+  # Copy
 	{ on = [ "c", "c" ], run = "copy path",             desc = "Copy the file path" },
 	{ on = [ "c", "d" ], run = "copy dirname",          desc = "Copy the directory path" },
 	{ on = [ "c", "f" ], run = "copy filename",         desc = "Copy the filename" },
 	{ on = [ "c", "n" ], run = "copy name_without_ext", desc = "Copy the filename without extension" },
+	{ on = [ "c", "m" ], run = "plugin chmod",          desc = "Change file permissions (chmod)" },
 
 	# Filter
 	{ on = "f", run = "filter --smart", desc = "Filter files" },
@@ -119,7 +123,7 @@ keymap = [
 	{ on = [ ",", "S" ], run = [ "sort size --reverse", "linemode size" ],      desc = "Sort by size (reverse)" },
 	{ on = [ ",", "r" ], run = "sort random --reverse=no",                      desc = "Sort randomly" },
 
-  # Goto
+	# Goto
 	{ on = [ "g", "h" ],       run = "cd ~",             desc = "Go to the home directory" },
 	{ on = [ "g", "c" ],       run = "cd ~/.config",     desc = "Go to the config directory" },
 	{ on = [ "g", "d" ],       run = "cd ~/Downloads",   desc = "Go to the downloads directory" },
@@ -153,6 +157,11 @@ keymap = [
 
   # max-preview
   { on = "T", run  = "plugin --sync max-preview", desc = "Maximize or restore preview" },
+
+  # Toggle panes
+  { on = [ "g", "p" ], run = "plugin toggle-pane min-parent", desc = "Toggle parent pane visibility" },
+  { on = [ "g", "P" ], run = "plugin toggle-pane min-preview", desc = "Toggle preview pane visibility" },
+  { on = [ "g", "m" ], run = "plugin toggle-pane max-preview", desc = "Maximize preview pane" },
 
   #Dropping to shell
   { on = "<C-s>", run = "shell '$SHELL' --block --confirm", desc = "Open zshell here"},
