@@ -40,12 +40,12 @@ ueberzug_offset = [ 0, 0, 0, 0 ]
 # ============================================================================
 # MANAGER SECTION - BASIC FILE MANAGER BEHAVIOR
 # ============================================================================
-[manager]
+[mgr]
 ratio          = [ 1, 2, 4 ]
-# Sort files by name, options: "alphabetical", "natural", "modified", "created", "size"
-sort_by = "modified"
+# Sort files by name, options: "none", "mtime", "btime", "extension", "alphabetical", "natural", "size", "random"
+sort_by = "mtime"
 sort_sensitive = false
-sort_reverse   = false
+sort_reverse   = true
 sort_dir_first = true
 sort_translit  = false
 linemode       = "none"
@@ -60,26 +60,26 @@ title_format   = "Yazi: {cwd}"
 # ============================================================================
 [opener]
 edit = [
-  { run = '$EDITOR "$@"', block = true, desc = "$EDITOR", for = "linux" },
-  { run = 'nvim "$@"', block = true, desc = "neovim", for = "linux" },
-  { run = 'kitty --detach nvim "$@"', block = true, desc = "neovim (detached)", for = "linux" },
-  { run = 'zeditor "$@"', orphan = true, desc = "zed-editor", for = "linux" },
-  { run = 'xdg-open "$@"', orphan = true, desc = "xdg-open", for = "linux" },
+  { run = '$EDITOR %s', block = true, desc = "$EDITOR", for = "linux" },
+  { run = 'nvim %s', block = true, desc = "neovim", for = "linux" },
+  { run = 'kitty --detach nvim %s', block = true, desc = "neovim (detached)", for = "linux" },
+  { run = 'zeditor %s', orphan = true, desc = "zed-editor", for = "linux" },
+  { run = 'xdg-open %s', orphan = true, desc = "xdg-open", for = "linux" },
 ]
 open = [
-	{ run = 'xdg-open "$@"', orphan = true, spread = true, desc = "Open", for = "linux" },
+	{ run = 'xdg-open %s', orphan = true, spread = true, desc = "Open", for = "linux" },
 ]
 reveal = [
-	{ run = 'xdg-open "$(dirname "$1")"', orphan = true, desc = "Reveal", for = "linux" },
-	{ run = '''exiftool "$1"; echo "Press enter to exit"; read _''', block = true, desc = "Show EXIF" },
+	{ run = 'xdg-open "%d1"', orphan = true, desc = "Reveal", for = "linux" },
+	{ run = '''exiftool %s1; echo "Press enter to exit"; read _''', block = true, desc = "Show EXIF" },
 ]
 extract = [
-	{ run = 'ya pub extract --list "$@"', desc = "Extract here" },
+	{ run = 'ya pub extract --list %s', desc = "Extract here" },
 ]
 play = [
-	{ run = 'mpv --force-window "$@"', orphan = true, spread = true, desc = "Play" },
-	{ run = 'mpv --force-window %*',   orphan = true, desc = "Play", for = "windows" },
-	{ run = '''mediainfo "$1"; echo "Press enter to exit"; read _''', block = true, desc = "Show media info" },
+	{ run = 'mpv --force-window %s', orphan = true, spread = true, desc = "Play" },
+	{ run = 'mpv --force-window %s',   orphan = true, desc = "Play", for = "windows" },
+	{ run = '''mediainfo %s1; echo "Press enter to exit"; read _''', block = true, desc = "Show media info" },
 ]
 
 
@@ -89,7 +89,7 @@ play = [
 [open]
 rules = [
 	# Folder
-	{ name = "*/", use = [ "edit", "open", "reveal" ] },
+	{ url = "*/", use = [ "edit", "open", "reveal" ] },
 	# Text
 	{ mime = "text/*", use = [ "edit", "reveal" ] },
 	# Image
@@ -107,7 +107,7 @@ rules = [
 	# Empty file
 	{ mime = "inode/x-empty", use = [ "edit", "reveal" ] },
 	# Fallback
-	{ name = "*", use = [ "open", "reveal" ] },
+	{ url = "*", use = [ "open", "reveal" ] },
 ]
 
 # ============================================================================
@@ -124,7 +124,7 @@ prepend_fetchers = [
 # Archive preview with ouch
 prepend_previewers = [
 	{ mime = "text/markdown", run = 'piper -- CLICOLOR_FORCE=1 glow -p -w=$w "$1"' },
-	{ name = "*.md", run = 'piper -- CLICOLOR_FORCE=1 glow -p -w=$w "$1"' },
+	{ url = "*.md", run = 'piper -- CLICOLOR_FORCE=1 glow -p -w=$w "$1"' },
 	{ mime = "application/*zip", run = "ouch" },
 	{ mime = "application/x-{tar,bzip*,7z-compressed,xz,rar}", run = "ouch" },
 ]

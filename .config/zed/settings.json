@@ -8,6 +8,11 @@
 // command palette
 {
   // keymap mode
+  "edit_predictions": {
+    "provider": "copilot"
+  },
+  "agent_ui_font_size": 18.0,
+  "agent_buffer_font_size": 18.0,
   "icon_theme": {
     "mode": "system",
     "light": "Catppuccin Mocha",
@@ -16,9 +21,6 @@
   "vim_mode": false,
   "base_keymap": "VSCode",
   //autocomplete
-  "features": {
-    "edit_prediction_provider": "copilot"
-  },
   //more
   "relative_line_numbers": "enabled",
   // "format_on_save": true,
@@ -75,8 +77,8 @@
   //  },
   "agent": {
     "default_model": {
-      "provider": "google",
-      "model": "gemini-2.5-pro-exp-03-25"
+      "provider": "anthropic",
+      "model": "claude-sonnet-4-6-latest"
     },
   },
   // Font

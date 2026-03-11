@@ -61,8 +61,8 @@ exec --no-startup-id xrandr --output eDP-1 --scale 0.9x0.9
 exec --no-startup-id synclient VertScrollDelta=-"$(synclient | grep VertScrollDelta | cut -d '=' -f 2 | cut -c 2-)"
 exec --no-startup-id synclient HorizScrollDelta=-"$(synclient | grep HorizScrollDelta | cut -d '=' -f 2 | cut -c 2-)"
 
-# Set keyboard to ES ES (ISO Spanish layout, upside down L shaped enter)
-exec --no-startup-id setxkbmap -layout es -variant nodeadkeys
+# Set keyboard to LATAM with deadtilde
+exec --no-startup-id setxkbmap -layout latam -variant deadtilde
 
 # Redshift tray icon
 exec --no-startup-id redshift-gtk
