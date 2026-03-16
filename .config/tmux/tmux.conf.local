@@ -500,7 +500,7 @@ set -g @plugin 'omerxx/tmux-sessionx'
 set -g @plugin 'fcsonline/tmux-thumbs'
 set -g @plugin 'roosta/tmux-fuzzback'
 
-# -- set -g @plugin 'omerxx/tmux-floax'
+set -g @plugin 'omerxx/tmux-floax'
 
 # -- tpm tmux-sessionx config ------
 
@@ -582,18 +582,15 @@ set -g @resurrect-strategy-nvim 'session'
 
 # ------- tmux-floax options ------------
 
-### set -g @floax-bind 'p'           # Default binding to toggle floating pane
-### set -g @floax-bind-menu 'P'      # Default binding for the menu
-### set -g @floax-width '80%'        # Default width of floating pane
-### set -g @floax-height '80%'       # Default height of floating pane
-### set -g @floax-border-color 'magenta'  # Match with your current theme
-### set -g @floax-text-color 'blue'  # Match with your current theme
-### set -g @floax-change-path 'true' # Change path when session path changes
-### set -g @floax-session-name 'scratch'  # Session name for the floating pane
-### set -g @floax-title 'floax'      # Title of the floating window
-### # colors
-### set -g @floax-border-color "$tmux_conf_theme_colour_10"  # Your pink color
-### set -g @floax-text-color "$tmux_conf_theme_colour_4"     # Your light blue color
+set -g @floax-bind 'v'
+set -g @floax-bind-menu 'V'
+set -g @floax-width '85%'
+set -g @floax-height '80%'
+set -g @floax-border-color "$tmux_conf_theme_colour_10"
+set -g @floax-text-color "$tmux_conf_theme_colour_4"
+set -g @floax-change-path 'false'
+set -g @floax-session-name 'scratch'
+set -g @floax-title 'floax'
 
 # -- custom variables ----------------------------------------------------------
 
