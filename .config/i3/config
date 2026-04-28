@@ -170,6 +170,10 @@ for_window [window_role="(pop-up|task_dialog|bubble|dialog|menu|Preferences)"] f
 for_window [window_type="dialog"] floating enable
 for_window [window_type="menu"] floating enable
 
+# eww calendar popup — float + no border so it's draggable with $mod+click
+for_window [class="eww-calendar"] floating enable, border none
+for_window [class="eww" instance="calendar"] floating enable, border none
+
 # Floating windows by class
 for_window [class="(?i)(pavucontrol|qt5ct|gsimplecal|file-roller|whatsie|steam|mpv|virt-manager|nautilus|nemo|seahorse|protonvpn|rustdesk|localsend)"] floating enable
 
@@ -269,7 +273,7 @@ bindsym $mod+Shift+Print mode $maimode
 mode $maimode {
     bindsym s exec --no-startup-id "mkdir -p ~/Pictures/Screenshots && maim -m 10 ~/Pictures/Screenshots/scrot-$(date +%Y-%m-%d_%H-%M-%S).png && notify-send -t 2500 'Screenshot Taken' --icon=/home/poole/.local/share/icons/notify/screenshot.svg", mode "default"
     bindsym u exec --no-startup-id "mkdir -p ~/Pictures/Screenshots && maim -m 10 -s ~/Pictures/Screenshots/upload.png && notify-send -t 30000 'Screenshot Uploaded' '$(imgur ~/Pictures/Screenshots/upload.png)' --icon=/home/poole/.local/share/icons/notify/upload-pictures.svg", mode "default"
-    bindsym c exec --no-startup-id "mkdir -p ~/Pictures/Screenshots && maim -m 10 -s | xclip -selection clipboard -t && notify-send -t 2500 'Screenshot loaded on clipboard' --icon=/home/poole/.local/share/icons/notify/clipboard.svg", mode "default"
+    bindsym c exec --no-startup-id "mkdir -p ~/Pictures/Screenshots && maim -m 10 -s | xclip -selection clipboard -t image/png -quiet && notify-send -t 2500 'Screenshot loaded on clipboard' --icon=/home/poole/.local/share/icons/notify/clipboard.svg", mode "default"
     bindsym a exec --no-startup-id "mkdir -p ~/Pictures/Screenshots && maim | maim -m 10 -s ~/Pictures/Screenshots/cropped-$(date +%Y-%m-%d_%H-%M-%S).png && notify-send -t 2500 'Screenshot Taken' --icon=/home/poole/.local/share/icons/notify/screenshot.svg", mode "default"
     bindsym Return mode "default"
     bindsym Escape mode "default"
