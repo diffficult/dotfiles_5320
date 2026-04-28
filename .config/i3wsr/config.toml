@@ -55,6 +55,7 @@ librestart=""
 drawnst=""
 zenity=""
 writer=""
+bottles = "󱄲"
 
 #[aliases.instance]
 #"realmonitor" = "nvr"
@@ -113,6 +114,7 @@ writer=""
 "libreoffice-startcenter" = "librestart"
 "drawn-st" = "drawnst"
 "zenity" = "zenity"
+"Bottles" = "bottles"
 
 [general]
 #separator = " "
