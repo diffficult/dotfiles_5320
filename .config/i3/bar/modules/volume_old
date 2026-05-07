@@ -70,14 +70,17 @@ volume() {
 }
 
 format() {
-  
+
   perl_filter='if (/.*\[(\d+%)\] (\[(-?\d+.\d+dB)\] )?\[(on|off)\]/)'
-  perl_filter+='{CORE::say $4 eq "off" ? "MUTE" : "'
+  perl_filter+='{my $state=$4; my $display=$1; my $db=$3; my $p=$1; $p=~/(\d+)/; my $n=$1; my $sym;'
+  perl_filter+='if ($n<=25) {$sym="󰸈   "} elsif ($n<=50) {$sym="󰕿   "} elsif ($n<=75) {$sym="󰖀   "} else {$sym="󰕾   "}'
+  perl_filter+='if ($state eq "off") {CORE::say "<span color=\"#d20f39\">󰝟   <span font_desc=\"SF Pro Rounded Bold\"><b>MUTE</b></span></span>"}'
+  perl_filter+=' else {CORE::say $sym . "'
   # If dB was selected, print that instead
-  perl_filter+=$([[ $STEP = *dB ]] && echo '$3' || echo '$1')
-  perl_filter+='"; exit}'
+  perl_filter+=$([[ $STEP = *dB ]] && echo '<span font_desc="SF Pro Rounded Bold"><b>$db</b></span>' || echo '<span font_desc="SF Pro Rounded Bold"><b>$display</b></span>')
+  perl_filter+='"}; exit}'
   output=$(perl -ne "$perl_filter")
-  echo "$LABEL$output"
+  echo "$output"
 }
 
 #------------------------------------------------------------------------

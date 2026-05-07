@@ -101,14 +101,14 @@ display_packages() {
     local packages=$1
 
     if [[ $packages -gt 0 && $packages -gt $URGENT_VALUE ]]; then
-        echo ' <span foreground="'$URGENTCOLOR'">'"$packages"'</span>' # full-text
-        echo ' <span foreground="'$URGENTCOLOR'">'"$packages"'</span>' # short-text
+        echo ' <span foreground="'$URGENTCOLOR'" font_desc="SF Pro Rounded Bold"><b>'"$packages"'</b></span>' # full-text
+        echo ' <span foreground="'$URGENTCOLOR'" font_desc="SF Pro Rounded Bold"><b>'"$packages"'</b></span>' # short-text
     elif [[ $packages -gt 0 ]]; then
-        echo ' <span foreground="'$WARNCOLOR'">'"$packages"'</span>' # full-text
-        echo ' <span foreground="'$WARNCOLOR'">'"$packages"'</span>' # short-text
+        echo ' <span foreground="'$WARNCOLOR'" font_desc="SF Pro Rounded Bold"><b>'"$packages"'</b></span>' # full-text
+        echo ' <span foreground="'$WARNCOLOR'" font_desc="SF Pro Rounded Bold"><b>'"$packages"'</b></span>' # short-text
     elif [[ $packages -eq 0 ]]; then
-        echo ' <span foreground="'$OKCOLOR'"></span>' #full-text
-        echo ' <span foreground="'$OKCOLOR'"></span>' #short-text
+        echo ' <span foreground="'$OKCOLOR'" font_desc="SF Pro Rounded Bold"></span>' #full-text
+        echo ' <span foreground="'$OKCOLOR'" font_desc="SF Pro Rounded Bold"></span>' #short-text
     fi
 }
 

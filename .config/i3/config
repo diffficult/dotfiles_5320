@@ -67,6 +67,10 @@ exec --no-startup-id setxkbmap -layout latam -variant deadtilde
 # Redshift tray icon
 exec --no-startup-id redshift-gtk
 
+# Window title monitor and delayed initial refresh
+exec --no-startup-id ~/.config/i3/bin/window-title-monitor.sh
+exec --no-startup-id /bin/bash -c "sleep 3 && pkill -RTMIN+11 i3blocks"
+
 # ============================================================================
 # OPTIONS
 # ============================================================================
@@ -93,16 +97,16 @@ set $ws_10 "10: "
 # ============================================================================
 
 # Switch to workspace
-bindsym $mod+1 workspace number $ws_1, exec --no-startup-id pkill -RTMIN+11 i3blocks
-bindsym $mod+2 workspace number $ws_2, exec --no-startup-id pkill -RTMIN+11 i3blocks
-bindsym $mod+3 workspace number $ws_3, exec --no-startup-id pkill -RTMIN+11 i3blocks
-bindsym $mod+4 workspace number $ws_4, exec --no-startup-id pkill -RTMIN+11 i3blocks
-bindsym $mod+5 workspace number $ws_5, exec --no-startup-id pkill -RTMIN+11 i3blocks
-bindsym $mod+6 workspace number $ws_6, exec --no-startup-id pkill -RTMIN+11 i3blocks
-bindsym $mod+7 workspace number $ws_7, exec --no-startup-id pkill -RTMIN+11 i3blocks
-bindsym $mod+8 workspace number $ws_8, exec --no-startup-id pkill -RTMIN+11 i3blocks
-bindsym $mod+9 workspace number $ws_9, exec --no-startup-id pkill -RTMIN+11 i3blocks
-bindsym $mod+0 workspace number $ws_10, exec --no-startup-id pkill -RTMIN+11 i3blocks
+bindsym $mod+1 workspace number $ws_1
+bindsym $mod+2 workspace number $ws_2
+bindsym $mod+3 workspace number $ws_3
+bindsym $mod+4 workspace number $ws_4
+bindsym $mod+5 workspace number $ws_5
+bindsym $mod+6 workspace number $ws_6
+bindsym $mod+7 workspace number $ws_7
+bindsym $mod+8 workspace number $ws_8
+bindsym $mod+9 workspace number $ws_9
+bindsym $mod+0 workspace number $ws_10
 
 # Move container to workspace
 bindsym $mod+Shift+1 move workspace number $ws_1
@@ -287,16 +291,16 @@ bindsym $mod+Shift+w exec --no-startup-id feh --bg-fill "$(find /usr/share/backg
 # ============================================================================
 
 # Change focus (vim-style)
-bindsym $mod+j focus left, exec --no-startup-id pkill -RTMIN+11 i3blocks
-bindsym $mod+k focus down, exec --no-startup-id pkill -RTMIN+11 i3blocks
-bindsym $mod+l focus up, exec --no-startup-id pkill -RTMIN+11 i3blocks
-bindsym $mod+semicolon focus right, exec --no-startup-id pkill -RTMIN+11 i3blocks
+bindsym $mod+j focus left
+bindsym $mod+k focus down
+bindsym $mod+l focus up
+bindsym $mod+semicolon focus right
 
 # Change focus (arrows)
-bindsym $mod+Left focus left, exec --no-startup-id pkill -RTMIN+11 i3blocks
-bindsym $mod+Down focus down, exec --no-startup-id pkill -RTMIN+11 i3blocks
-bindsym $mod+Up focus up, exec --no-startup-id pkill -RTMIN+11 i3blocks
-bindsym $mod+Right focus right, exec --no-startup-id pkill -RTMIN+11 i3blocks
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
 
 # Move focused window (vim-style)
 bindsym $mod+Shift+j move left
@@ -346,10 +350,10 @@ bindsym $mod+b border toggle
 # ============================================================================
 
 # Move to last workspace
-bindsym $mod+Tab workspace back_and_forth, exec --no-startup-id pkill -RTMIN+11 i3blocks
+bindsym $mod+Tab workspace back_and_forth
 
 # Move to next workspace
-bindsym $mod+Shift+Tab workspace next, exec --no-startup-id pkill -RTMIN+11 i3blocks
+bindsym $mod+Shift+Tab workspace next
 
 # ============================================================================
 # i3 SYSTEM CONTROLS
@@ -382,7 +386,7 @@ bindsym XF86AudioMicMute exec --no-startup-id "$volume --toggle-mic"
 # ============================================================================
 
 # Resize mode
-set $mode_resize 󰩨 resize:      + ( 󰘲 | 󰘴 | 󰘲 + 󰘵 )
+set $mode_resize 󰩨  resize:      + ( 󰘲  | 󰘴  | 󰘲  + 󰘵  )
 mode "$mode_resize" {
   # Vi movement
   bindsym h resize shrink width  50 px or 5 ppt
@@ -508,7 +512,7 @@ mode "$mode_gaps_outer" {
 }
 
 # System menu (power/lock/logout)
-set $sysmenu "[  p ] [  h ] [ 󰒲 s ] [ 󰑓 b ] [  l ] [  t ]"
+set $sysmenu "[   p ] [   h ] [ 󰒲  s ] [ 󰑓  b ] [   l ] [   t ]"
 bindsym $mod+Shift+e mode $sysmenu
 mode $sysmenu {
     bindsym h         exec --no-startup-id systemctl hibernate, mode "default"
@@ -603,7 +607,7 @@ bar {
     height 24
     tray_padding 0
     strip_workspace_numbers yes
-    font pango: Iosevka, Symbols Nerd Font Mono 12
+    font pango: SF Pro Rounded Bold 12, Symbols Nerd Font Mono 12
     position top
     colors {
         separator  $base03

@@ -46,20 +46,20 @@ $full_text = "$percent%";
 
 if ($status eq 'Discharging') {
 	if ($percent < 10) {
-    	$full_text = ' ' . $full_text;
+		$full_text = '    ' . $full_text;
 	} elsif ($percent < 25) {
-    	$full_text = ' ' . $full_text;
+    	$full_text = '    ' . $full_text;
 	} elsif ($percent <= 50) {
-    	$full_text = ' ' . $full_text;
+    	$full_text = '    ' . $full_text;
 	} elsif ($percent <= 75) {
-    	$full_text = ' ' . $full_text;
+    	$full_text = '    ' . $full_text;
 	} elsif ($percent < 100) {
-    	$full_text = ' ' . $full_text;
+    	$full_text = '    ' . $full_text;
 	}
 
 } elsif ($status eq 'Charging') {
 #	$full_text = $FA_PLUG . $full_text;
-    $full_text = '  ' . $full_text;
+    $full_text = '    ' . $full_text;
 }
 
 
@@ -71,8 +71,8 @@ if ($acpi =~ /(\d\d:\d\d):/) {
 
 # print text
 use open ":std", ":encoding(UTF-8)";
-print "$full_text\n";
-print "$short_text\n";
+print "<span font_desc='SF Pro Rounded Bold'><b>$full_text</b></span>\n";
+print "<span font_desc='SF Pro Rounded Bold'><b>$short_text</b></span>\n";
 
 # consider color and urgent flag only on discharge
 if ($status eq 'Discharging') {
