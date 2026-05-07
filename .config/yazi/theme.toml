@@ -1,2 +1,8 @@
 [flavor]
 dark = "catppuccin-macchiato"
+
+[icon]
+prepend_dirs = [
+	{ name = "Dropbox", text = "\uf16b" },
+	{ name = "Comprobantes", text = "\uf0ba" },
+]
