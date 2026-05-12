@@ -157,8 +157,14 @@ assign [class="(?i)(mpv|gpicview|zathura)"] number $ws_7
 # Communication workspace
 assign [class="(?i)(telegramdesktop|localsend)"] number $ws_9
 
+# Obsidian workspace
+assign [class="(?i)obsidian"] number $ws_10
+
 # System workspace
 assign [class="(?i)(virt-manager|rustdesk|protonvpn)"] number $ws_10
+
+# Obsidian-triggered push confirmation
+for_window [class="(?i)zenity" title="(?i)Push complete"] move to workspace number $ws_10
 
 # ============================================================================
 # WINDOW BEHAVIOUR
@@ -197,6 +203,7 @@ for_window [class="(?i)Navigator|zen" title="(?i)Comprobante"] focus
 for_window [class="(?i)(sublime_text|subl|firefox|chrome|chromium|zen|Navigator|discord|zathura|gpicview|telegramdesktop)"] border none
 
 # Specific window configs
+for_window [class="(?i)nsxiv"] fullscreen disable, floating enable, resize set 1200 700, move absolute position center
 for_window [class="(?i)qt5ct"] floating enable, border normal, resize set 600 680, move absolute position center
 for_window [class="(?i)gsimplecal"] floating enable, move position mouse, move down 34 px
 for_window [class="(?i)nemo-preview-start"] floating enable, border pixel 4, move absolute position center
