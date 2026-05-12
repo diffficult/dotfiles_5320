@@ -117,8 +117,8 @@ rules = [
 
 # Git status fetcher
 prepend_fetchers = [
-	{ id = "git", url = "*", run = "git" },
-	{ id = "git", url = "*/", run = "git" },
+	{ id = "git", url = "*", run = "git", group = "git" },
+	{ id = "git", url = "*/", run = "git", group = "git" },
 ]
 
 # Archive preview with ouch
