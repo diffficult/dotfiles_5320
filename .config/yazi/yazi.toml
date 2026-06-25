@@ -1,6 +1,9 @@
-# Minimal yazi.toml for Yazi 25.12.29
+# Minimal yazi.toml for Yazi 26.5.6
 # Kitty terminal on Wayland/Hyprland
-# Last updated: 2026-01-04
+# Last updated: 2026-06-25
+#
+# Mirrored from the desktop live config (~/.config/yazi/ on rx).
+# Paths in theme.toml intentionally point to /home/poole/ (this is the laptop).
 #
 # IMPORTANT: For Kitty graphics protocol to work in tmux, add this to ~/.tmux.conf:
 #
@@ -18,22 +21,15 @@
 # ============================================================================
 # PREVIEW SECTION - REQUIRED FOR ALL PREVIEWS
 # ============================================================================
-# Set image preview adaptor to "kitty" to use the native Kitty graphics protocol.
-# This works in tmux ONLY if tmux is configured with "allow-passthrough on".
-# See the required tmux.conf settings below.
 [preview]
-adaptor         = "kitty"
-image_backend   = "kitty"
-image_protocol  = "kitty"
 wrap            = "no"
 tab_size        = 2
-max_width       = 600
-max_height      = 900
+max_width       = 1800
+max_height      = 2400
 cache_dir       = ""
 image_delay     = 30
 image_filter    = "triangle"
 image_quality   = 75
-sixel_fraction  = 15
 ueberzug_scale  = 1
 ueberzug_offset = [ 0, 0, 0, 0 ]
 
@@ -42,7 +38,7 @@ ueberzug_offset = [ 0, 0, 0, 0 ]
 # ============================================================================
 [mgr]
 ratio          = [ 1, 2, 4 ]
-# Sort files by name, options: "none", "mtime", "btime", "extension", "alphabetical", "natural", "size", "random"
+# Sort files by method, options: "alphabetical", "natural", "mtime", "btime", "extension", "size", "random"
 sort_by = "mtime"
 sort_sensitive = false
 sort_reverse   = true
@@ -53,32 +49,31 @@ show_hidden    = false
 show_symlink   = true
 scrolloff      = 5
 mouse_events   = [ "click", "scroll" ]
-title_format   = "Yazi: {cwd}"
 
 # ============================================================================
 # OPENER SECTION - WHAT PROGRAMS OPEN WHICH FILES
 # ============================================================================
 [opener]
 edit = [
-  { run = '$EDITOR %s', block = true, desc = "$EDITOR", for = "linux" },
+  { run = '${EDITOR:-nvim} %s', block = true, desc = "$EDITOR", for = "linux" },
   { run = 'nvim %s', block = true, desc = "neovim", for = "linux" },
-  { run = 'kitty --detach nvim %s', block = true, desc = "neovim (detached)", for = "linux" },
+  { run = 'kitty --detach nvim %s', orphan = true, desc = "neovim (detached)", for = "linux" },
   { run = 'zeditor %s', orphan = true, desc = "zed-editor", for = "linux" },
-  { run = 'xdg-open %s', orphan = true, desc = "xdg-open", for = "linux" },
+  { run = 'xdg-open %s1', orphan = true, desc = "xdg-open", for = "linux" },
 ]
 open = [
-	{ run = 'xdg-open %s', orphan = true, spread = true, desc = "Open", for = "linux" },
+	{ run = 'xdg-open %s1', orphan = true, desc = "Open", for = "linux" },
 ]
 reveal = [
-	{ run = 'xdg-open "%d1"', orphan = true, desc = "Reveal", for = "linux" },
-	{ run = '''exiftool %s1; echo "Press enter to exit"; read _''', block = true, desc = "Show EXIF" },
+	{ run = 'xdg-open %d1', orphan = true, desc = "Reveal", for = "linux" },
+	{ run = '''clear; exiftool %s1; echo "Press enter to exit"; read _''', block = true, desc = "Show EXIF" },
 ]
 extract = [
 	{ run = 'ya pub extract --list %s', desc = "Extract here" },
 ]
 play = [
-	{ run = 'mpv --force-window %s', orphan = true, spread = true, desc = "Play" },
-	{ run = 'mpv --force-window %s',   orphan = true, desc = "Play", for = "windows" },
+	{ run = 'mpv --force-window %s', orphan = true, desc = "Play" },
+	{ run = 'mpv --force-window %*',   orphan = true, desc = "Play", for = "windows" },
 	{ run = '''mediainfo %s1; echo "Press enter to exit"; read _''', block = true, desc = "Show media info" },
 ]
 
@@ -99,13 +94,11 @@ rules = [
 	# PDF
 	{ mime = "application/pdf", use = [ "open", "reveal" ] },
 	# Archive
-	{ mime = "application/{,g}zip", use = [ "extract", "reveal" ] },
-	{ mime = "application/x-{tar,bzip*,7z-compressed,xz,rar}", use = [ "extract", "reveal" ] },
-	# JSON
-	{ mime = "application/{json,x-ndjson}", use = [ "edit", "reveal" ] },
-	{ mime = "*/javascript", use = [ "edit", "reveal" ] },
+	{ mime = "application/{zip,rar,7z*,tar,gzip,xz,zstd,bzip*,lzma,compress,archive,cpio,arj,xar,ms-cab*}", use = [ "extract", "reveal" ] },
+	# Code
+	{ mime = "application/{json,ndjson,javascript,wine-extension-ini}", use = [ "edit", "reveal" ] },
 	# Empty file
-	{ mime = "inode/x-empty", use = [ "edit", "reveal" ] },
+	{ mime = "inode/empty", use = [ "edit", "reveal" ] },
 	# Fallback
 	{ url = "*", use = [ "open", "reveal" ] },
 ]
@@ -117,31 +110,39 @@ rules = [
 
 # Git status fetcher
 prepend_fetchers = [
-	{ id = "git", url = "*", run = "git", group = "git" },
-	{ id = "git", url = "*/", run = "git", group = "git" },
+	{ group = "git", url = "*", run = "git" },
+	{ group = "git", url = "*/", run = "git" },
 ]
 
+# Office document previews with office.yazi
 prepend_preloaders = [
-	{ mime = "application/openxmlformats-officedocument.*", run = "office" },
-	{ mime = "application/oasis.opendocument.*", run = "office" },
-	{ mime = "application/ms-*", run = "office" },
 	{ mime = "application/msword", run = "office" },
+	{ mime = "application/vnd.ms-excel", run = "office" },
+	{ mime = "application/vnd.openxmlformats-officedocument.wordprocessingml.*", run = "office" },
+	{ mime = "application/vnd.openxmlformats-officedocument.spreadsheetml.*", run = "office" },
+	{ url = "*.doc", run = "office" },
 	{ url = "*.docx", run = "office" },
+	{ url = "*.xls", run = "office" },
+	{ url = "*.xlsx", run = "office" },
 ]
 
 # Archive preview with ouch
 prepend_previewers = [
-	{ mime = "text/markdown", run = 'piper -- CLICOLOR_FORCE=1 glow -p -w=$w "$1"' },
-	{ url = "*.md", run = 'piper -- CLICOLOR_FORCE=1 glow -p -w=$w "$1"' },
-	{ url = "*.doc", run = 'piper -- antiword "$1"' },
-	{ url = "*.docx", run = 'piper -- pandoc -t plain "$1"' },
-	{ url = "*.xls", run = 'piper -- xls2csv "$1"' },
-	{ url = "*.xlsx", run = 'piper -- xlsx2csv "$1"' },
-	{ mime = "application/openxmlformats-officedocument.*", run = "office" },
-	{ mime = "application/oasis.opendocument.*", run = "office" },
-	{ mime = "application/ms-*", run = "office" },
 	{ mime = "application/msword", run = "office" },
+	{ mime = "application/vnd.ms-excel", run = "office" },
+	{ mime = "application/vnd.openxmlformats-officedocument.wordprocessingml.*", run = "office" },
+	{ mime = "application/vnd.openxmlformats-officedocument.spreadsheetml.*", run = "office" },
+	{ url = "*.doc", run = "office" },
 	{ url = "*.docx", run = "office" },
+	{ url = "*.xls", run = "office" },
+	{ url = "*.xlsx", run = "office" },
+	# Markdown preview: run glow inside a pseudo-TTY so headings/colors match
+	# the normal CLI render more closely.
+	# If preview performance becomes a problem, switch to a direct piper+glow
+	# command with a dedicated no-TTY/Yazi theme, e.g.:
+	# piper -- CLICOLOR_FORCE=1 glow -w=$w --style "$HOME/.config/glow/new-yazi.json" "$1"
+	{ mime = "text/markdown", run = 'piper -- script -qec "glow -w=$w \"$1\"" /dev/null' },
+	{ url = "*.md", run = 'piper -- script -qec "glow -w=$w \"$1\"" /dev/null' },
 	{ mime = "application/*zip", run = "ouch" },
 	{ mime = "application/x-{tar,bzip*,7z-compressed,xz,rar}", run = "ouch" },
 ]

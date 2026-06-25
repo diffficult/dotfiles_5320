@@ -1,7 +1,11 @@
+# A TOML linter such as https://taplo.tamasfe.dev/ can use this schema to validate your config.
+# If you encounter any issues, please make an issue at https://github.com/yazi-rs/schemas.
+#:schema https://yazi-rs.github.io/schemas/keymap.json
+
 [mgr]
 
 keymap = [
-	{ on = "<Esc>", run = "escape",             desc = "Exit visual mode, clear selected, or cancel search" },
+	{ on = "<Esc>", run = [ "plugin audio-enter -- stop", "escape" ], desc = "Stop preview audio and exit visual mode, clear selected, or cancel search" },
 	{ on = "<C-[>", run = "escape",             desc = "Exit visual mode, clear selected, or cancel search" },
 	{ on = "q",     run = "quit",               desc = "Exit the process" },
 	{ on = "Q",     run = "quit --no-cwd-file", desc = "Exit the process without writing cwd-file" },
@@ -52,7 +56,7 @@ keymap = [
 	# Operation
 	{ on = "o",         run = "open",                        desc = "Open selected files" },
 	{ on = "O",         run = "open --interactive",          desc = "Open selected files interactively" },
-	{ on = "<Enter>",   run = "plugin smart-enter",          desc = "Smart enter: open file or enter directory" },
+	{ on = "<Enter>",   run = "plugin audio-enter",          desc = "Enter directory, play audio, or open file" },
 	{ on = "<S-Enter>", run = "open --interactive",          desc = "Open selected files interactively" },
 	{ on = "y",         run = "yank",                        desc = "Yank selected files (copy)" },
 	{ on = "x",         run = "yank --cut",                  desc = "Yank selected files (cut)" },
@@ -79,6 +83,8 @@ keymap = [
 	{ on = "Z",         run = "plugin fzf",                  desc = "Jump to a directory or reveal a file using fzf" },
 	{ on = "'",         run = "plugin yamb --args=jump",     desc = "Jump to a bookmark" },
 	{ on = [ "g", "b" ], run = "plugin yamb --args=save",    desc = "Save current directory as bookmark" },
+	{ on = [ "g", "d" ], run = "shell --block 'target=\"${1:-$PWD}\"; [ -d \"$target\" ] || target=\"$PWD\"; clear; dust -- \"$target\"; printf \"\nPress Enter to return...\"; read _'", desc = "Show directory breakdown with dust" },
+	{ on = [ "g", "s" ], run = "shell --block 'target=\"${1:-$PWD}\"; [ -d \"$target\" ] || target=\"$PWD\"; clear; du -sh -- \"$target\"; printf \"\nPress Enter to return...\"; read _'", desc = "Show directory size with du -sh" },
 
 	# Linemode
 	{ on = [ "m", "s" ], run = "linemode size",        desc = "Linemode: size" },
@@ -126,7 +132,8 @@ keymap = [
 	{ on = [ "g", "<Space>" ], run = "cd --interactive", desc = "Go to a directory interactively" },
 
 	# Tabs
-	{ on = "t", run = "tab_create --current", desc = "Create a new tab with CWD" },
+	{ on = "t", run = "tab_create --current",      desc = "Create a new tab with CWD" },
+	{ on = [ "g", "t" ], run = "tab_create --current", desc = "Create a new tab with CWD" },
 
 	{ on = "1", run = "tab_switch 0", desc = "Switch to the first tab" },
 	{ on = "2", run = "tab_switch 1", desc = "Switch to the second tab" },
