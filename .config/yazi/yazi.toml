@@ -121,10 +121,27 @@ prepend_fetchers = [
 	{ id = "git", url = "*/", run = "git", group = "git" },
 ]
 
+prepend_preloaders = [
+	{ mime = "application/openxmlformats-officedocument.*", run = "office" },
+	{ mime = "application/oasis.opendocument.*", run = "office" },
+	{ mime = "application/ms-*", run = "office" },
+	{ mime = "application/msword", run = "office" },
+	{ url = "*.docx", run = "office" },
+]
+
 # Archive preview with ouch
 prepend_previewers = [
 	{ mime = "text/markdown", run = 'piper -- CLICOLOR_FORCE=1 glow -p -w=$w "$1"' },
 	{ url = "*.md", run = 'piper -- CLICOLOR_FORCE=1 glow -p -w=$w "$1"' },
+	{ url = "*.doc", run = 'piper -- antiword "$1"' },
+	{ url = "*.docx", run = 'piper -- pandoc -t plain "$1"' },
+	{ url = "*.xls", run = 'piper -- xls2csv "$1"' },
+	{ url = "*.xlsx", run = 'piper -- xlsx2csv "$1"' },
+	{ mime = "application/openxmlformats-officedocument.*", run = "office" },
+	{ mime = "application/oasis.opendocument.*", run = "office" },
+	{ mime = "application/ms-*", run = "office" },
+	{ mime = "application/msword", run = "office" },
+	{ url = "*.docx", run = "office" },
 	{ mime = "application/*zip", run = "ouch" },
 	{ mime = "application/x-{tar,bzip*,7z-compressed,xz,rar}", run = "ouch" },
 ]
