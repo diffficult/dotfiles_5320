@@ -24,6 +24,10 @@ set -ga update-environment TERM
 set -ga update-environment TERM_PROGRAM
 
 set -g default-terminal "tmux-256color"
+
+set -g extended-keys on
+
+set -g extended-keys-format csi-u
 # -- session creation ----------------------------------------------------------
 
 # prompt for session name when creating a new session, possible values are:
