@@ -424,7 +424,7 @@ alias privatebrowser="$BROWSER --incognito"
 
 # Download managers
 alias wget='wget -c'
-alias curl='curl -O -L'
+#alias curl='curl -O -L'
 
 # SSH
 alias sshconfig='$EDITOR ~/.ssh/config'
