@@ -11,7 +11,7 @@
 # ============================================================================
 
 # Autostart i3wsr to autorename workspaces
-exec --no-startup-id /usr/bin/i3wsr
+exec_always --no-startup-id /usr/bin/i3wsr
 
 # Autostart basics (dunst, powermanager, picom, mpd, fix cursor)
 exec --no-startup-id ~/.config/i3/bin/autostart.sh
@@ -145,8 +145,12 @@ assign [class="(?i)(subl|code-oss|.*zed.*)"] number $ws_4
 for_window [class="(?i)(subl|sublime_*|code-oss|.*zed.*)"] layout stacked
 
 # Media workspace (Brave, Keepass, Spotify)
-assign [class="(?i)(brave-browser|Keepass)"] number $ws_5
+assign [class="(?i)(brave-browser|brave-origin|Keepass)"] number $ws_5
 for_window [class="Spotify"] move to workspace number $ws_5
+
+# Office webapps (Word, Excel) — force tiling
+for_window [class="(?i)(Brave-browser|Brave-origin)" instance="word.cloud.microsoft"] floating disable, move to workspace number $ws_5
+for_window [class="(?i)(Brave-browser|Brave-origin)" instance="excel.cloud.microsoft"] floating disable, move to workspace number $ws_5
 
 # Office workspace
 assign [class="(?i)(libreoffice.*|gimp)"] number $ws_6
@@ -205,6 +209,11 @@ for_window [class="(?i)(sublime_text|subl|firefox|chrome|chromium|zen|Navigator|
 # Specific window configs
 for_window [class="(?i)nsxiv"] fullscreen disable, floating enable, resize set 1200 700, move absolute position center
 for_window [class="(?i)qt5ct"] floating enable, border normal, resize set 600 680, move absolute position center
+# Warmind installer terminals (interactive prompts asking for user input)
+for_window [class="^warmind\\."] floating enable, move absolute position center
+for_window [class="^warmind\.install\.webapp$"] floating enable, resize set 646 486, move absolute position center
+for_window [class="^warmind\.install\.tui$"] floating enable, resize set 646 486, move absolute position center
+
 for_window [class="(?i)gsimplecal"] floating enable, move position mouse, move down 34 px
 for_window [class="(?i)nemo-preview-start"] floating enable, border pixel 4, move absolute position center
 for_window [title="Administracion - Remote Desktop - RustDesk"] floating disable, border 0, move center
@@ -627,3 +636,32 @@ bar {
         urgent_workspace   $base01 $base01    $base06
     }
 }
+
+
+# warmind-webapp:sheets:start
+for_window [class="^brave-sheets\\.google\\.com-Default$"] floating enable, resize set 1280 1140, move absolute position center, border none
+# warmind-webapp:sheets:end
+
+# warmind-webapp:docs:start
+for_window [class="^brave-docs\\.google\\.com__-Default$"] floating enable, resize set 1280 1140, move absolute position center, border none
+# warmind-webapp:docs:end
+
+# warmind-webapp:gemini:start
+for_window [class="Brave-origin" instance="gemini.google.com"] floating disable
+# warmind-webapp:gemini:end
+
+# warmind-webapp:powerpoint:start
+for_window [class="(?i)(Brave-browser|Brave-origin)" instance="powerpoint.cloud.microsoft"] floating enable, resize set 1280 1140, move absolute position center, border none
+# warmind-webapp:powerpoint:end
+
+# warmind-webapp:grok:start
+for_window [class="Brave-origin" instance="grok.com"] floating disable
+# warmind-webapp:grok:end
+
+# warmind-webapp:word:start
+for_window [class="Brave-origin" instance="word.cloud.microsoft"] floating disable
+# warmind-webapp:word:end
+
+# warmind-webapp:chatgpt:start
+for_window [class="Brave-origin" instance="chatgpt.com"] floating disable
+# warmind-webapp:chatgpt:end

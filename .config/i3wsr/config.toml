@@ -40,17 +40,19 @@ ssh = "󰣀"
 steam = ""
 stfloat = ""
 subl = ""
-telegram = ""
-themes = ""
-thunderbird = ""
-virtm = ""
-wezterm = ""
-writer = ""
-xfceterm = ""
-zathura = ""
+telegram = " "
+themes = " "
+thunderbird = " "
+virtm = " "
+wezterm = " "
+excel = " "
+writer = " "
+xfceterm = " "
+zathura = " "
 zed = "🧠"
-zen = "󰰸"
-zenity = ""
+zen = "󰰸 "
+warmind = "󰆆 "
+zenity = " "
 
 #Termite = ""
 #Nautilus = "📘"
@@ -58,17 +60,66 @@ zenity = ""
 #MyNiceProgram = "😛"
 #zen = ""
 
-#[aliases.instance]
-#"realmonitor" = "nvr"
-#"ssh" = "ssh"
-#"nvim" = "nvim"
-
+# warmind-webapp:grok:icons:start
+grok = "󰫴"
+# warmind-webapp:grok:icons:end
+# warmind-webapp:excel-web:icons:start
+excel-web = "󱎏"
+# warmind-webapp:excel-web:icons:end
+# warmind-webapp:word-web:icons:start
+word-web = ""
+# warmind-webapp:word-web:icons:end
+# warmind-webapp:sheets:icons:start
+sheets = "󰧷"
+# warmind-webapp:sheets:icons:end
+# warmind-webapp:docs:icons:start
+docs = "󰈙"
+# warmind-webapp:docs:icons:end
+# warmind-webapp:gemini:icons:start
+gemini = "󰫢"
+# warmind-webapp:gemini:icons:end
+# warmind-webapp:powerpoint:icons:start
+powerpoint = "󱀴"
+# warmind-webapp:powerpoint:icons:end
+# warmind-webapp:claude:icons:start
+claude = "󰧑"
+# warmind-webapp:claude:icons:end
+# warmind-webapp:chatgpt:icons:start
+chatgpt = "‎ﮧ"
+# warmind-webapp:chatgpt:icons:end
+# warmind-webapp:word:icons:start
+word = ""
+# warmind-webapp:word:icons:end
+[aliases.instance]
+"excel.cloud.microsoft" = "excel"
+# warmind-webapp:powerpoint:aliases:start
+"powerpoint.cloud.microsoft" = "powerpoint"
+# warmind-webapp:powerpoint:aliases:end
+# warmind-webapp:claude:aliases:start
+"claude.ai" = "claude"
+# warmind-webapp:claude:aliases:end
+# warmind-webapp:grok:aliases:start
+"grok.com" = "grok"
+# warmind-webapp:grok:aliases:end
+# warmind-webapp:gemini:aliases:start
+"gemini.google.com" = "gemini"
+# warmind-webapp:gemini:aliases:end
+# warmind-webapp:chatgpt:aliases:start
+"chatgpt.com" = "chatgpt"
+# warmind-webapp:chatgpt:aliases:end
+# warmind-webapp:word-web:aliases:start
+"word.cloud.microsoft" = "word-web"
+# warmind-webapp:word-web:aliases:end
 [aliases.class]
 "(?i)^nsxiv$" = "nsxiv"
+"warmind.install.tui" = "warmind"
+"warmind.install.webapp" = "warmind"
+"warmind.remove.launchers" = "warmind"
 "Alacritty" = "Alacritty"
 "Anydesk" = "anydesk"
 "Bottles" = "bottles"
 "Brave-browser" = "brave"
+"Brave-origin" = "brave"
 "Dunst" = "dunst"
 "File-roller" = "fileroller"
 "Firefox" = "firefox"
@@ -118,6 +169,15 @@ zenity = ""
 
 #"drawn-st" = "stfloat"
 
+# warmind-webapp:excel-web:aliases:start
+"^brave-excel.cloud.microsoft__-Default$" = "excel-web"
+# warmind-webapp:excel-web:aliases:end
+# warmind-webapp:sheets:aliases:start
+"^brave-sheets\\.google\\.com-Default$" = "sheets"
+# warmind-webapp:sheets:aliases:end
+# warmind-webapp:docs:aliases:start
+"^brave-docs\\.google\\.com__-Default$" = "docs"
+# warmind-webapp:docs:aliases:end
 [general]
 #separator = " "
 #default_icon = ""
