@@ -303,6 +303,16 @@ mode $maimode {
 bindsym $mod+Shift+w exec --no-startup-id feh --bg-fill "$(find /usr/share/backgrounds/ -type f |sort -R |tail -1)" && notify-send -t 2500 "Wallpaper Updated" --icon=/home/poole/.local/share/icons/own/Star\ Trek/Desktop\ Terminal.ico
 
 # ============================================================================
+# VOXTYPE PUSH-TO-TALK (voice to text)
+# ============================================================================
+
+# Toggle recording on/off (Super+| — the top-left key below Esc, unshifted)
+bindsym $mod+bar exec --no-startup-id voxtype-toggle.sh
+
+# Cancel current recording or in-flight transcription
+bindsym $mod+Escape exec --no-startup-id voxtype-cancel.sh
+
+# ============================================================================
 # WINDOW FOCUS & MOVEMENT
 # ============================================================================
 
