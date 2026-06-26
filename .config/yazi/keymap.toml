@@ -5,7 +5,7 @@
 [mgr]
 
 keymap = [
-	{ on = "<Esc>", run = [ "plugin audio-enter -- stop", "escape" ], desc = "Stop preview audio and exit visual mode, clear selected, or cancel search" },
+	{ on = "<Esc>", run = "escape",             desc = "Exit visual mode, clear selected, or cancel search" },
 	{ on = "<C-[>", run = "escape",             desc = "Exit visual mode, clear selected, or cancel search" },
 	{ on = "q",     run = "quit",               desc = "Exit the process" },
 	{ on = "Q",     run = "quit --no-cwd-file", desc = "Exit the process without writing cwd-file" },
@@ -56,7 +56,7 @@ keymap = [
 	# Operation
 	{ on = "o",         run = "open",                        desc = "Open selected files" },
 	{ on = "O",         run = "open --interactive",          desc = "Open selected files interactively" },
-	{ on = "<Enter>",   run = "plugin audio-enter",          desc = "Enter directory, play audio, or open file" },
+	{ on = "<Enter>",   run = "plugin smart-enter",          desc = "Enter directory, play audio, or open file" },
 	{ on = "<S-Enter>", run = "open --interactive",          desc = "Open selected files interactively" },
 	{ on = "y",         run = "yank",                        desc = "Yank selected files (copy)" },
 	{ on = "x",         run = "yank --cut",                  desc = "Yank selected files (cut)" },

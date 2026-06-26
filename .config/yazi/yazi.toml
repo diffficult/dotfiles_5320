@@ -64,6 +64,12 @@ edit = [
 open = [
 	{ run = 'xdg-open %s1', orphan = true, desc = "Open", for = "linux" },
 ]
+image = [
+	{ run = 'nsxiv %s1', orphan = true, desc = "nsxiv", for = "linux" },
+]
+pdf = [
+	{ run = 'zathura %s1', orphan = true, desc = "zathura", for = "linux" },
+]
 reveal = [
 	{ run = 'xdg-open %d1', orphan = true, desc = "Reveal", for = "linux" },
 	{ run = '''clear; exiftool %s1; echo "Press enter to exit"; read _''', block = true, desc = "Show EXIF" },
@@ -88,11 +94,11 @@ rules = [
 	# Text
 	{ mime = "text/*", use = [ "edit", "reveal" ] },
 	# Image
-	{ mime = "image/*", use = [ "open", "reveal" ] },
+	{ mime = "image/*", use = [ "image", "reveal" ] },
 	# Media
 	{ mime = "{audio,video}/*", use = [ "play", "reveal" ] },
 	# PDF
-	{ mime = "application/pdf", use = [ "open", "reveal" ] },
+	{ mime = "application/pdf", use = [ "pdf", "reveal" ] },
 	# Archive
 	{ mime = "application/{zip,rar,7z*,tar,gzip,xz,zstd,bzip*,lzma,compress,archive,cpio,arj,xar,ms-cab*}", use = [ "extract", "reveal" ] },
 	# Code
@@ -136,6 +142,9 @@ prepend_previewers = [
 	{ url = "*.docx", run = "office" },
 	{ url = "*.xls", run = "office" },
 	{ url = "*.xlsx", run = "office" },
+	# Some .m4a files report as video/mp4, which sends them to Yazi's video
+	# previewer and trips ffmpeg on audio-only containers.
+	{ url = "*.m4a", run = 'piper -- mediainfo "$1"' },
 	# Markdown preview: run glow inside a pseudo-TTY so headings/colors match
 	# the normal CLI render more closely.
 	# If preview performance becomes a problem, switch to a direct piper+glow
