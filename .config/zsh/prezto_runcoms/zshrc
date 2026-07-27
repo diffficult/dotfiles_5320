@@ -18,8 +18,7 @@ fi
 # CORE CONFIGURATION
 #
 
-# Initialize completion system
-autoload -U compinit && compinit
+# Prezto's completion module already initializes compinit.
 
 # Load shared aliases and functions between zsh/bash
 if [[ -f ~/.aliasrc ]]; then
@@ -70,7 +69,9 @@ _fzf_compgen_dir() {
 }
 
 # FZF-git integration
-source ~/dev/gits/fzf-git.sh/fzf-git.sh
+if [[ -f "$HOME/dev/gits/fzf-git.sh/fzf-git.sh" ]]; then
+  source "$HOME/dev/gits/fzf-git.sh/fzf-git.sh"
+fi
 
 # BAT integration for preview
 export FZF_CTRL_T_OPTS="--preview 'bat -n --color=always --line-range :500 {}'"
@@ -117,7 +118,7 @@ fi
 #
 
 # NVM configuration
-if [[ -f ~/usr/share/nvm/init-nvm.sh ]]; then
+if [[ -f /usr/share/nvm/init-nvm.sh ]]; then
   source /usr/share/nvm/init-nvm.sh
 fi
 
@@ -130,10 +131,14 @@ export PATH="$PATH:$GEM_HOME/bin"
 #
 
 # Navi command line cheatsheets
-source <(echo "$(navi widget zsh)")
+if (( $+commands[navi] )); then
+  source <(navi widget zsh)
+fi
 
 # pay-respects (rust alternative to thefuck)
-eval "$(pay-respects zsh --alias)"
+if (( $+commands[pay-respects] )); then
+  eval "$(pay-respects zsh --alias)"
+fi
 
 #
 # APPLICATION SPECIFIC
@@ -211,6 +216,13 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=244'
 # Fabric (commented out)
 # if [ -f "/home/poole/.config/fabric/fabric-bootstrap.inc" ]; then . "/home/poole/.config/fabric/fabric-bootstrap.inc"; fi
 
-source /etc/bash_completion.d/climate_completion
+if [[ -f /etc/bash_completion.d/climate_completion ]]; then
+  source /etc/bash_completion.d/climate_completion
+fi
 # opencode
 export PATH=/home/poole/.opencode/bin:$PATH
+
+# Warmind CLI completions — auto-installed by warmind installer
+if [[ -f "/home/poole/.config/warmind/cli/completion.zsh" ]]; then
+  source "/home/poole/.config/warmind/cli/completion.zsh"
+fi
