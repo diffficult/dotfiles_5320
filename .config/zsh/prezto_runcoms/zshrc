@@ -31,9 +31,10 @@ if [[ -f "$HOME/.config/functions/.secrets" ]]; then
 fi
 
 # Source function directory
-if [ -d "$HOME/.config/functions" ]; then
-  for f in $HOME/.config/functions/*
-    do source "$f"
+if [[ -d "$HOME/.config/functions" ]]; then
+  for f in "$HOME"/.config/functions/*; do
+    [[ -f "$f" && -r "$f" ]] || continue
+    source "$f"
   done
 fi
 
@@ -103,11 +104,6 @@ alias grep="grep --color=auto"
 # COMMAND-NOT-FOUND HANDLERS
 #
 
-# Source command-not-found module
-if [[ -f "$HOME/.zprezto/modules/command-not-found/init.zsh" ]]; then
-  source "$HOME/.zprezto/modules/command-not-found/init.zsh"
-fi
-
 # Source find-the-command
 if [[ -f "/usr/share/doc/find-the-command/ftc.zsh" ]]; then
   source "/usr/share/doc/find-the-command/ftc.zsh"
@@ -123,8 +119,10 @@ if [[ -f /usr/share/nvm/init-nvm.sh ]]; then
 fi
 
 # Ruby GEM configuration
-export GEM_HOME="$(ruby -e 'puts Gem.user_dir')"
-export PATH="$PATH:$GEM_HOME/bin"
+if (( $+commands[ruby] )); then
+  export GEM_HOME="$(ruby -e 'puts Gem.user_dir')"
+  export PATH="$PATH:$GEM_HOME/bin"
+fi
 
 #
 # UTILITY TOOLS
@@ -153,68 +151,6 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=244'
 
 # X-cmd initialization
 [ ! -f "$HOME/.x-cmd.root/X" ] || . "$HOME/.x-cmd.root/X" # boot up x-cmd.
-
-#
-# THIS CAN BE REMOVED
-#
-
-# Redundant or deprecated configurations
-# Note: Keeping these commented for reference, but they can be safely removed
-
-# Tealdeer configuration (redundant with prezto)
-# if [ -f $HOME/.config/tealdeer/zsh_tealdeer ]; then
-#   source $HOME/.config/tealdeer/zsh_tealdeer
-# fi
-
-# Climate completion (deprecated or unused)
-# if [ -f /etc/bash_completion.d/climate_completion ]; then
-#   source /etc/bash_completion.d/climate_completion
-# fi
-# if [ -f "$HOME/.config/climate_completion" ]; then
-#   source "$HOME/.config/climate_completion"
-# fi
-
-# GPG TTY (handled by prezto)
-# GPG_TTY=$(tty)
-# export GPG_TTY
-
-# SSH completion (handled by prezto)
-# h=()
-# if [[ -r ~/.ssh/config ]]; then
-#   h=($h ${${${(@M)${(f)"$(cat ~/.ssh/config)"}:#Host *}#Host }:#*[*?]*})
-# fi
-# if [[ -r ~/.ssh/known_hosts ]]; then
-#   h=($h ${${${(f)"$(cat ~/.ssh/known_hosts{,2} || true)"}%%\ *}%%,*}) 2>/dev/null
-# fi
-# if [[ $#h -gt 0 ]]; then
-#   zstyle ':completion:*:ssh:*' hosts $h
-#   zstyle ':completion:*:slogin:*' hosts $h
-# fi
-
-# Redundant history settings (handled by prezto)
-# HISTFILE=~/.zsh_history
-# SAVEHIST=$HISTSIZE
-# HISTFILESIZE=1000
-# HISTSIZE=5000
-# HISTTIMEFORMAT="[%F %T] "
-# setopt EXTENDED_HISTORY
-# HISTDUP=erase
-# setopt sharehistory
-# setopt appendhistory
-# setopt hist_ignore_space
-# setopt hist_ignore_all_dups
-# setopt hist_save_no_dups
-# setopt hist_ignore_dups
-# setopt hist_find_no_dups
-
-# Thefuck (replaced by pay-respects)
-# eval $(thefuck --alias)
-
-# Redundant completion initialization (handled by prezto)
-# autoload -U compinit && compinit
-
-# Fabric (commented out)
-# if [ -f "/home/poole/.config/fabric/fabric-bootstrap.inc" ]; then . "/home/poole/.config/fabric/fabric-bootstrap.inc"; fi
 
 if [[ -f /etc/bash_completion.d/climate_completion ]]; then
   source /etc/bash_completion.d/climate_completion

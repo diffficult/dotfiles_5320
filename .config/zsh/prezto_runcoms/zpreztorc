@@ -20,8 +20,9 @@
 zstyle ':prezto:*:*' color 'yes'
 
 # Module directories configuration
-zstyle ':prezto:load' pmodule-dirs $HOME/.zprezto/contrib
-zstyle ':prezto:load' pmodule-dirs $HOME/.config/zsh/modules
+zstyle ':prezto:load' pmodule-dirs \
+  $HOME/.zprezto/contrib \
+  $HOME/.config/zsh/modules
 zstyle ':prezto:load' pmodule-allow-overrides 'yes'
 
 #
@@ -107,7 +108,7 @@ zstyle ':prezto:module:syntax-highlighting' highlighters \
 # UTILITY SETTINGS
 #
 
-zstyle -s ':prezto:module:utility:download' helper 'aria2c'
+zstyle ':prezto:module:utility:download' helper 'aria2c'
 zstyle ':prezto:module:pacman' frontend 'yay'
 
 #
