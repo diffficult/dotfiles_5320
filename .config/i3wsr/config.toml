@@ -4,6 +4,7 @@ anydesk = ""
 bluetooth = ""
 bottles = "󱄲"
 brave = "󰇧"
+brave-origin = ""
 calc = ""
 calculator = "󰃬"
 chrome = ""
@@ -64,7 +65,7 @@ zenity = " "
 grok = "󰫴"
 # warmind-webapp:grok:icons:end
 # warmind-webapp:excel-web:icons:start
-excel-web = "󱎏"
+excel-web = ""
 # warmind-webapp:excel-web:icons:end
 # warmind-webapp:word-web:icons:start
 word-web = ""
@@ -91,7 +92,6 @@ chatgpt = "‎ﮧ"
 word = ""
 # warmind-webapp:word:icons:end
 [aliases.instance]
-"excel.cloud.microsoft" = "excel"
 # warmind-webapp:powerpoint:aliases:start
 "powerpoint.cloud.microsoft" = "powerpoint"
 # warmind-webapp:powerpoint:aliases:end
@@ -110,6 +110,9 @@ word = ""
 # warmind-webapp:word-web:aliases:start
 "word.cloud.microsoft" = "word-web"
 # warmind-webapp:word-web:aliases:end
+# warmind-webapp:excel-web:aliases:start
+"excel.cloud.microsoft" = "excel-web"
+# warmind-webapp:excel-web:aliases:end
 [aliases.class]
 "(?i)^nsxiv$" = "nsxiv"
 "warmind.install.tui" = "warmind"
@@ -119,7 +122,7 @@ word = ""
 "Anydesk" = "anydesk"
 "Bottles" = "bottles"
 "Brave-browser" = "brave"
-"Brave-origin" = "brave"
+"Brave-origin" = "brave-origin"
 "Dunst" = "dunst"
 "File-roller" = "fileroller"
 "Firefox" = "firefox"
@@ -169,9 +172,6 @@ word = ""
 
 #"drawn-st" = "stfloat"
 
-# warmind-webapp:excel-web:aliases:start
-"^brave-excel.cloud.microsoft__-Default$" = "excel-web"
-# warmind-webapp:excel-web:aliases:end
 # warmind-webapp:sheets:aliases:start
 "^brave-sheets\\.google\\.com-Default$" = "sheets"
 # warmind-webapp:sheets:aliases:end

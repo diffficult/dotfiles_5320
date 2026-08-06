@@ -58,8 +58,8 @@ exec --no-startup-id xrandr --output eDP-1 --scale 0.9x0.9
 # ============================================================================
 
 # Enable natural scrolling
-exec --no-startup-id synclient VertScrollDelta=-"$(synclient | grep VertScrollDelta | cut -d '=' -f 2 | cut -c 2-)"
-exec --no-startup-id synclient HorizScrollDelta=-"$(synclient | grep HorizScrollDelta | cut -d '=' -f 2 | cut -c 2-)"
+exec --no-startup-id synclient VertScrollDelta=-100
+exec --no-startup-id synclient HorizScrollDelta=-100
 
 # Set keyboard to LATAM with deadtilde
 exec --no-startup-id setxkbmap -layout latam -variant deadtilde
@@ -675,3 +675,7 @@ for_window [class="Brave-origin" instance="word.cloud.microsoft"] floating disab
 # warmind-webapp:chatgpt:start
 for_window [class="Brave-origin" instance="chatgpt.com"] floating disable
 # warmind-webapp:chatgpt:end
+
+# warmind-webapp:excel-web:start
+for_window [class="Brave-origin" instance="excel.cloud.microsoft"] floating disable
+# warmind-webapp:excel-web:end
