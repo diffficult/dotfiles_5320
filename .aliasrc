@@ -603,3 +603,6 @@ alias daty='date +%Y%m%d'
 
 
 # }}}
+
+# list all model IDs from the opencode zen endpoint
+alias list-opencode-models="curl -s https://opencode.ai/zen/v1/models | jq -r '.data[].id'"
