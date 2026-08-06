@@ -43,9 +43,15 @@ fi
 #
 export FZF_BASE=/usr/share/fzf
 
-# Source FZF completion
-if [ -f "/usr/share/fzf/completion.zsh" ]; then
-  source "/usr/share/fzf/completion.zsh"
+# Load FZF widgets only for real interactive TTY shells.
+if [[ -o interactive && -o zle && -t 0 && -t 1 ]]; then
+  if [[ -f "/usr/share/fzf/key-bindings.zsh" ]]; then
+    source "/usr/share/fzf/key-bindings.zsh"
+  fi
+
+  if [[ -f "/usr/share/fzf/completion.zsh" ]]; then
+    source "/usr/share/fzf/completion.zsh"
+  fi
 fi
 
 # Tokyo Night color theme for FZF
@@ -162,3 +168,13 @@ export PATH=/home/poole/.opencode/bin:$PATH
 if [[ -f "/home/poole/.config/warmind/cli/completion.zsh" ]]; then
   source "/home/poole/.config/warmind/cli/completion.zsh"
 fi
+
+# >>> grok installer >>>
+export PATH="$HOME/.grok/bin:$PATH"
+fpath=(~/.grok/completions/zsh $fpath)
+autoload -Uz compinit && compinit -C
+# <<< grok installer <<<
+
+
+# Added by Antigravity CLI installer
+export PATH="/home/poole/.local/bin:$PATH"

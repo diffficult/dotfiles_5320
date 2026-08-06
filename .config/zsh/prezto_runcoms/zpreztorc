@@ -140,7 +140,7 @@ zstyle :prompt:pure:prompt:error color red
 
 # Since we're using fd in zshrc, we can remove or comment the ag setting
 # zstyle ':prezto:module:fzf' fzf-default-command 'ag -l --hidden -g "" --ignore .git'
-zstyle ':prezto:module:fzf' disable-key-bindings 'no'
+zstyle ':prezto:module:fzf' disable-key-bindings 'yes'
 zstyle ':prezto:module:fzf' disable-completion 'yes'
 zstyle ':prezto:module:fzf' height '40%'
 zstyle ':prezto:module:fzf' preview 'yes'
