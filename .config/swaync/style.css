@@ -1,0 +1,469 @@
+/* Catppuccin Mocha + SF Pro Rounded */
+
+@define-color base #1e1e2e;
+@define-color mantle #181825;
+@define-color crust #11111b;
+@define-color surface0 #313244;
+@define-color surface1 #45475a;
+@define-color surface2 #585b70;
+@define-color overlay0 #6c7086;
+@define-color overlay1 #7f849c;
+@define-color overlay2 #9399b2;
+@define-color subtext0 #a6adc8;
+@define-color subtext1 #bac2de;
+@define-color text #cdd6f4;
+@define-color lavender #b4befe;
+@define-color blue #89b4fa;
+@define-color sapphire #74c7ec;
+@define-color sky #89dceb;
+@define-color teal #94e2d5;
+@define-color green #a6e3a1;
+@define-color yellow #f9e2af;
+@define-color peach #fab387;
+@define-color maroon #eba0ac;
+@define-color red #f38ba8;
+@define-color mauve #cba6f7;
+@define-color pink #f5c2e7;
+@define-color flamingo #f2cdcd;
+@define-color rosewater #f5e0dc;
+
+@define-color cc-bg rgba(30, 30, 46, 0.95);
+
+* {
+  font-family: "JetBrainsMono Nerd Font";
+  font-size: 12px;
+}
+
+notificationwindow, blankwindow {
+  background: transparent;
+}
+
+.notification-row {
+  outline: none;
+  background: none;
+  margin: 0;
+}
+
+.notification-background {
+  padding: 4px 8px;
+}
+
+.notification {
+  border-radius: 14px;
+  border: 1px solid @surface0;
+  padding: 0;
+  background: @base;
+  transition: opacity 200ms;
+}
+
+.floating-notifications .notification {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+}
+
+.control-center .notification {
+  box-shadow: none;
+}
+
+.notification.low {
+  background: @base;
+  border: 1px solid @mauve;
+}
+
+.notification.normal {
+  background: @base;
+  border: 1px solid @blue;
+}
+
+.notification.critical {
+  background: @base;
+  border: 1px solid @peach;
+}
+
+.notification-content {
+  background: transparent;
+  border-radius: 14px;
+  padding: 6px 10px;
+}
+
+.notification-content .image {
+  -gtk-icon-size: 40px;
+  margin: 2px;
+  border-radius: 10px;
+}
+
+.notification-content .app-icon {
+  -gtk-icon-size: 14px;
+  margin: 4px;
+}
+
+.notification-default-action {
+  border-radius: 14px;
+  margin: 0;
+  padding: 4px;
+  background: transparent;
+  border: none;
+  color: @text;
+}
+
+.notification-default-action:hover {
+  background: @surface0;
+}
+
+.notification-default-action:not(:only-child) {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.notification-alt-actions {
+  background: none;
+  border-bottom-left-radius: 14px;
+  border-bottom-right-radius: 14px;
+  padding: 6px;
+}
+
+.notification-action {
+  margin: 4px;
+  padding: 0;
+}
+
+.notification-action > button {
+  border-radius: 12px;
+  color: @text;
+  background: @mantle;
+  border: 1px solid @surface0;
+}
+
+.notification-action > button:hover {
+  background: @surface0;
+  color: @text;
+}
+
+.close-button {
+  background: @surface0;
+  color: @text;
+  text-shadow: none;
+  padding: 0;
+  border-radius: 9999px;
+  margin-top: 8px;
+  margin-right: 8px;
+  box-shadow: none;
+  border: none;
+  min-width: 22px;
+  min-height: 22px;
+}
+
+.close-button:hover {
+  box-shadow: none;
+  background: @red;
+  color: @crust;
+  transition: all 0.15s ease-in-out;
+  border: none;
+}
+
+.summary {
+  font-size: 13px;
+  font-weight: 600;
+  background: transparent;
+  color: @text;
+  text-shadow: none;
+}
+
+.time {
+  font-size: 12px;
+  font-weight: 400;
+  background: transparent;
+  color: @overlay0;
+  text-shadow: none;
+  margin-right: 30px;
+}
+
+.body {
+  font-size: 13px;
+  font-weight: 400;
+  background: transparent;
+  color: @subtext0;
+  text-shadow: none;
+}
+
+.body-image {
+  margin-top: 8px;
+  color: @subtext1;
+  border-radius: 10px;
+}
+
+.progressbar {
+  margin-top: 8px;
+}
+
+.inline-reply {
+  margin-top: 8px;
+}
+
+.inline-reply-entry {
+  background: @mantle;
+  color: @text;
+  caret-color: @text;
+  border: 1px solid @surface0;
+  border-radius: 12px;
+}
+
+.inline-reply-button {
+  margin-left: 4px;
+  background: @mantle;
+  border: 1px solid @surface0;
+  border-radius: 12px;
+  color: @text;
+}
+
+.inline-reply-button:disabled {
+  background: initial;
+  color: @overlay0;
+  border: 1px solid transparent;
+}
+
+.inline-reply-button:hover {
+  background: @surface0;
+}
+
+.control-center {
+  background: @cc-bg;
+  color: @text;
+  border: 1px solid @surface0;
+  border-radius: 14px;
+}
+
+.control-center-list {
+  background: transparent;
+}
+
+.control-center-list-placeholder {
+  opacity: 0.5;
+}
+
+.floating-notifications {
+  background: transparent;
+}
+
+.blank-window {
+  background: alpha(black, 0.2);
+}
+
+.widget {
+  margin: 8px;
+  padding: 8px;
+  border-radius: 12px;
+}
+
+.widget-title {
+  color: @text;
+  background: @mantle;
+  padding: 4px 10px;
+  margin: 5px 8px;
+  font-size: 14px;
+  border-radius: 12px;
+}
+
+.widget-title > label {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.widget-title > button {
+  font-size: 12px;
+  color: @text;
+  border-radius: 10px;
+  background: @surface0;
+  border: none;
+}
+
+.widget-title > button:hover {
+  background: @red;
+  color: @crust;
+}
+
+.widget-dnd {
+  color: @text;
+  background: @mantle;
+  padding: 4px 10px;
+  margin: 5px 8px;
+  border-radius: 12px;
+}
+
+.widget-dnd > label {
+  font-size: 14px;
+}
+
+.widget-dnd > switch {
+  border-radius: 9999px;
+  background: @surface0;
+  min-width: 40px;
+}
+
+.widget-dnd > switch:checked {
+  background: @red;
+  border: 1px solid @red;
+}
+
+.widget-dnd > switch slider {
+  background: @base;
+  border-radius: 9999px;
+}
+
+.widget-dnd > switch:checked slider {
+  background: @base;
+  border-radius: 9999px;
+}
+
+.widget-inhibitors {
+  color: @text;
+  background: @mantle;
+  padding: 4px 10px;
+  margin: 5px 8px;
+  border-radius: 12px;
+}
+
+.widget-inhibitors > label {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.widget-inhibitors > button {
+  font-size: 12px;
+  color: @text;
+  border-radius: 10px;
+  background: @surface0;
+  border: none;
+}
+
+.widget-inhibitors > button:hover {
+  background: @red;
+  color: @crust;
+}
+
+.widget-label {
+  margin: 5px 8px;
+}
+
+.widget-label > label {
+  font-size: 13px;
+  color: @text;
+}
+
+.widget-mpris {
+  color: @text;
+  background: @mantle;
+  padding: 4px 10px;
+  margin: 5px 8px;
+  border-radius: 12px;
+}
+
+.widget-mpris > box > button {
+  border-radius: 10px;
+  border: none;
+  background: @surface0;
+}
+
+.widget-mpris-player {
+  padding: 4px 8px;
+  margin: 4px;
+}
+
+.widget-mpris-title {
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.widget-mpris-subtitle {
+  font-size: 12px;
+  color: @subtext0;
+}
+
+.widget-buttons-grid {
+  font-size: 14px;
+  color: @text;
+  padding: 4px;
+  margin: 5px 8px;
+  border-radius: 12px;
+  background: @mantle;
+}
+
+.widget-buttons-grid > flowbox > flowboxchild > button {
+  margin: 2px;
+  background: @surface0;
+  border-radius: 10px;
+  color: @text;
+  border: none;
+}
+
+.widget-buttons-grid > flowbox > flowboxchild > button:hover {
+  background: @surface1;
+  color: @text;
+}
+
+.widget-menubar > box > .menu-button-bar > button {
+  border: none;
+  background: transparent;
+  color: @text;
+}
+
+.topbar-buttons > button {
+  border: none;
+  background: transparent;
+}
+
+.widget-volume {
+  background: @mantle;
+  padding: 4px;
+  margin: 8px 10px 5px 10px;
+  border-radius: 12px;
+  font-size: 14px;
+  color: @text;
+}
+
+.widget-volume > box > button {
+  background: @blue;
+  border: none;
+}
+
+.widget-slider {
+  background: @mantle;
+  padding: 4px;
+  margin: 8px 10px 5px 10px;
+  border-radius: 12px;
+  color: @text;
+}
+
+.per-app-volume {
+  background-color: @mantle;
+  padding: 4px 8px 8px;
+  margin: 0 8px 8px;
+  border-radius: 12px;
+  color: @text;
+}
+
+.widget-backlight {
+  background: @mantle;
+  padding: 4px;
+  margin: 8px 10px 5px 10px;
+  border-radius: 12px;
+  font-size: 14px;
+  color: @text;
+}
+
+.low {
+  background: @green;
+  padding: 0px;
+  border-radius: 12px;
+}
+
+.normal {
+  background: @blue;
+  padding: 0px;
+  border-radius: 12px;
+}
+
+.critical {
+  background: @red;
+  padding: 0px;
+  border-radius: 12px;
+}

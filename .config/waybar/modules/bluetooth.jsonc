@@ -1,0 +1,12 @@
+{
+  "bluetooth": {
+    "format": "<span font_desc='JetBrainsMono Nerd Font 16'></span>",
+    "format-disabled": "<span font_desc='JetBrainsMono Nerd Font 16'>󰂲</span>",
+    "format-connected": "<span font_desc='JetBrainsMono Nerd Font 16'></span> {num_connections}",
+    "tooltip-format": "{controller_alias}\t{num_connections} connected",
+    "tooltip-format-connected": "{controller_alias}\t{num_connections} connected\n\n{device_enumerate}",
+    "tooltip-format-enumerate-connected": "{device_alias}\t{device_battery_percentage}%",
+    "on-click": "bluetoothctl power $([ $(bluetoothctl show | grep -c 'Powered: yes') = '1' ] && echo off || echo on)",
+    "on-click-right": "blueman-manager"
+  }
+}

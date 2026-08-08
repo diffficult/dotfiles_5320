@@ -1,0 +1,8 @@
+{
+  "hyprland/submap": {
+    "format": " <span font_weight='bold' size='larger'>{}</span>",
+    "max-length": 80,
+    "tooltip": true,
+    "tooltip-format": "Mode: {}\n\n<b>Resize Mode:</b>\nH/J/K/L or     - Resize window\nShift - Larger steps (100px)\nCtrl - Even larger (200px)\nShift+Ctrl - Maximum (300px)\n\n<b>Gaps Mode:</b>\nO - Outer gaps\nI - Inner gaps\n8/9 or 6/7 - Increase/Decrease\n0 or 5 - Reset to 0\n\nESC or Enter - Exit mode"
+  }
+}

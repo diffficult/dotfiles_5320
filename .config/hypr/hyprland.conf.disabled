@@ -1,0 +1,345 @@
+# ============================================================
+# Hyprland Configuration — Migrated from Sway
+# Adapted from dotfiles_desk for laptop (eDP-1)
+# Standard hyprlang format (compatible with hyprland stable)
+# ============================================================
+
+# ----------------------------------------------------------
+# MONITORS
+# ----------------------------------------------------------
+monitor = eDP-1, preferred, auto, 1.1
+
+# ----------------------------------------------------------
+# ENVIRONMENT
+# ----------------------------------------------------------
+env = XCURSOR_SIZE,24
+env = HYPRCURSOR_SIZE,24
+env = XDG_CURRENT_DESKTOP,Hyprland
+env = XDG_SESSION_TYPE,wayland
+env = XDG_SESSION_DESKTOP,Hyprland
+env = QT_AUTO_SCREEN_SCALE_FACTOR,1
+env = GDK_BACKEND,wayland
+env = MOZ_ENABLE_WAYLAND,1
+env = QT_QPA_PLATFORMTHEME,qt5ct
+env = QT_SCALE_FACTOR,1
+env = GTK_THEME,Nordic-darker
+
+# ----------------------------------------------------------
+# GENERAL
+# ----------------------------------------------------------
+general {
+    gaps_in = 3
+    gaps_out = 1
+    border_size = 1
+    col.active_border = rgb(ffffff)
+    col.inactive_border = rgb(252936)
+    layout = dwindle
+    resize_on_border = false
+    allow_tearing = false
+}
+
+# ----------------------------------------------------------
+# DECORATION
+# ----------------------------------------------------------
+decoration {
+    rounding = 0
+    active_opacity = 1.0
+    inactive_opacity = 1.0
+    shadow {
+        enabled = false
+    }
+    blur {
+        enabled = false
+    }
+}
+
+# ----------------------------------------------------------
+# ANIMATIONS
+# ----------------------------------------------------------
+animations {
+    enabled = true
+    bezier = easeOutQuint, 0.23, 1, 0.32, 1
+    animation = windows, 1, 4.79, easeOutQuint
+    animation = windowsOut, 1, 1.49, default
+    animation = fade, 1, 3.03, default
+    animation = workspaces, 1, 1.94, default, fade
+}
+
+# ----------------------------------------------------------
+# INPUT
+# ----------------------------------------------------------
+input {
+    kb_layout = latam
+    kb_variant = deadtilde
+    follow_mouse = 0
+    touchpad {
+        natural_scroll = true
+        tap_to_click = true
+        drag_lock = true
+    }
+    sensitivity = 0
+}
+
+# ----------------------------------------------------------
+# DWINDLE
+# ----------------------------------------------------------
+dwindle {
+    pseudotile = true
+    preserve_split = true
+}
+
+# ----------------------------------------------------------
+# MISC
+# ----------------------------------------------------------
+misc {
+    disable_hyprland_logo = true
+    force_default_wallpaper = 0
+    vrr = 0
+    key_press_enables_dpms = true
+    mouse_move_enables_dpms = true
+    allow_session_lock_restore = true
+}
+
+# ----------------------------------------------------------
+# XWAYLAND
+# ----------------------------------------------------------
+xwayland {
+    force_zero_scaling = true
+}
+
+# ============================================================
+# AUTOSTART
+# ============================================================
+exec-once = ~/.config/hypr/scripts/autostart.sh
+exec-once = waybar
+
+# ============================================================
+# WORKSPACE ASSIGNMENTS (matching Sway config)
+# ============================================================
+windowrulev2 = workspace 1, class:^(?i)(google-chrome|chromium|firefox|zen-alpha|zen-beta|zen|Navigator)$
+windowrulev2 = workspace 1, title:^(?i)(google-chrome|chromium|firefox|zen-alpha|zen-beta|zen|Navigator)$
+windowrulev2 = workspace 2, class:^(?i)(xfce4-terminal|foot|footclient|footclient-float|kitty)$
+windowrulev2 = workspace 2, title:^(?i)(xfce4-terminal|foot|footclient|footclient-float|kitty)$
+windowrulev2 = workspace 3, class:^(?i)(nautilus|nemo|thunar)$
+windowrulev2 = workspace 3, title:^(?i)(nautilus|nemo|thunar)$
+windowrulev2 = workspace 4, class:^(?i)(subl|code-oss|.*zed.*)$
+windowrulev2 = workspace 4, title:^(?i)(subl|code-oss|.*zed.*)$
+windowrulev2 = workspace 5, class:^(?i)(brave-browser|brave-origin|Keepass)$
+windowrulev2 = workspace 5, title:^(?i)(brave-browser|brave-origin|Keepass)$
+windowrulev2 = workspace 5, class:^(?i)Spotify$
+windowrulev2 = workspace 5, title:^(?i)Spotify$
+windowrulev2 = workspace 6, class:^(?i)(libreoffice.*|gimp)$
+windowrulev2 = workspace 6, title:^(?i)(libreoffice.*|gimp)$
+windowrulev2 = workspace 7, class:^(?i)(mpv|gpicview|zathura)$
+windowrulev2 = workspace 7, title:^(?i)(mpv|gpicview|zathura)$
+windowrulev2 = workspace 9, class:^(?i)(telegramdesktop|localsend)$
+windowrulev2 = workspace 9, title:^(?i)(telegramdesktop|localsend)$
+windowrulev2 = workspace 10, class:^(?i)(obsidian|virt-manager|rustdesk|protonvpn)$
+windowrulev2 = workspace 10, title:^(?i)(obsidian|virt-manager|rustdesk|protonvpn)$
+
+# ============================================================
+# WINDOW RULES — FLOATING
+# ============================================================
+windowrulev2 = float, class:^(?i)(pavucontrol|qt5ct|gsimplecal|file-roller|whatsie|steam|mpv|virt-manager|nautilus|nemo|seahorse|protonvpn|rustdesk|localsend)$
+windowrulev2 = float, title:^(?i)(pop-up|task_dialog|bubble|dialog|menu|Preferences)$
+windowrulev2 = float, title:^(Open File|Save File|Save As|Open Document)$
+windowrulev2 = float, title:^(About ).*$
+windowrulev2 = float, class:^(file_progress)$
+windowrulev2 = float, class:^(.*-picker|.*-dialog|.*-preferences)$
+windowrulev2 = float, class:^(zenity)$
+windowrulev2 = float, class:^(footclient-float.*)$
+windowrulev2 = float, class:^(St|drawn-st|floating-kitty|floating_update)$
+windowrulev2 = float, class:^(st)$, title:^(st)$
+windowrulev2 = float, class:^(nsxiv)$
+windowrulev2 = float, class:^(qt5ct)$
+windowrulev2 = float, class:^(blueman-manager|Blueman-manager)$
+windowrulev2 = float, class:^(gsimplecal)$
+windowrulev2 = float, class:^(nemo-preview-start)$
+windowrulev2 = float, class:^(steam)$
+windowrulev2 = float, class:^(drawn-st)$
+windowrulev2 = float, class:^(floating_update)$
+windowrulev2 = float, class:^(eww-calendar)$
+windowrulev2 = float, class:^(eww)$, title:^(calendar)$
+
+# ============================================================
+# WINDOW RULES — FLOAT + CENTER + SIZE
+# ============================================================
+windowrulev2 = float, center, size 600 680, class:^(?i)(blueman-manager|Blueman-manager)$
+windowrulev2 = float, center, size 1200 700, class:^(?i)(nsxiv)$
+windowrulev2 = float, center, size 600 680, class:^(?i)(qt5ct)$
+windowrulev2 = float, center, size 646 486, class:^(warmind\.install\.webapp)$
+windowrulev2 = float, center, size 646 486, class:^(warmind\.install\.tui)$
+windowrulev2 = float, center, size 960 640, class:^(steam)$
+windowrulev2 = float, center, size 1280 1140, class:^(brave-sheets\.google\.com-Default)$
+windowrulev2 = float, center, size 1280 1140, class:^(brave-docs\.google\.com__-Default)$
+windowrulev2 = float, center, size 1280 1140, class:^(?i)(Brave-browser|Brave-origin)$, title:^(?i)(powerpoint\.cloud\.microsoft)$
+
+# ============================================================
+# WINDOW RULES — NO BORDER
+# ============================================================
+windowrulev2 = noborder, class:^(?i)(sublime_text|subl|firefox|chrome|chromium|zen|Navigator|discord|zathura|gpicview|telegramdesktop)$
+windowrulev2 = noborder, class:^(drawn-st)$
+windowrulev2 = noborder, class:^(steam)$
+windowrulev2 = noborder, class:^(zenity)$
+windowrulev2 = noborder, class:^(footclient-float)$
+windowrulev2 = noborder, class:^(st)$, title:^(st)$
+windowrulev2 = noborder, class:^(floating_update)$
+
+# ============================================================
+# WINDOW RULES — LAYOUT
+# ============================================================
+windowrulev2 = settiled, class:^(?i)(subl|sublime_*|code-oss|.*zed.*)$
+windowrulev2 = settiled, class:^(?i)(zen|Navigator)$
+
+# ============================================================
+# WINDOW RULES — FOCUS / MOVE
+# ============================================================
+windowrulev2 = suppressevent maximize, class:.*
+windowrulev2 = nofocus, class:^$, title:^$, xwayland:1, floating:1, fullscreen:0, pinned:0
+
+# ============================================================
+# WARMIND LAUNCHER WINDOW RULES
+# ============================================================
+windowrulev2 = float, center, size 1100 820, title:^(Warmind System Update)$
+windowrulev2 = float, center, size 900 520, title:^(Warmind User Password)$
+windowrulev2 = float, center, size 1237 870, title:^(Warmind Install Package)$
+windowrulev2 = float, center, size 1180 820, title:^(^Warmind Setup: ).*$
+windowrulev2 = float, center, size 860 720, title:^(Warmind Setup: Bluetooth)$
+windowrulev2 = float, center, size 1100 760, class:^(org\.pulseaudio\.pavucontrol)$
+windowrulev2 = float, center, size 1280 1340, class:^(brave-wiki\.hypr\.land__-Default)$
+windowrulev2 = float, center, size 1280 1340, class:^(brave-wiki\.archlinux\.org__-Default)$
+windowrulev2 = float, center, size 1280 1340, class:^(brave-quickshell\.outfoxxed\.me__docs-Default)$
+
+# ============================================================
+# KEYBINDINGS
+# ============================================================
+$mainMod = SUPER
+$altMod = ALT
+
+# Workspaces
+bind = $mainMod, 1, workspace, 1
+bind = $mainMod, 2, workspace, 2
+bind = $mainMod, 3, workspace, 3
+bind = $mainMod, 4, workspace, 4
+bind = $mainMod, 5, workspace, 5
+bind = $mainMod, 6, workspace, 6
+bind = $mainMod, 7, workspace, 7
+bind = $mainMod, 8, workspace, 8
+bind = $mainMod, 9, workspace, 9
+bind = $mainMod, 0, workspace, 10
+
+# Move to workspace
+bind = $mainMod SHIFT, 1, movetoworkspace, 1
+bind = $mainMod SHIFT, 2, movetoworkspace, 2
+bind = $mainMod SHIFT, 3, movetoworkspace, 3
+bind = $mainMod SHIFT, 4, movetoworkspace, 4
+bind = $mainMod SHIFT, 5, movetoworkspace, 5
+bind = $mainMod SHIFT, 6, movetoworkspace, 6
+bind = $mainMod SHIFT, 7, movetoworkspace, 7
+bind = $mainMod SHIFT, 8, movetoworkspace, 8
+bind = $mainMod SHIFT, 9, movetoworkspace, 9
+bind = $mainMod SHIFT, 0, movetoworkspace, 10
+bind = $mainMod SHIFT, minus, movetoworkspace, special
+
+# Scratchpad
+bind = $mainMod, minus, togglespecialworkspace,
+
+# Navigation
+bind = $mainMod, Tab, workspace, previous
+bind = $mainMod SHIFT, Tab, workspace, e+1
+
+# Window focus
+bind = $mainMod, j, movefocus, l
+bind = $mainMod, k, movefocus, d
+bind = $mainMod, l, movefocus, u
+bind = $mainMod, semicolon, movefocus, r
+bind = $mainMod, left, movefocus, l
+bind = $mainMod, down, movefocus, d
+bind = $mainMod, up, movefocus, u
+bind = $mainMod, right, movefocus, r
+
+# Window move
+bind = $mainMod SHIFT, j, movewindow, l
+bind = $mainMod SHIFT, k, movewindow, d
+bind = $mainMod SHIFT, l, movewindow, u
+bind = $mainMod SHIFT, semicolon, movewindow, r
+bind = $mainMod SHIFT, left, movewindow, l
+bind = $mainMod SHIFT, down, movewindow, d
+bind = $mainMod SHIFT, up, movewindow, u
+bind = $mainMod SHIFT, right, movewindow, r
+
+# Window actions
+bind = $mainMod, q, killactive
+bind = $mainMod, f, fullscreen, 0
+bind = $mainMod, a, pseudo,
+bind = $mainMod SHIFT, space, togglefloating
+bind = $mainMod, space, cyclenext,
+bind = $mainMod, u, exec, ~/.config/hypr/scripts/border-toggle.sh
+
+# Layout
+bind = $mainMod, h, layoutmsg, togglesplit
+bind = $mainMod, s, exec, ~/.config/sway/bin/volume.sh --toggle  # placeholder
+bind = $mainMod, w, exec, ~/.config/sway/bin/wallpaper-random.sh
+
+# Apps
+bind = $mainMod, Return, exec, kitty
+bind = $mainMod SHIFT, Return, exec, footclient --app-id=footclient-float
+bind = $mainMod $altMod, Return, exec, footclient
+bind = $mainMod SHIFT, f, exec, nemo
+
+# Warmind Launcher
+bind = $mainMod, d, exec, qs -p ~/.config/warmind/launcher ipc call palette toggle
+bind = $mainMod, grave, exec, qs -p ~/.config/warmind/launcher ipc call palette openCategory Windows
+bind = $mainMod, period, exec, qs -p ~/.config/warmind/launcher ipc call palette openCategory Emoji
+bind = $mainMod, p, exec, qs -p ~/.config/warmind/launcher ipc call palette openCategory Pass
+bind = $mainMod, n, exec, qs -p ~/.config/warmind/launcher ipc call palette openCategory Network
+bind = $mainMod, y, exec, qs -p ~/.config/warmind/launcher ipc call palette openCategory Clipboard
+bind = $mainMod, m, exec, qs -p ~/.config/warmind/launcher ipc call palette openCategory Quick
+bind = $mainMod SHIFT, k, exec, qs -p ~/.config/warmind/launcher ipc call palette openCategory bind
+bind = $mainMod SHIFT, b, exec, ~/.config/warmind/launcher/bin/bluetooth-power-toggle.sh
+bind = $mainMod, t, exec, qs -p ~/.config/warmind/launcher ipc call tactile toggle
+bind = $mainMod, z, exec, ~/.config/sway/bin/draw_area.sh
+
+# Screenshot
+bind = $mainMod SHIFT, Print, exec, ~/.config/sway/bin/screenshot.sh full
+
+# Audio keys
+bind = , XF86AudioRaiseVolume, exec, ~/.config/warmind/launcher/bin/warmind-audio-key.sh raise
+bind = , XF86AudioLowerVolume, exec, ~/.config/warmind/launcher/bin/warmind-audio-key.sh lower
+bind = , XF86AudioMute, exec, ~/.config/warmind/launcher/bin/warmind-audio-key.sh mute
+bind = , XF86AudioMicMute, exec, ~/.config/warmind/launcher/bin/warmind-audio-key.sh mic-mute
+
+# Voxtype
+bind = $mainMod, backslash, exec, voxtype-toggle.sh
+bind = $mainMod, Escape, exec, voxtype-cancel.sh
+
+# Lock
+bind = $altMod CTRL, l, exec, ~/.config/sway/bin/lock.sh
+
+# Reload
+bind = $mainMod SHIFT, r, exec, hyprctl reload
+bind = $mainMod SHIFT, s, exec, ~/.config/sway/bin/volume.sh --toggle
+
+# Submaps
+bind = $mainMod, r, submap, resize
+
+submap = resize
+binde = , h, resizeactive, -50 0
+binde = , j, resizeactive, 0 50
+binde = , k, resizeactive, 0 -50
+binde = , l, resizeactive, 50 0
+binde = SHIFT, h, resizeactive, -100 0
+binde = SHIFT, j, resizeactive, 0 100
+binde = SHIFT, k, resizeactive, 0 -100
+binde = SHIFT, l, resizeactive, 100 0
+binde = , left, resizeactive, -50 0
+binde = , down, resizeactive, 0 50
+binde = , up, resizeactive, 0 -50
+binde = , right, resizeactive, 50 0
+binde = , Return, submap, reset
+binde = , Escape, submap, reset
+submap = reset
+
+# Mouse binds
+bindm = $mainMod, mouse:272, movewindow
+bindm = $mainMod, mouse:273, resizewindow

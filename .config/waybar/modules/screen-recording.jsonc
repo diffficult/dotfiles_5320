@@ -1,0 +1,10 @@
+{
+  "custom/screen-recording": {
+    "exec": "~/.config/waybar/scripts/screen-recording.sh",
+    "escape": false,
+    "return-type": "json",
+    "interval": 1,
+    "signal": 8,
+    "on-click": "~/.config/hypr/scripts/screenrecord.sh"
+  }
+}

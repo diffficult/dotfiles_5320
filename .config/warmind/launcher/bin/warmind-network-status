@@ -1,0 +1,114 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+verbose=false
+internet_probe=1.1.1.1
+
+case "${1:-}" in
+  "") ;;
+  --verbose) verbose=true ;;
+  *) echo "Usage: warmind-network-status [--verbose]" >&2; exit 2 ;;
+esac
+
+cmd_present() { command -v "$1" >/dev/null 2>&1; }
+
+active_iface() {
+  ip route get "$internet_probe" 2>/dev/null | awk '{ for (i = 1; i <= NF; i++) if ($i == "dev") { print $(i + 1); exit } }'
+}
+
+ping_latency_ms() {
+  local host=$1
+  ping -n -c 1 -W 1 "$host" 2>/dev/null | awk -F'time[=<]' '/time[=<]/ { split($2, parts, " "); print parts[1]; exit }'
+}
+
+print_ping_samples() {
+  local gateway=$1 tmpdir router_file internet_file router_pid="" internet_pid=""
+  cmd_present ping || return
+  tmpdir=$(mktemp -d) || return
+  router_file="$tmpdir/router"
+  internet_file="$tmpdir/internet"
+
+  if [[ -n $gateway ]]; then
+    ping_latency_ms "$gateway" >"$router_file" &
+    router_pid=$!
+  fi
+  ping_latency_ms "$internet_probe" >"$internet_file" &
+  internet_pid=$!
+
+  if [[ -n $router_pid ]]; then
+    wait "$router_pid" || true
+    printf 'router_ping_ms\t%s\n' "$(<"$router_file")"
+  fi
+  wait "$internet_pid" || true
+  printf 'internet_ping_ms\t%s\n' "$(<"$internet_file")"
+  rm -rf "$tmpdir"
+}
+
+print_status() {
+  local iface state ssid signal freq
+  iface=$(active_iface)
+  if [[ -z $iface ]]; then
+    printf 'disconnected\t\t\t\n'
+    return
+  fi
+
+  if [[ ! -d /sys/class/net/$iface/wireless ]]; then
+    printf 'ethernet\t%s\t\t\n' "$iface"
+    return
+  fi
+
+  if cmd_present nmcli; then
+    state=$(LC_ALL=C nmcli -t -g GENERAL.STATE dev show "$iface" 2>/dev/null | head -n 1)
+    ssid=$(LC_ALL=C nmcli -t -g GENERAL.CONNECTION dev show "$iface" 2>/dev/null | head -n 1)
+    signal=$(LC_ALL=C nmcli -t -f IN-USE,SIGNAL dev wifi list ifname "$iface" --rescan no 2>/dev/null | awk -F: '$1 == "*" { print $2; exit }')
+    freq=$(iw dev "$iface" link 2>/dev/null | awk '/freq:/ { print $2; exit }')
+    if [[ $state != 100* ]]; then
+      printf 'disconnected\t\t\t\n'
+      return
+    fi
+    printf 'wifi\t%s\t%s\t%s\n' "${ssid:-$iface}" "$signal" "$freq"
+    return
+  fi
+
+  printf 'wifi\t%s\t\t\n' "$iface"
+}
+
+print_verbose() {
+  local route_json iface gw src prefix link con_name
+  route_json=$(ip -j route get "$internet_probe" 2>/dev/null)
+  [[ -z $route_json ]] && return
+  iface=$(jq -r '.[0].dev // ""' <<<"$route_json" 2>/dev/null)
+  gw=$(jq -r '.[0].gateway // ""' <<<"$route_json" 2>/dev/null)
+  src=$(jq -r '.[0].prefsrc // ""' <<<"$route_json" 2>/dev/null)
+  [[ -z $iface ]] && return
+
+  prefix=$(ip -j addr show "$iface" 2>/dev/null | jq -r '.[0].addr_info[]? | select(.family == "inet") | .prefixlen // ""' 2>/dev/null | head -n 1)
+  con_name=$(LC_ALL=C nmcli -t -g GENERAL.CONNECTION dev show "$iface" 2>/dev/null | head -n 1 || true)
+
+  printf 'iface\t%s\n' "$iface"
+  printf 'connection\t%s\n' "$con_name"
+  printf 'ip\t%s\n' "$src"
+  printf 'prefix\t%s\n' "$prefix"
+  printf 'gateway\t%s\n' "$gw"
+  [[ -r /sys/class/net/$iface/statistics/rx_bytes ]] && printf 'rx_bytes\t%s\n' "$(<"/sys/class/net/$iface/statistics/rx_bytes")"
+  [[ -r /sys/class/net/$iface/statistics/tx_bytes ]] && printf 'tx_bytes\t%s\n' "$(<"/sys/class/net/$iface/statistics/tx_bytes")"
+
+  if [[ -d /sys/class/net/$iface/wireless ]]; then
+    printf 'type\twifi\n'
+    link=$(iw dev "$iface" link 2>/dev/null || true)
+    if [[ -n $link ]]; then
+      printf 'ssid\t%s\n' "$(awk '/SSID:/ { sub(/.*SSID: /, ""); print; exit }' <<<"$link")"
+      printf 'signal_dbm\t%s\n' "$(awk '/signal:/ { print $2; exit }' <<<"$link")"
+      printf 'freq\t%s\n' "$(awk '/freq:/ { print $2; exit }' <<<"$link")"
+      printf 'bitrate\t%s %s\n' "$(awk '/tx bitrate:/ { print $3; exit }' <<<"$link")" "$(awk '/tx bitrate:/ { print $4; exit }' <<<"$link")"
+    fi
+  else
+    printf 'type\tethernet\n'
+    [[ -r /sys/class/net/$iface/speed ]] && printf 'speed\t%s\n' "$(<"/sys/class/net/$iface/speed")"
+    [[ -r /sys/class/net/$iface/duplex ]] && printf 'duplex\t%s\n' "$(<"/sys/class/net/$iface/duplex")"
+  fi
+
+  print_ping_samples "$gw"
+}
+
+if [[ $verbose == true ]]; then print_verbose; else print_status; fi

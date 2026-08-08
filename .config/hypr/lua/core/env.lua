@@ -1,0 +1,12 @@
+-- Runtime compositor/app compatibility env. Long-lived session env should move to uwsm env files.
+hl.env("XCURSOR_SIZE", "24")
+hl.env("HYPRCURSOR_SIZE", "24")
+hl.env("XCURSOR_THEME", "capitaine-cursors")
+hl.env("HYPRCURSOR_THEME", "capitaine-cursors")
+hl.env("XDG_CURRENT_DESKTOP", "Hyprland")
+hl.env("XDG_SESSION_TYPE", "wayland")
+hl.env("XDG_SESSION_DESKTOP", "Hyprland")
+hl.env("QT_AUTO_SCREEN_SCALE_FACTOR", "1")
+hl.env("GDK_BACKEND", "wayland")
+hl.env("MOZ_ENABLE_WAYLAND", "1")
+hl.env("VK_ICD_FILENAMES", "/usr/share/vulkan/icd.d/nvidia_icd.json")

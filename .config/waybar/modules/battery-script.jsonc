@@ -1,0 +1,9 @@
+{
+  "custom/battery-script": {
+    "exec": "~/.config/waybar/scripts/battery.sh",
+    "return-type": "json",
+    "interval": 30,
+    "format": "{}",
+    "tooltip": true
+  }
+}

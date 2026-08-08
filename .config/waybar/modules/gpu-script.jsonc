@@ -1,0 +1,9 @@
+{
+  "custom/gpu-script": {
+    "exec": "~/.config/waybar/scripts/gpu.sh",
+    "return-type": "json",
+    "interval": 5,
+    "format": "{}",
+    "on-click": "nvidia-settings"
+  }
+}

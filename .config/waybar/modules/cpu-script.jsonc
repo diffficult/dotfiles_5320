@@ -1,0 +1,9 @@
+{
+  "custom/cpu-script": {
+    "exec": "~/.config/waybar/scripts/cpu.sh",
+    "return-type": "json",
+    "interval": 5,
+    "format": "{}",
+    "on-click": "footclient -a footclient-float -T 'CPU' -e btop"
+  }
+}

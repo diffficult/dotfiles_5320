@@ -1,0 +1,9 @@
+{
+  "custom/disk-script": {
+    "exec": "~/.config/waybar/scripts/disk.sh",
+    "return-type": "json",
+    "interval": 30,
+    "format": "{}",
+    "on-click": "nemo /home"
+  }
+}

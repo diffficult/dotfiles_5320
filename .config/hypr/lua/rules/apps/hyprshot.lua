@@ -1,0 +1,1 @@
+-- Hyprshot window rules.

@@ -1,0 +1,143 @@
+@import "./colors.css";
+
+* {
+  font-family: "SF Pro Rounded", "JetBrainsMono Nerd Font", "Font Awesome 6 Free";
+  font-size: 14px;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+window#waybar {
+  background: transparent;
+}
+
+#custom-weather,
+#custom-updates,
+#cpu,
+#memory,
+#temperature,
+#disk,
+#network,
+#bluetooth,
+#pulseaudio,
+#tray,
+#workspaces button,
+#window {
+  padding: 0 10px;
+  color: @foreground;
+}
+
+#workspaces button.active {
+  color: @green;
+}
+
+#cpu { color: @red; }
+#memory { color: @peach; }
+#temperature { color: @maroon; }
+#disk { color: @teal; }
+
+#custom-weather { color: @blue; }
+#custom-updates { color: @yellow; }
+
+#network.wifi { color: @green; }
+#network.ethernet { color: @blue; }
+#network.disconnected { color: @red; }
+
+#bluetooth.connected { color: @blue; }
+#bluetooth.disabled { color: @red; }
+
+#pulseaudio.muted { color: @red; }
+#pulseaudio { color: @pink; }
+
+#battery.charging { color: @green; }
+#battery.warning { color: @yellow; }
+#battery.critical { color: @red; }
+
+#custom-cpu-script,
+#custom-gpu-script,
+#custom-disk-script,
+#custom-weather-script {
+  margin: 0 10px;
+}
+
+#custom-updates-script {
+    padding: 0 10px;
+}
+
+#custom-battery-script {
+    padding: 0 10px;
+}
+
+#custom-battery-script.charging {
+    color: @green;
+}
+
+#custom-battery-script.green {
+    color: @green;
+}
+
+#custom-battery-script.yellow {
+    color: @yellow;
+}
+
+#custom-battery-script.orange {
+    color: @orange;
+}
+
+#custom-battery-script.red {
+    color: @red;
+}
+
+#custom-battery-script.critical {
+    color: @red;
+}
+
+#custom-screen-recording {
+  min-width: 12px;
+  margin-left: 5px;
+  margin-right: 0;
+  font-size: 10px;
+  padding-bottom: 1px;
+}
+
+#custom-screen-recording.active {
+  color: @red;
+}
+
+#clock {
+    margin-right: 15px;
+    color: @foreground;
+}
+
+tooltip {
+  background: @background;
+  border: 1px solid @foreground;
+  font-family: "JetBrainsMono Nerd Font", "JetBrains Mono", "Font Awesome 6 Free";
+}
+
+tooltip * {
+  font-family: "JetBrainsMono Nerd Font", "JetBrains Mono", "Font Awesome 6 Free";
+}
+
+menu,
+menuitem,
+menu * {
+  font-family: "JetBrainsMono Nerd Font", "JetBrains Mono", "Font Awesome 6 Free";
+}
+
+/* Pill-shaped section backgrounds */
+.modules-left,
+.modules-center,
+.modules-right {
+  background: @background;
+  border-radius: 9999px;
+  margin: 0 5px;
+  padding: 0 15px;
+}
+
+/* Submap mode indicator - highly visible when active */
+#submap {
+  padding: 0 15px;
+  color: @yellow;
+  font-weight: bold;
+}

@@ -1,0 +1,7 @@
+{
+  "custom/cams-colegio": {
+    "format": " 󰖠 ",
+    "on-click": "~/.config/waybar/scripts/select_cams_hypr.sh",
+    "tooltip": false
+  }
+}

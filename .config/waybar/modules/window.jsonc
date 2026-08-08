@@ -1,0 +1,14 @@
+{
+  "hyprland/window": {
+    "format": "<span font_desc='SF Compact Rounded Bold 12'>{}</span>",
+    "max-length": 65,
+    "rewrite": {
+      "(.*) — Zen Browser": "$1 󰇧",
+      "(.*) — Ablaze Floorp": "$1 󰇧",
+      "(.*)VSCodium": "Codium 󰨞",
+      "(.*)Spotify": "Spotify 󰓇",
+      "(.*)Steam": "Steam 󰓓"
+    },
+    "separate-outputs": false
+  }
+}

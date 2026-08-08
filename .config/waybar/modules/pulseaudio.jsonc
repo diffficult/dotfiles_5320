@@ -1,0 +1,18 @@
+{
+  "pulseaudio": {
+    "format": "{icon} <span font_desc='SF Compact Rounded Bold 12'>{volume}%</span>",
+    "format-bluetooth": "{icon}<span font_desc='JetBrainsMono Nerd Font 12'></span> {volume}%",
+    "format-muted": "<span font_desc='JetBrainsMono Nerd Font 12'> </span>",
+    "format-icons": {
+      "headphone": "<span font_desc='JetBrainsMono Nerd Font 12'> </span>",
+      "hands-free": "<span font_desc='JetBrainsMono Nerd Font 12'> </span>",
+      "headset": "<span font_desc='JetBrainsMono Nerd Font 12'> </span>",
+      "phone": "<span font_desc='JetBrainsMono Nerd Font 12'> </span>",
+      "portable": "<span font_desc='JetBrainsMono Nerd Font 12'> </span>",
+      "car": "<span font_desc='JetBrainsMono Nerd Font 12'> </span>",
+      "default": ["<span font_desc='JetBrainsMono Nerd Font 12'></span>", "<span font_desc='JetBrainsMono Nerd Font 12'></span>", "<span font_desc='JetBrainsMono Nerd Font 12'> </span>"]
+    },
+    "scroll-step": 1,
+    "on-click": "pavucontrol"
+  }
+}

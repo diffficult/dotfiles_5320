@@ -1,0 +1,44 @@
+[
+  {
+    "height": 34,
+    "include": [
+      "modules/swaync.jsonc",
+      "modules/tray.jsonc",
+      "modules/disk-script.jsonc",
+      "modules/weather-script.jsonc",
+      "modules/updates-script.jsonc",
+      "modules/pulseaudio.jsonc",
+      "modules/cpu-script.jsonc",
+      "modules/clock.jsonc",
+      "modules/battery-script.jsonc",
+      "modules/workspaces.jsonc",
+      "modules/window.jsonc",
+      "modules/submap.jsonc"
+    ],
+    "layer": "top",
+    "margin-left": 10,
+    "margin-right": 10,
+    "margin-top": 5,
+    "modules-center": [
+      "custom/cpu-script",
+      "custom/disk-script",
+      "custom/weather-script"
+    ],
+    "modules-left": [
+      "hyprland/workspaces",
+      "hyprland/window",
+      "hyprland/submap"
+    ],
+    "modules-right": [
+      "custom/notification",
+      "custom/updates-script",
+      "pulseaudio",
+      "tray",
+      "clock",
+      "custom/battery-script"
+    ],
+    "output": "eDP-1",
+    "position": "top",
+    "reload_style_on_change": true
+  }
+]

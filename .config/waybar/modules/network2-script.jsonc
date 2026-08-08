@@ -1,0 +1,9 @@
+{
+  "custom/network2-script": {
+    "exec": "~/.config/waybar/scripts/network2.sh",
+    "return-type": "json",
+    "interval": 2000,
+    "format": "{}",
+    "on-click": "nm-connection-editor"
+  }
+}

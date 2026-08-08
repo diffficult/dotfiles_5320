@@ -1,0 +1,196 @@
+#!/usr/bin/env bash
+# Lua-safe Hyprland dispatch helper for Warmind.
+# Always emits hyprctl eval + hl.dsp.* — never legacy hyprlang dispatch.
+set -euo pipefail
+
+usage() {
+  cat <<'EOF' >&2
+usage: warmind-hypr <command> [args]
+
+commands:
+  workspace <id|name|r±N|...>
+  focus-address <0xaddr|address:0xaddr>
+  focus-title <title-regex>
+  float-set <matcher>          matcher: address:... | title:...
+  resize <w> <h> <matcher>
+  move <x> <y> <matcher>
+  place <w> <h> <x> <y> <matcher>   float-set (if tiled) + resize + move
+  close <matcher>
+  exit
+  dpms-off
+  dpms-on
+EOF
+  exit 2
+}
+
+eval_lua() {
+  hyprctl eval "$1" >/dev/null
+}
+
+lua_escape() {
+  local s=$1
+  s=${s//\\/\\\\}
+  s=${s//\"/\\\"}
+  printf '%s' "$s"
+}
+
+normalize_matcher() {
+  local m=$1
+  if [[ "$m" == address:* || "$m" == title:* || "$m" == class:* ]]; then
+    printf '%s' "$m"
+  elif [[ "$m" == 0x* ]]; then
+    printf 'address:%s' "$m"
+  else
+    printf 'title:%s' "$m"
+  fi
+}
+
+window_is_floating() {
+  local matcher=$1
+  local clients
+  clients=$(hyprctl clients -j 2>/dev/null || echo '[]')
+  case "$matcher" in
+    address:*)
+      local addr=${matcher#address:}
+      printf '%s' "$clients" | jq -e --arg a "$addr" '
+        .[] | select(.address == $a) | select(.floating == true)
+      ' >/dev/null 2>&1
+      ;;
+    title:*)
+      local t=${matcher#title:}
+      t=${t#^}
+      t=${t%\$}
+      if [[ "$t" == \(*\) ]]; then
+        t=${t#(}
+        t=${t%)}
+      fi
+      printf '%s' "$clients" | jq -e --arg t "$t" '
+        .[] | select(.title == $t) | select(.floating == true)
+      ' >/dev/null 2>&1
+      ;;
+    *)
+      return 1
+      ;;
+  esac
+}
+
+cmd_workspace() {
+  local target=${1:-}
+  [[ -n "$target" ]] || usage
+  if [[ "$target" =~ ^[0-9]+$ ]]; then
+    eval_lua "hl.dispatch(hl.dsp.focus({ workspace = ${target} }))"
+  else
+    local safe
+    safe=$(lua_escape "$target")
+    eval_lua "hl.dispatch(hl.dsp.focus({ workspace = \"${safe}\" }))"
+  fi
+}
+
+cmd_focus_address() {
+  local addr=${1:-}
+  [[ -n "$addr" ]] || usage
+  addr=${addr#address:}
+  local safe
+  safe=$(lua_escape "address:${addr}")
+  eval_lua "hl.dispatch(hl.dsp.focus({ window = \"${safe}\" }))"
+}
+
+cmd_focus_title() {
+  local title=${1:-}
+  [[ -n "$title" ]] || usage
+  local safe
+  safe=$(lua_escape "title:${title}")
+  eval_lua "hl.dispatch(hl.dsp.focus({ window = \"${safe}\" }))"
+}
+
+cmd_float_set() {
+  local matcher
+  matcher=$(normalize_matcher "${1:-}")
+  [[ -n "$matcher" ]] || usage
+  if window_is_floating "$matcher"; then
+    return 0
+  fi
+  local safe
+  safe=$(lua_escape "$matcher")
+  eval_lua "hl.dispatch(hl.dsp.window.float({ action = 'set', window = \"${safe}\" }))"
+}
+
+cmd_resize() {
+  local w=${1:-} h=${2:-} matcher
+  matcher=$(normalize_matcher "${3:-}")
+  [[ -n "$w" && -n "$h" && -n "$matcher" ]] || usage
+  local safe
+  safe=$(lua_escape "$matcher")
+  eval_lua "hl.dispatch(hl.dsp.window.resize({ x = ${w}, y = ${h}, relative = false, window = \"${safe}\" }))"
+}
+
+cmd_move() {
+  local x=${1:-} y=${2:-} matcher
+  matcher=$(normalize_matcher "${3:-}")
+  [[ -n "$x" && -n "$y" && -n "$matcher" ]] || usage
+  local safe
+  safe=$(lua_escape "$matcher")
+  eval_lua "hl.dispatch(hl.dsp.window.move({ x = ${x}, y = ${y}, relative = false, window = \"${safe}\" }))"
+}
+
+cmd_place() {
+  local w=${1:-} h=${2:-} x=${3:-} y=${4:-} matcher
+  matcher=$(normalize_matcher "${5:-}")
+  [[ -n "$w" && -n "$h" && -n "$x" && -n "$y" && -n "$matcher" ]] || usage
+  cmd_float_set "$matcher"
+  sleep 0.08
+  cmd_resize "$w" "$h" "$matcher"
+  cmd_move "$x" "$y" "$matcher"
+}
+
+cmd_close() {
+  local matcher
+  matcher=$(normalize_matcher "${1:-}")
+  [[ -n "$matcher" ]] || usage
+  local safe
+  safe=$(lua_escape "$matcher")
+  eval_lua "hl.dispatch(hl.dsp.window.close({ window = \"${safe}\" }))"
+}
+
+cmd_exit() {
+  eval_lua "hl.dispatch(hl.dsp.exit())"
+}
+
+cmd_dpms_off() {
+  if command -v wlopm >/dev/null 2>&1; then
+    wlopm --off '*'
+  else
+    eval_lua "hl.dispatch(hl.dsp.dpms({ mode = 'off' }))"
+  fi
+}
+
+cmd_dpms_on() {
+  if command -v wlopm >/dev/null 2>&1; then
+    wlopm --on '*'
+  else
+    eval_lua "hl.dispatch(hl.dsp.dpms({ mode = 'on' }))"
+  fi
+}
+
+main() {
+  local cmd=${1:-}
+  [[ -n "$cmd" ]] || usage
+  shift || true
+  case "$cmd" in
+    workspace) cmd_workspace "$@" ;;
+    focus-address) cmd_focus_address "$@" ;;
+    focus-title) cmd_focus_title "$@" ;;
+    float-set) cmd_float_set "$@" ;;
+    resize) cmd_resize "$@" ;;
+    move) cmd_move "$@" ;;
+    place) cmd_place "$@" ;;
+    close) cmd_close "$@" ;;
+    exit) cmd_exit "$@" ;;
+    dpms-off) cmd_dpms_off "$@" ;;
+    dpms-on) cmd_dpms_on "$@" ;;
+    -h|--help|help) usage ;;
+    *) usage ;;
+  esac
+}
+
+main "$@"

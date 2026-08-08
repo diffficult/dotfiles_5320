@@ -1,0 +1,10 @@
+{
+  "network": {
+    "format-wifi": "{icon}",
+    "format-ethernet": "<span font_desc='JetBrainsMono Nerd Font 16'>󰈀</span>",
+    "format-disconnected": "<span font_desc='JetBrainsMono Nerd Font 16'>󰤩</span>",
+    "format-icons": ["<span font_desc='JetBrainsMono Nerd Font 16'>󰤯</span>", "<span font_desc='JetBrainsMono Nerd Font 16'>󰤟</span>", "<span font_desc='JetBrainsMono Nerd Font 16'>󰤢</span>", "<span font_desc='JetBrainsMono Nerd Font 16'>󰤥</span>", "<span font_desc='JetBrainsMono Nerd Font 16'>󰤨</span>"],
+    "tooltip-format": "{essid} ({signalStrength}%)",
+    "on-click": "nm-connection-editor"
+  }
+}

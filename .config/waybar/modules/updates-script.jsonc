@@ -1,0 +1,11 @@
+{
+  "custom/updates-script": {
+    "exec": "~/.config/waybar/scripts/pacman.sh",
+    "return-type": "json",
+    "interval": 3600,
+    "format": "{}",
+    "on-click": "gnome-software %U || pamac-manager &",
+    "on-click-right": "footclient --hold -a footclient-float -T yay -o main.font='JetBrainsMono Nerd Font:size=8' -e sh -c 'yay; echo; echo Update complete. Press Enter to close; read; rm -f ~/.cache/waybar/pacman_updates.cache'",
+    "on-click-middle": "rm -f ~/.cache/waybar/pacman_updates.cache && pkill -RTMIN+8 waybar"
+  }
+}

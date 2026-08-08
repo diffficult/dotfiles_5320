@@ -1,0 +1,20 @@
+# Local-only Waybar state
+calendar_cred.json
+.current_style
+config.jsonc.bak
+
+# Backups and analysis scratch
+backups/
+plan/
+
+# Tooling caches
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+
+# Local agent/editor metadata
+.atl/
+.claude/
+
+# Python test/build artifacts
+*.pyc

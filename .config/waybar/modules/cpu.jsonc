@@ -1,0 +1,8 @@
+{
+  "cpu": {
+    "interval": 5,
+    "format": "CPU {usage}%",
+    "tooltip": false,
+    "on-click": "footclient -a footclient-float -T 'CPU Monitor - btop' -e btop"
+  }
+}

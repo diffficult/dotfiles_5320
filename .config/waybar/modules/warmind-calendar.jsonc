@@ -1,0 +1,8 @@
+{
+  "custom/warmind-calendar": {
+    "exec": "~/.config/warmind/waybar/bin/calendar-bar-output.py",
+    "return-type": "json",
+    "interval": 60,
+    "on-click": "~/.config/warmind/waybar/bin/toggle-calendar.sh"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "memory": {
+    "interval": 5,
+    "format": "RAM {}%",
+    "tooltip": true,
+    "on-click": "footclient -a footclient-float -T 'Memory Monitor - btop' -e btop"
+  }
+}

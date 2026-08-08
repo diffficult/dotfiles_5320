@@ -1,0 +1,9 @@
+{
+  "custom/weather-script": {
+    "exec": "~/.config/waybar/scripts/weather-openmeteo.sh",
+    "return-type": "json",
+    "interval": 3600,
+    "format": "{}",
+    "on-click": "footclient --hold -a footclient-float -T Weather -o main.font='JetBrainsMono Nerd Font:size=8' -e ~/.config/waybar/scripts/weather-openmeteo.sh --detailed"
+  }
+}
