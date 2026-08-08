@@ -18,12 +18,12 @@ CURRENT="$(cat "$BAT_DIR/current_now" 2>/dev/null || echo 0)"
 CURRENT="${CURRENT#-}"
 
 # Horizontal FontAwesome battery icons (verified against installed Nerd Font)
-ICON_FULL=""              # U+F240 fa-battery_full
-ICON_THREE_QUARTERS=""    # U+F241 fa-battery_three_quarters
-ICON_HALF=""              # U+F242 fa-battery_half
-ICON_QUARTER=""           # U+F243 fa-battery_quarter
-ICON_EMPTY=""             # U+F244 fa-battery_empty
-ICON_PLUG=""              # U+F1E6 fa-plug
+ICON_FULL=" "              # U+F240 fa-battery_full
+ICON_THREE_QUARTERS=" "    # U+F241 fa-battery_three_quarters
+ICON_HALF=" "              # U+F242 fa-battery_half
+ICON_QUARTER=" "           # U+F243 fa-battery_quarter
+ICON_EMPTY=" "             # U+F244 fa-battery_empty
+ICON_PLUG=" "              # U+F1E6 fa-plug
 
 pick_icon() {
     local cap=$1
