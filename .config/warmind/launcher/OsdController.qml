@@ -10,6 +10,7 @@ Item {
     property string text: ""
     property int value: 0
     property int max: 100
+    property int segments: 0
     property bool progress: false
     property int duration: 1800
 
@@ -23,19 +24,21 @@ Item {
         }
         if (nextKind === "mic") return muted ? "󰍭" : "󰍬";
         if (nextKind === "brightness") return "󰃠";
+        if (nextKind === "kbd") return "󰌌";
         if (nextKind === "warmth") return "󰖨";
         if (nextKind === "gamma") return "󰃟";
         if (nextKind === "media") return "󰝚";
         return "󰍡";
     }
 
-    function show(nextKind, nextLabel, nextValue, nextMax, nextText, hasProgress, nextDuration, muted) {
+    function show(nextKind, nextLabel, nextValue, nextMax, nextText, hasProgress, nextDuration, muted, nextSegments) {
         controller.kind = nextKind || "status";
         controller.label = nextLabel || "";
         controller.value = Math.max(0, Math.round(Number(nextValue) || 0));
         controller.max = Math.max(1, Math.round(Number(nextMax) || 100));
         controller.text = nextText || (hasProgress ? controller.value + "%" : "");
         controller.progress = !!hasProgress;
+        controller.segments = Math.max(0, Math.round(Number(nextSegments) || 0));
         controller.duration = Math.max(250, Math.round(Number(nextDuration) || 1800));
         controller.glyph = controller.glyphFor(controller.kind, controller.max > 0 ? controller.value * 100 / controller.max : controller.value, !!muted);
         controller.active = true;
@@ -53,7 +56,8 @@ Item {
                 p.text || "",
                 p.progress === undefined ? p.value !== undefined : p.progress,
                 p.duration === undefined ? 1800 : p.duration,
-                !!p.muted
+                !!p.muted,
+                p.segments || 0
             );
             return true;
         } catch (e) {

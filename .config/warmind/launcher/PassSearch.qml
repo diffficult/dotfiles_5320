@@ -50,6 +50,7 @@ Item {
     readonly property string storeRoot: Quickshell.env("HOME") + "/.password-store"
     readonly property int typeDelayMs: 20
     readonly property int tabDelayMs: 60
+    readonly property int startDelayMs: 300
     readonly property string usernameField: "user"
     readonly property var usernameFields: ["user", "login", "username"]
     readonly property string urlField: "url"
@@ -309,24 +310,38 @@ Item {
     function _buildOverviewItems() {
         var rows = []
         var orderedKeys = []
-        if (root.currentFields.pass !== undefined) orderedKeys.push("pass")
-        for (var uf = 0; uf < root.usernameFields.length; uf++) {
-            var userField = root.usernameFields[uf]
-            if (root.currentFields[userField] !== undefined) {
-                orderedKeys.push(userField)
-                break
-            }
+
+        function addIfPresent(key) {
+            if (root.currentFields[key] === undefined || orderedKeys.indexOf(key) >= 0)
+                return
+            orderedKeys.push(key)
         }
-        if (root.currentFields[root.urlField] !== undefined) orderedKeys.push(root.urlField)
+
+        addIfPresent(root.autotypeField)
+        addIfPresent("pass")
+        addIfPresent("user")
+        addIfPresent("username")
+        addIfPresent("login")
+        addIfPresent("email")
+        addIfPresent("mail")
+        addIfPresent(root.urlField)
+        addIfPresent("comment")
+        addIfPresent("comments")
         if (root.currentOtp) orderedKeys.push("__otp__")
-        if (root.currentFields[root.autotypeField] !== undefined) orderedKeys.push(root.autotypeField)
 
         var keys = Object.keys(root.currentFields)
+        var remainingKeys = []
         for (var i = 0; i < keys.length; i++) {
             var key = keys[i]
-            if (key === "pass" || root.usernameFields.indexOf(key) >= 0 || key === root.urlField || key === root.autotypeField || key === root.otpField)
+            if (orderedKeys.indexOf(key) >= 0 || key === root.otpField)
                 continue
-            orderedKeys.push(key)
+            remainingKeys.push(key)
+        }
+        remainingKeys.sort(function(a, b) {
+            return a.localeCompare(b)
+        })
+        for (var rk = 0; rk < remainingKeys.length; rk++) {
+            orderedKeys.push(remainingKeys[rk])
         }
 
         for (var j = 0; j < orderedKeys.length; j++) {
@@ -491,7 +506,7 @@ Item {
         if (parts.length === 0) return
 
         itemActivated({})
-        autotypeTimer.cmd = parts.join(" && ")
+        autotypeTimer.cmd = "sleep " + (root.startDelayMs / 1000) + " && " + parts.join(" && ")
         autotypeTimer.start()
     }
 
@@ -508,7 +523,7 @@ Item {
         var value = root.currentPassword
         root.status = "typed"
         clearStatusTimer.restart()
-        autotypeTimer.cmd = "wtype -d " + root.typeDelayMs + " -- " + JSON.stringify(value)
+        autotypeTimer.cmd = "sleep " + (root.startDelayMs / 1000) + " && wtype -d " + root.typeDelayMs + " -- " + JSON.stringify(value)
         itemActivated({})
         autotypeTimer.start()
     }
@@ -526,7 +541,7 @@ Item {
         var snapshot = value
         root.status = "typed"
         clearStatusTimer.restart()
-        autotypeTimer.cmd = "wtype -d " + root.typeDelayMs + " -- " + JSON.stringify(snapshot)
+        autotypeTimer.cmd = "sleep " + (root.startDelayMs / 1000) + " && wtype -d " + root.typeDelayMs + " -- " + JSON.stringify(snapshot)
         if (close) itemActivated({})
         autotypeTimer.start()
     }

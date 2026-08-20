@@ -105,6 +105,7 @@ PanelWindow {
                     }
 
                     Rectangle {
+                        id: progressTrack
                         width: card.barWidth
                         height: 7
                         radius: 4
@@ -112,12 +113,35 @@ PanelWindow {
                         color: Qt.rgba(overlay.root.ink.r, overlay.root.ink.g, overlay.root.ink.b, 0.16)
 
                         Rectangle {
+                            visible: overlay.controller.segments <= 1
                             width: parent.width * Math.max(0, Math.min(1, overlay.controller.value / overlay.controller.max))
                             height: parent.height
                             radius: parent.radius
                             color: overlay.root.seal
 
                             Behavior on width { NumberAnimation { duration: 70 } }
+                        }
+
+                        Row {
+                            visible: overlay.controller.segments > 1
+                            anchors.fill: parent
+                            spacing: 4
+
+                            Repeater {
+                                model: overlay.controller.segments
+
+                                Rectangle {
+                                    required property int index
+                                    width: (parent.width - (overlay.controller.segments - 1) * 4) / overlay.controller.segments
+                                    height: parent.height
+                                    radius: 3
+                                    color: (index + 1) <= Math.round(overlay.controller.max > 0 ? overlay.controller.value / overlay.controller.max * overlay.controller.segments : 0)
+                                        ? overlay.root.seal
+                                        : Qt.rgba(overlay.root.ink.r, overlay.root.ink.g, overlay.root.ink.b, 0.16)
+
+                                    Behavior on color { ColorAnimation { duration: 70 } }
+                                }
+                            }
                         }
                     }
 
