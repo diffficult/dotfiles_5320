@@ -2,7 +2,6 @@ local exec_once = {
   "hyprpm reload -n &",
   "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &",
   "eval $(gnome-keyring-daemon --start) &",
-  "uwsm app -- swaync",
   "/usr/libexec/xdg-desktop-portal-hyprland &",
   "/usr/libexec/xdg-desktop-portal &",
   "pactl load-module module-switch-on-connect &",

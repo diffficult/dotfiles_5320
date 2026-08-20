@@ -19,9 +19,9 @@ hl.window_rule({
 hl.window_rule({
   name = "browser-zen-workspace",
   match = {
-    class = "^(zen|Zen)$",
+    class = "^(?i)(zen|Zen|Navigator)$",
   },
-  workspace = 1,
+  workspace = 5,
 })
 
 hl.window_rule({
@@ -43,9 +43,9 @@ hl.window_rule({
 hl.window_rule({
   name = "browser-brave-origin-workspace",
   match = {
-    class = "^(brave-origin-beta|Brave-origin-beta)$",
+    class = "^(?i)(brave-origin|brave-origin-beta)$",
   },
-  workspace = 5,
+  workspace = 1,
 })
 
 hl.window_rule({

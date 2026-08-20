@@ -48,8 +48,8 @@ hl.window_rule({
 -- ============================================================
 -- WORKSPACE ASSIGNMENTS (from i3/sway assign rules)
 -- ============================================================
-hl.window_rule({ name = "ws-1-browser", match = { class = "^(?i)(google-chrome|chromium|firefox|zen-alpha|zen-beta|zen|Navigator)$" }, workspace = 1 })
-hl.window_rule({ name = "ws-1-browser-title", match = { title = "^(?i)(google-chrome|chromium|firefox|zen-alpha|zen-beta|zen|Navigator)$" }, workspace = 1 })
+hl.window_rule({ name = "ws-1-browser", match = { class = "^(?i)(google-chrome|chromium|firefox|brave-origin|brave-origin-beta)$" }, workspace = 1 })
+hl.window_rule({ name = "ws-1-browser-title", match = { title = "^(?i)(google-chrome|chromium|firefox|brave-origin|brave-origin-beta)$" }, workspace = 1 })
 
 hl.window_rule({ name = "ws-2-terminal", match = { class = "^(?i)(xfce4-terminal|foot|footclient|footclient-float|kitty)$" }, workspace = 2 })
 hl.window_rule({ name = "ws-2-terminal-title", match = { title = "^(?i)(xfce4-terminal|foot|footclient|footclient-float|kitty)$" }, workspace = 2 })
@@ -60,8 +60,8 @@ hl.window_rule({ name = "ws-3-files-title", match = { title = "^(?i)(nautilus|ne
 hl.window_rule({ name = "ws-4-editor", match = { class = "^(?i)(subl|code-oss|.*zed.*)$" }, workspace = 4 })
 hl.window_rule({ name = "ws-4-editor-title", match = { title = "^(?i)(subl|code-oss|.*zed.*)$" }, workspace = 4 })
 
-hl.window_rule({ name = "ws-5-web", match = { class = "^(?i)(brave-browser|brave-origin|Keepass)$" }, workspace = 5 })
-hl.window_rule({ name = "ws-5-web-title", match = { title = "^(?i)(brave-browser|brave-origin|Keepass)$" }, workspace = 5 })
+hl.window_rule({ name = "ws-5-web", match = { class = "^(?i)(brave-browser|zen|zen-alpha|zen-beta|Navigator|Keepass)$" }, workspace = 5 })
+hl.window_rule({ name = "ws-5-web-title", match = { title = "^(?i)(brave-browser|zen|zen-alpha|zen-beta|Navigator|Keepass)$" }, workspace = 5 })
 hl.window_rule({ name = "ws-5-spotify", match = { class = "^(?i)Spotify$" }, workspace = 5 })
 
 hl.window_rule({ name = "ws-6-office", match = { class = "^(?i)(libreoffice.*|gimp)$" }, workspace = 6 })
@@ -70,7 +70,7 @@ hl.window_rule({ name = "ws-7-media", match = { class = "^(?i)(mpv|gpicview|zath
 
 hl.window_rule({ name = "ws-9-comm", match = { class = "^(?i)(telegramdesktop|localsend)$" }, workspace = 9 })
 
-hl.window_rule({ name = "ws-10-tools", match = { class = "^(?i)(obsidian|virt-manager|rustdesk|protonvpn)$" }, workspace = 10 })
+hl.window_rule({ name = "ws-10-tools", match = { class = "^(?i)(obsidian|md\\.obsidian|virt-manager|rustdesk|protonvpn)$" }, workspace = 10 })
 
 -- Spotify from i3
 hl.window_rule({ name = "ws-5-spotify-class", match = { class = "^(?i)Spotify$" }, workspace = 5 })

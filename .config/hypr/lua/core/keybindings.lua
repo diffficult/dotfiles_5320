@@ -43,7 +43,7 @@ b.bind("SUPER + SHIFT + E", "exec", "uwsm app -- qs -c /home/poole/.config/warmi
 b.bind("SUPER + T", "exec", "uwsm app -- qs -c /home/poole/.config/warmind/launcher ipc call tactile toggle", {})
 b.bind("SUPER + SHIFT + F", "exec", "uwsm app -- nemo", {})
 b.bind("SUPER + G", "exec", "uwsm app -- gtk-launch Grok", {})
-b.bind("SUPER + W", "exec", "uwsm app -- zen-browser", {})
+b.bind("SUPER + W", "exec", "hyprctl clients -j | jq -e '.[] | select(.class == \"brave-origin\")' >/dev/null 2>&1 && hyprctl eval 'hl.dispatch(hl.dsp.focus({ window = \"class:brave-origin\" }))' || uwsm app -- /opt/brave-origin-bin/brave-origin", {})
 b.bind("SUPER + Y", "exec", "uwsm app -- footclient -s \"$XDG_RUNTIME_DIR/foot.sock\" -a clipse-float --title clipse clipse", {})
 b.bind("SUPER + slash", "exec", "~/.local/bin/hypr_scripts/show-cheatsheet.sh", {})
 b.bind("SUPER + M", "exec", "uwsm app -- footclient -s \"$XDG_RUNTIME_DIR/foot.sock\" -a ncmpcpp-float --title ncmpcpp ncmpcpp", {})
@@ -104,7 +104,7 @@ b.bind("SUPER + mouse:272", "movewindow", "", { mouse = true })
 b.bind("SUPER + mouse:273", "resizewindow", "", { mouse = true })
 local function enter_submap(name, label)
   return function()
-    hl.dispatch(hl.dsp.exec_cmd('dunstify -t 2000 "Mode: ' .. label .. '" "Press ESC or Enter to exit" -h string:x-dunst-stack-tag:hypr-mode'))
+    hl.dispatch(hl.dsp.exec_cmd('notify-send -t 2000 "Mode: ' .. label .. '" "Press ESC or Enter to exit" -h string:x-canonical-private-synchronous:hypr-mode'))
     hl.dispatch(hl.dsp.submap(name))
   end
 end
