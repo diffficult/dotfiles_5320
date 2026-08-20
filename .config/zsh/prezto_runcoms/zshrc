@@ -14,6 +14,9 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
+# Mise version manager
+eval "$(mise activate zsh)"
+
 #
 # CORE CONFIGURATION
 #
@@ -161,19 +164,14 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=244'
 if [[ -f /etc/bash_completion.d/climate_completion ]]; then
   source /etc/bash_completion.d/climate_completion
 fi
-# opencode
-export PATH=/home/poole/.opencode/bin:$PATH
-
 # Warmind CLI completions — auto-installed by warmind installer
 if [[ -f "/home/poole/.config/warmind/cli/completion.zsh" ]]; then
   source "/home/poole/.config/warmind/cli/completion.zsh"
 fi
 
-# >>> grok installer >>>
-export PATH="$HOME/.grok/bin:$PATH"
+# Grok completions (binary managed by mise)
 fpath=(~/.grok/completions/zsh $fpath)
 autoload -Uz compinit && compinit -C
-# <<< grok installer <<<
 
 
 # Added by Antigravity CLI installer
